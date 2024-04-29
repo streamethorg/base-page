@@ -50,6 +50,10 @@ export default function NavbarLayout({
         <NavigationMenuItem key={'connect'} className="md:hidden">
           <ConnectWalletButton className="flex justify-start w-full p-0 text-gray-300 bg-[#0052FF] rounded-none" />
         </NavigationMenuItem>
+        <div className="grid grid-cols-1 gap-4 mt-8 md:hidden">
+          <div className="bg-blue-500 animate-pulse w-[350px] aspect-video" />
+          <div className="bg-red-500 animate-pulse aspect-video w-[350px]" />
+        </div>
       </ul>
     </div>
   )

@@ -21,14 +21,7 @@ const getPages = (
   studioOrg?: string
 ) => {
   if (isSignedIn) {
-    return [
-      ...pages,
-      // {
-      //   name: 'studio',
-      //   href: studioOrg ? `/studio/${studioOrg}` : '/studio',
-      //   bgColor: 'bg-primary text-primary-foreground',
-      // },
-    ]
+    return [...pages]
   } else return pages
 }
 
@@ -49,8 +42,12 @@ const HomePageNavbar = ({
 }) => {
   return (
     <Suspense fallback={null}>
-      <MobileNavBar pages={pages} showSearchBar={showSearchBar} />
-      <DesktopNavBar pages={pages} showSearchBar={showSearchBar} />
+      <div className="md:hidden">
+        <MobileNavBar pages={pages} showSearchBar={showSearchBar} />
+      </div>
+      <div className="hidden md:block">
+        <DesktopNavBar pages={pages} showSearchBar={showSearchBar} />
+      </div>
     </Suspense>
   )
 }
@@ -139,34 +136,34 @@ const DesktopNavBar = ({
 }) => {
   const { isSignedIn } = useSIWE()
   const { userData } = useUserData()
+  const [showSidebar, setShowSidebar] = useState(false)
+
   return (
-    <NavigationMenu className="hidden sticky top-0 flex-row justify-between items-center p-2 px-4 w-full bg-white shadow-sm md:hidden lg:flex">
-      <div className="flex flex-1 justify-start items-center">
-        {showLogo && (
-          <Link href="/">
-            <Image
-              src={'/base_logo.png'}
-              alt="Logo"
-              width={50}
-              height={50}
-              className="hidden lg:block"
+    <NavigationMenu className="flex justify-start h-full">
+      {showSidebar ? (
+        <aside className="w-[40%] h-[100vh] bg-[#0052FF]">
+          <div className="flex justify-between items-center p-2">
+            <NavbarLayout
+              pages={getPages(
+                pages,
+                isSignedIn,
+                userData?.organizations?.[0]?.slug
+              )}
             />
-          </Link>
-        )}
-      </div>
-      <div className="flex flex-grow-0 justify-center items-center mx-auto w-2/5">
-        {showSearchBar && <SearchBar searchVisible={showSearchBar} />}
-      </div>
-      <div className="flex flex-1 justify-end items-center">
-        <NavbarLayout
-          pages={getPages(
-            pages,
-            isSignedIn,
-            userData?.organizations?.[0]?.slug
-          )}
-        />
-        <ConnectWalletButton />
-      </div>
+            <button
+              onClick={() => setShowSidebar(!showSidebar)}
+              className="z-20">
+              <X size={35} strokeWidth={1} className="text-white" />
+            </button>
+          </div>
+        </aside>
+      ) : (
+        <button
+          onClick={() => setShowSidebar(!showSidebar)}
+          className="z-20">
+          <Menu strokeWidth={1} size={40} />
+        </button>
+      )}
     </NavigationMenu>
   )
 }
