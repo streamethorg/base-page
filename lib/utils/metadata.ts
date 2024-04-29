@@ -1,11 +1,11 @@
 import { Metadata } from 'next'
-import { ISessionModel } from 'streameth-new-server/src/interfaces/session.interface'
+import { ISession } from '../interfaces/session.interface'
 import {
   IExtendedEvent,
   IExtendedSession,
   IExtendedStage,
 } from '../types'
-import { IStageModel } from 'streameth-new-server/src/interfaces/stage.interface'
+
 const BASE_IMAGE = 'https://streameth.org/streameth_banner.png'
 
 export const generalMetadata: Metadata = {
@@ -82,7 +82,7 @@ export const archiveMetadata = ({
 export const watchMetadata = ({
   session,
 }: {
-  session: ISessionModel
+  session: ISession
 }): Metadata => {
   const imageUrl = session.coverImage
     ? session.coverImage

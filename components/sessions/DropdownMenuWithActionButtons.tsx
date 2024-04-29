@@ -6,7 +6,6 @@ import {
   DropdownMenuTrigger,
   DropdownMenuItem,
 } from '@/components/ui/dropdown-menu'
-import VideoDownload from '@/app/[organization]/components/VideoDownload'
 import ShareButton from '@/components/misc/interact/ShareButton'
 import EmbedButton from '@/components/misc/interact/EmbedButton'
 import { MoreHorizontal } from 'lucide-react'
@@ -42,13 +41,6 @@ export function DropdownMenuWithActionButtons({
               />
             </div>
           </DropdownMenuItem>
-          {assetId && (
-            <DropdownMenuItem asChild>
-              <div>
-                <VideoDownload assetId={assetId} />
-              </div>
-            </DropdownMenuItem>
-          )}
         </DropdownMenuGroup>
       </DropdownMenuContent>
     </DropdownMenu>

@@ -1,8 +1,7 @@
-import { ISessionModel } from 'streameth-new-server/src/interfaces/session.interface'
 import { IExtendedSession } from '../types'
 import { apiUrl } from '@/lib/utils/utils'
 import { Livepeer } from 'livepeer'
-import { ISession } from 'streameth-new-server/src/interfaces/session.interface'
+import { ISession } from '../interfaces/session.interface'
 import { revalidatePath } from 'next/cache'
 
 export const createSession = async ({
@@ -67,7 +66,7 @@ export const updateSession = async ({
 }: {
   session: IExtendedSession
   authToken: string
-}): Promise<ISessionModel> => {
+}): Promise<ISession> => {
   const modifiedSession = (({ _id, slug, autoLabels, ...rest }) =>
     rest)(session)
 

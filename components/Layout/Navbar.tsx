@@ -8,7 +8,7 @@ import {
 import { NavBarProps } from '@/lib/types'
 import { ConnectWalletButton } from '../misc/ConnectWalletButton'
 
-const pages: NavBarProps[] = [{}]
+// const pages: NavBarProps[] = [{}]
 
 export default function Navbar({
   setIsNavVisible,
@@ -17,9 +17,9 @@ export default function Navbar({
 }: {
   isMobile?: boolean
   setIsNavVisible?: React.Dispatch<React.SetStateAction<boolean>>
-  pages: NavBarProps['pages']
+  pages?: NavBarProps['pages']
 }) {
-  if (pages.length === 0) {
+  if (!pages || pages?.length === 0) {
     return null
   }
 
@@ -28,7 +28,7 @@ export default function Navbar({
       <ul
         onClick={() => isMobile && setIsNavVisible?.(false)}
         className="flex flex-col w-full lg:flex-row lg:px-2 lg:space-x-2">
-        {pages.map((item) => (
+        {pages?.map((item) => (
           <NavigationMenuItem key={item.name}>
             <Link href={item.href} legacyBehavior passHref>
               <NavigationMenuLink
@@ -36,7 +36,6 @@ export default function Navbar({
                   navigationMenuTriggerStyle() + ' ' + item.bgColor
                 }>
                 {item.name}
-                {/* <div className="ml-2 text-black">{item.icon}</div> */}
               </NavigationMenuLink>
             </Link>
           </NavigationMenuItem>

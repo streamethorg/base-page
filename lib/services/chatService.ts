@@ -1,4 +1,4 @@
-import { IChat } from 'streameth-new-server/src/interfaces/chat.interface'
+import { IChat } from '../interfaces/chat.interface'
 import { IExtendedChat } from '../types'
 import { apiUrl } from '../utils/utils'
 

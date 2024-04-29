@@ -1,5 +1,4 @@
-import { ISpeakerModel } from 'streameth-new-server/src/interfaces/speaker.interface'
-
+import { ISpeaker } from './interfaces/speaker.interface'
 import { NavBarProps, IPagination, IExtendedSession } from './types'
 import FuzzySearch from 'fuzzy-search'
 import { apiUrl } from '@/lib/utils/utils'
@@ -111,11 +110,11 @@ export async function fetchAllSessions({
     pagination: allSessions?.pagination
       ? allSessions.pagination
       : {
-          currentPage: page,
-          totalPages,
-          totalItems,
-          limit,
-        },
+        currentPage: page,
+        totalPages,
+        totalItems,
+        limit,
+      },
   }
 }
 
@@ -123,14 +122,14 @@ export async function fetchEventSpeakers({
   event,
 }: {
   event?: string
-}): Promise<ISpeakerModel[]> {
+}): Promise<ISpeaker[]> {
   try {
     const response = await fetch(
       `${apiUrl()}/speakers/event/${event}`
     )
     const data = (await response.json()).data
 
-    return data.map((speaker: ISpeakerModel) => speaker)
+    return data.map((speaker: ISpeaker) => speaker)
   } catch (e) {
     console.log(e)
     throw 'Error fetching event speakers'

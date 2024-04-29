@@ -2,7 +2,7 @@ import {
   IState,
   StateStatus,
   StateType,
-} from 'streameth-new-server/src/interfaces/state.interface'
+} from '../interfaces/state.interface'
 import { IExtendedState } from '../types'
 import { apiUrl } from '@/lib/utils/utils'
 import { revalidatePath } from 'next/cache'

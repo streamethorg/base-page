@@ -10,8 +10,8 @@ import {
   IGenerateEmbedCode,
   eSort,
 } from '@/lib/types'
-import { IOrganizationModel } from 'streameth-new-server/src/interfaces/organization.interface'
-import { IEventModel } from 'streameth-new-server/src/interfaces/event.interface'
+import { IOrganization } from '../interfaces/organization.interface'
+import { IEvent } from '../interfaces/event.interface'
 import { UseFormProps, UseFormReturn } from 'react-hook-form'
 import { getDateInUTC } from './time'
 import { toast } from 'sonner'
@@ -108,8 +108,8 @@ export const archivePath = ({
   event,
   searchQuery,
 }: {
-  organization?: IOrganizationModel['slug']
-  event?: IEventModel['slug']
+  organization?: IOrganization['slug']
+  event?: IEvent['slug']
   searchQuery?: string
 }) => {
   const params = new URLSearchParams()

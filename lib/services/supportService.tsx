@@ -1,5 +1,5 @@
 import { apiUrl } from '../utils/utils'
-import { ISupport } from 'streameth-new-server/src/interfaces/support.interface'
+import { ISupport } from '../interfaces/support.interface'
 
 export async function createSupportTicket({
   message,

@@ -1,15 +1,12 @@
-import { IOrganization } from 'streameth-new-server/src/interfaces/organization.interface'
-import { IEvent } from 'streameth-new-server/src/interfaces/event.interface'
-import { ISession } from 'streameth-new-server/src/interfaces/session.interface'
-import {
-  IStage,
-  IStageModel,
-} from 'streameth-new-server/src/interfaces/stage.interface'
-import { ISpeaker } from 'streameth-new-server/src/interfaces/speaker.interface'
-import { IState } from 'streameth-new-server/src/interfaces/state.interface'
-import { IUser } from 'streameth-new-server/src/interfaces/user.interface'
-import { IChat } from 'streameth-new-server/src/interfaces/chat.interface'
-import { INftCollection } from 'streameth-new-server/src/interfaces/nft.collection.interface'
+import { IOrganization } from './interfaces/organization.interface'
+import { IEvent } from './interfaces/event.interface'
+import { ISession } from './interfaces/session.interface'
+import { IStage } from './interfaces/stage.interface'
+import { ISpeaker } from './interfaces/speaker.interface'
+import { IState } from './interfaces/state.interface'
+import { IUser } from './interfaces/user.interface'
+import { IChat } from './interfaces/chat.interface'
+import { INftCollection } from './interfaces/nft.collection.interface'
 
 export enum eSort {
   asc_alpha = 'asc_alpha',

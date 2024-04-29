@@ -7,7 +7,7 @@ import {
   updateNFTCollection,
 } from '../services/nftCollectionService'
 import { IExtendedNftCollections } from '../types'
-import { INftCollection } from 'streameth-new-server/src/interfaces/nft.collection.interface'
+import { INftCollection } from '../interfaces/nft.collection.interface'
 
 export const createNFTCollectionAction = async ({
   nftCollection,

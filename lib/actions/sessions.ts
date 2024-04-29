@@ -7,7 +7,7 @@ import {
   createSession,
   deleteSession,
 } from '../services/sessionService'
-import { ISession } from 'streameth-new-server/src/interfaces/session.interface'
+import { ISession } from '../interfaces/session.interface'
 import { revalidatePath } from 'next/cache'
 
 const livepeer = new Livepeer({
@@ -105,9 +105,8 @@ export const getSessionMetrics = async ({
   playTimeMins: number
 }> => {
   try {
-    const metrics = await livepeer.metrics.getPublicTotalViews(
-      playbackId
-    )
+    const metrics =
+      await livepeer.metrics.getPublicTotalViews(playbackId)
     if (!metrics.object) {
       return {
         viewCount: 0,

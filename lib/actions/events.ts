@@ -8,7 +8,7 @@ import {
 } from '@/lib/services/eventService'
 import { cookies } from 'next/headers'
 import { IExtendedEvent } from '../types'
-import { IEvent } from 'streameth-new-server/src/interfaces/event.interface'
+import { IEvent } from '../interfaces/event.interface'
 import { revalidatePath } from 'next/cache'
 import GoogleSheetService from '@/lib/services/googleSheetService'
 import GoogleDriveService from '@/lib/services/googleDriveService'

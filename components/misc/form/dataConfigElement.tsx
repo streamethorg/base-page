@@ -10,7 +10,7 @@ import {
   IDataImporter,
   GSheetConfig,
   PretalxConfig,
-} from 'streameth-new-server/src/interfaces/event.interface'
+} from '@/lib/interfaces/event.interface'
 import { createGoogleSheetAction } from '@/lib/actions/events'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
@@ -93,7 +93,7 @@ const DataConfigElement = ({
   }
 
   return (
-    <div className="space-y-4 flex flex-col">
+    <div className="flex flex-col space-y-4">
       <Select
         defaultValue={initialProvider}
         onValueChange={handleProviderChange}>
@@ -101,8 +101,8 @@ const DataConfigElement = ({
           <span>
             {selectedProvider
               ? providers.find(
-                  (provider) => provider.value === selectedProvider
-                )?.name
+                (provider) => provider.value === selectedProvider
+              )?.name
               : 'Select provider'}
           </span>
         </SelectTrigger>
@@ -119,14 +119,14 @@ const DataConfigElement = ({
         <div className="flex flex-row w-full">
           <Input
             name="sheetId"
-            className=" rounded-r-none"
+            className="rounded-r-none"
             value={(config as GSheetConfig)?.sheetId || ''}
             onChange={handleConfigChange}
             placeholder="Sheet ID"
           />
           <Button
             variant={'secondary'}
-            className="border-l-0 border-t border-b border-r rounded-l-none"
+            className="rounded-l-none border-l-0 border-t border-r border-b"
             loading={isLoading}
             disabled={
               config.sheetId !== undefined && config.sheetId !== ''

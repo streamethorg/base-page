@@ -10,10 +10,10 @@ import ShareButton from '../misc/interact/ShareButton'
 import CollectVideButton from './CollectVideButton'
 import { fetchNFTCollection } from '@/lib/services/nftCollectionService'
 import { formatDate } from '@/lib/utils/time'
-import ViewCounts from '@/app/[organization]/components/ViewCounts'
-import CalendarReminder from '@/app/[organization]/livestream/components/CalendarReminder'
+// import ViewCounts from '@/app/[organization]/components/ViewCounts'
+// import CalendarReminder from '@/app/[organization]/livestream/components/CalendarReminder'
 import { IExtendedSpeaker } from '@/lib/types'
-import VideoDownload from '@/app/[organization]/components/VideoDownload'
+// import VideoDownload from '@/app/[organization]/components/VideoDownload'
 import {
   Popover,
   PopoverContent,
@@ -37,28 +37,29 @@ const DesktopButtons = ({
   nftCollection: IExtendedNftCollections | null
   vod: boolean
 }) => {
-  return (
-    <>
-      {video?.nftCollections?.[0] && (
-        <CollectVideButton
-          video={video}
-          nftCollection={nftCollection}
-        />
-      )}
-      <div className="flex flex-row space-x-2">
-        <ShareButton shareFor="video" /> {/* Hydration Error */}
-        {video?.assetId && <VideoDownload assetId={video?.assetId} />}
-      </div>
-      {!vod && (
-        <CalendarReminder
-          eventName={name}
-          description={description}
-          start={date}
-          end={date}
-        />
-      )}
-    </>
-  )
+  return null
+  // return (
+  //   <>
+  //     {video?.nftCollections?.[0] && (
+  //       <CollectVideButton
+  //         video={video}
+  //         nftCollection={nftCollection}
+  //       />
+  //     )}
+  //     <div className="flex flex-row space-x-2">
+  //       <ShareButton shareFor="video" /> {/* Hydration Error */}
+  //       {video?.assetId && <VideoDownload assetId={video?.assetId} />}
+  //     </div>
+  //     {!vod && (
+  //       <CalendarReminder
+  //         eventName={name}
+  //         description={description}
+  //         start={date}
+  //         end={date}
+  //       />
+  //     )}
+  //   </>
+  // )
 }
 
 const MobileButtons = ({
@@ -95,8 +96,8 @@ const MobileButtons = ({
             </PopoverTrigger>
             <PopoverContent className="flex flex-col space-y-2 w-full">
               {/* Hydration Error */}
-              <ShareButton className="w-full" shareFor="video" />{' '}
-              {video?.assetId && (
+              <ShareButton className="w-full" shareFor="video" />
+              {/*{video?.assetId && (
                 <VideoDownload assetId={video?.assetId} />
               )}
               {!vod && (
@@ -109,6 +110,7 @@ const MobileButtons = ({
                   />
                 </>
               )}
+            */}
             </PopoverContent>
           </Popover>
         </>
@@ -148,9 +150,8 @@ const SessionInfoBox = async ({
 
   return (
     <div
-      className={`flex flex-col md:flex-row py-4 md:space-x-2 ${
-        inverted ? 'text-white rounded-lg  text-card-foreground ' : ''
-      }`}>
+      className={`flex flex-col md:flex-row py-4 md:space-x-2 ${inverted ? 'text-white rounded-lg  text-card-foreground ' : ''
+        }`}>
       <div className="flex flex-col justify-start w-full">
         <CardTitle className="flex flex-row justify-between items-start text-xl lg:text-2xl">
           <span>{name}</span>
@@ -166,7 +167,7 @@ const SessionInfoBox = async ({
           {playbackId && (
             <>
               <span className="font-bold">|</span>
-              <ViewCounts playbackId={playbackId} />
+              {/* <ViewCounts playbackId={playbackId} />*/}
             </>
           )}
         </p>

@@ -1,5 +1,5 @@
 import { apiUrl } from '@/lib/utils/utils'
-import { IOrganization } from 'streameth-new-server/src/interfaces/organization.interface'
+import { IOrganization } from '../interfaces/organization.interface'
 import { IExtendedOrganization } from '../types'
 
 export async function fetchOrganization({
@@ -14,8 +14,7 @@ export async function fetchOrganization({
       return null
     }
     const response = await fetch(
-      `${apiUrl()}/organizations/${
-        organizationId ? organizationId : organizationSlug
+      `${apiUrl()}/organizations/${organizationId ? organizationId : organizationSlug
       }`,
       {
         cache: 'no-store',

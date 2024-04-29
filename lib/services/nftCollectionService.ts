@@ -1,5 +1,5 @@
 import { apiUrl } from '@/lib/utils/utils'
-import { INftCollection } from 'streameth-new-server/src/interfaces/nft.collection.interface'
+import { INftCollection } from '../interfaces/nft.collection.interface'
 import { IExtendedNftCollections } from '../types'
 
 export async function createNFTCollection({

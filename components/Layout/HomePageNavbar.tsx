@@ -11,11 +11,10 @@ import { Search } from 'lucide-react'
 import { Page } from '@/lib/types'
 import { useSIWE } from 'connectkit'
 import useUserData from '@/lib/hooks/useUserData'
-import SwitchOrganization from '@/app/studio/[organization]/components/SwitchOrganization'
 import { IExtendedOrganization } from '@/lib/types'
 import { cn } from '@/lib/utils/utils'
-import Support from '../misc/Support'
 import { Button } from '@/components/ui/button'
+
 const getPages = (
   pages: Page[],
   isSignedIn: boolean,
@@ -48,43 +47,20 @@ const HomePageNavbar = ({
   organizations?: IExtendedOrganization[]
   currentOrganization?: string
 }) => {
-  if (logo === '') {
-    logo = undefined
-  }
-
   return (
     <Suspense fallback={null}>
-      <MobileNavBar
-        logo={logo}
-        pages={pages}
-        showSearchBar={showSearchBar}
-        organizations={organizations}
-        currentOrganization={currentOrganization}
-      />
-      <PCNavBar
-        showLogo={showLogo}
-        logo={logo}
-        pages={pages}
-        showSearchBar={showSearchBar}
-        organizations={organizations}
-        currentOrganization={currentOrganization}
-      />
+      <MobileNavBar pages={pages} showSearchBar={showSearchBar} />
+      <DesktopNavBar pages={pages} showSearchBar={showSearchBar} />
     </Suspense>
   )
 }
 
 const MobileNavBar = ({
-  logo,
   pages,
   showSearchBar,
-  organizations,
-  currentOrganization,
 }: {
-  logo?: string
   pages: Page[]
   showSearchBar: boolean
-  organizations?: IExtendedOrganization[]
-  currentOrganization?: string
 }) => {
   const [menuVisible, setMenuVisible] = useState(false)
   const [searchVisible, setSearchVisible] = useState(false)
@@ -118,18 +94,10 @@ const MobileNavBar = ({
           menuVisible && 'bg-background',
           searchVisible && showSearchBar && 'bg-background'
         )}>
-        {organizations && (
-          <div className="m-1 mr-2">
-            <SwitchOrganization
-              organization={currentOrganization}
-              organizations={organizations}
-            />
-          </div>
-        )}
         {showSearchBar && (
-          <Link href={`/${currentOrganization}`}>
+          <Link href={'/'}>
             <Image
-              src={logo ?? '/logo.png'}
+              src={'/base_logo.png'}
               alt="Logo"
               height={36}
               width={36}
@@ -168,20 +136,14 @@ const MobileNavBar = ({
   )
 }
 
-const PCNavBar = ({
-  logo,
+const DesktopNavBar = ({
   pages,
   showSearchBar,
-  showLogo,
-  organizations,
-  currentOrganization,
+  showLogo = true,
 }: {
-  logo?: string
   pages: Page[]
-  showLogo: boolean
+  showLogo?: boolean
   showSearchBar: boolean
-  organizations?: IExtendedOrganization[]
-  currentOrganization?: string
 }) => {
   const { isSignedIn } = useSIWE()
   const { userData } = useUserData()
@@ -191,37 +153,19 @@ const PCNavBar = ({
         {showLogo && (
           <Link href="/">
             <Image
-              src={logo ?? '/logo_dark.png'}
+              src={'/base_logo.png'}
               alt="Logo"
-              width={logo ? 50 : 230}
-              height={logo ? 50 : 30}
+              width={50}
+              height={50}
               className="hidden lg:block"
             />
           </Link>
         )}
-        {organizations && (
-          <Link href={`/${currentOrganization}`}>
-            <Button className="hidden lg:block" variant={'primary'}>
-              View channel page
-            </Button>
-          </Link>
-        )}
       </div>
       <div className="flex flex-grow-0 justify-center items-center mx-auto w-2/5">
-        {showSearchBar && (
-          <SearchBar
-            searchVisible={showSearchBar}
-            organizationSlug={currentOrganization}
-          />
-        )}
+        {showSearchBar && <SearchBar searchVisible={showSearchBar} />}
       </div>
       <div className="flex flex-1 justify-end items-center">
-        {organizations && (
-          <SwitchOrganization
-            organization={currentOrganization}
-            organizations={organizations}
-          />
-        )}
         <Navbar
           pages={getPages(
             pages,

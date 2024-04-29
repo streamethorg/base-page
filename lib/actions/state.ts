@@ -1,6 +1,6 @@
 'use server'
 
-import { IState } from 'streameth-new-server/src/interfaces/state.interface'
+import { IState } from '../interfaces/state.interface'
 import { cookies } from 'next/headers'
 import { createState } from '../services/stateService'
 

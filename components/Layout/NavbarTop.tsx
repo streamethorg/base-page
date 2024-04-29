@@ -1,4 +1,5 @@
 'use client'
+
 import Link from 'next/link'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
@@ -73,12 +74,12 @@ export default function NavbarTop({
               pages={
                 isMobile
                   ? [
-                      ...pages,
-                      {
-                        name: 'Back to overview',
-                        href: '/',
-                      },
-                    ]
+                    ...pages,
+                    {
+                      name: 'Back to overview',
+                      href: '/',
+                    },
+                  ]
                   : pages
               }
             />
