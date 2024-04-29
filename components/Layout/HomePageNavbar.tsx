@@ -5,7 +5,6 @@ import SearchBar from '@/components/misc/SearchBar'
 import Link from 'next/link'
 import { NavigationMenu } from '@/components/ui/navigation-menu'
 import { Menu, X } from 'lucide-react'
-import Navbar from './Navbar'
 import { ConnectWalletButton } from '../misc/ConnectWalletButton'
 import { Search } from 'lucide-react'
 import { Page } from '@/lib/types'
@@ -14,6 +13,7 @@ import useUserData from '@/lib/hooks/useUserData'
 import { IExtendedOrganization } from '@/lib/types'
 import { cn } from '@/lib/utils/utils'
 import { Button } from '@/components/ui/button'
+import NavbarLayout from './NavbarLayout'
 
 const getPages = (
   pages: Page[],
@@ -78,52 +78,44 @@ const MobileNavBar = ({
   }, [menuVisible, searchVisible])
 
   return (
-    <NavigationMenu className="flex sticky top-0 flex-row items-center bg-white lg:hidden z-[999999]">
+    <NavigationMenu className="flex sticky top-0 flex-row items-center bg-black lg:hidden backdrop-blur z-[999999]">
       {(searchVisible || menuVisible) && (
-        <div className="absolute top-0 left-0 bg-black bg-opacity-50 h-[100vh] w-[100vw]" />
+        <div className="fixed inset-0 z-50 bg-opacity-50 backdrop-blur-none" />
       )}
 
-      {searchVisible && showSearchBar && (
-        <div className="absolute w-full bottom-[-56px] bg-secondary">
-          <SearchBar isMobile={true} />
-        </div>
-      )}
       <div
         className={cn(
-          'flex relative flex-row  items-center px-4 py-2 w-full h-full',
-          menuVisible && 'bg-background',
-          searchVisible && showSearchBar && 'bg-background'
+          'flex relative flex-row items-center p-4 w-full',
+          menuVisible && 'items-start bg-[#0052FF] h-screen'
         )}>
-        {showSearchBar && (
-          <Link href={'/'}>
-            <Image
-              src={'/base_logo.png'}
-              alt="Logo"
-              height={36}
-              width={36}
-              className="h-full aspect-square"
-            />
-          </Link>
+        {pages.length > 0 && (
+          <button onClick={toggleMenu} className="z-50">
+            {!menuVisible ? (
+              <Menu
+                size={30}
+                strokeWidth={2}
+                className="text-white text-muted-foreground"
+              />
+            ) : (
+              <X size={30} strokeWidth={1} className="text-white" />
+            )}
+          </button>
         )}
-
-        <div className="flex items-center ml-auto">
+        <div className="ml-auto">
           {showSearchBar && (
-            <button onClick={toggleSearch} className="p-2">
-              <Search className="w-6 h-6 text-primary" />
-            </button>
-          )}
-          {pages.length > 0 && (
-            <button onClick={toggleMenu} className="z-50">
-              {!menuVisible ? (
-                <Menu size={30} strokeWidth={2} className="" />
-              ) : (
-                <X size={30} strokeWidth={2} className="" />
-              )}
-            </button>
+            <Link href={'/'}>
+              <Image
+                src={'/base_logo.png'}
+                alt="Logo"
+                height={30}
+                width={30}
+                className="h-full aspect-square"
+              />
+            </Link>
           )}
         </div>
         {menuVisible && (
-          <Navbar
+          <NavbarLayout
             pages={getPages(
               pages,
               isSignedIn,
@@ -166,7 +158,7 @@ const DesktopNavBar = ({
         {showSearchBar && <SearchBar searchVisible={showSearchBar} />}
       </div>
       <div className="flex flex-1 justify-end items-center">
-        <Navbar
+        <NavbarLayout
           pages={getPages(
             pages,
             isSignedIn,

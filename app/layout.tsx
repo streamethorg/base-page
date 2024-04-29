@@ -30,6 +30,16 @@ const pages: Page[] = [
     href: '/',
     bgColor: 'bg-muted',
   },
+  {
+    name: 'Collections',
+    href: '/collection',
+    bgColor: 'bg-muted',
+  },
+  {
+    name: 'Browse all videos',
+    href: '/videos',
+    bgColor: 'bg-muted',
+  },
 ]
 
 export default function RootLayout({
