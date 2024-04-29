@@ -79,7 +79,7 @@
     "usehooks-ts": "^2.9.1",
     "vaul": "^0.8.0",
     "zod": "^3.22.4",
-    "connectkit": "1.7.0-demo",
+    "connectkit": "1.7.3",
     "viem": "2.x",
     "wagmi": "^2.5.5"
   },
