@@ -8,6 +8,8 @@ import {
 import { NavBarProps } from '@/lib/types'
 import { ConnectWalletButton } from '../misc/ConnectWalletButton'
 
+const pages: NavBarProps[] = [{}]
+
 export default function Navbar({
   setIsNavVisible,
   isMobile,
