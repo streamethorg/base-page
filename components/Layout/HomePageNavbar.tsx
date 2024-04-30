@@ -107,15 +107,13 @@ const MobileNavBar = ({
 
 const DesktopNavBar = ({
   pages,
-  showSearchBar,
   showLogo = true,
+  showSearchBar,
 }: {
   pages: Page[]
   showLogo?: boolean
   showSearchBar: boolean
 }) => {
-  const { isSignedIn } = useSIWE()
-  const { userData } = useUserData()
   const [showSidebar, setShowSidebar] = useState(false)
 
   return (
