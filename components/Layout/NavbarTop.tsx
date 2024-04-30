@@ -4,8 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { Menu, X } from 'lucide-react'
-import Navbar from './Navbar'
-
+import NavbarLayout from './NavbarLayout'
 import { useMediaQuery } from '@/lib/hooks/useMediaQuery'
 import { NavigationMenu } from '@/components/ui/navigation-menu'
 import { NavBarProps } from '@/lib/types'
@@ -70,16 +69,16 @@ export default function NavbarTop({
         </div>
         <div className="flex flex-row justify-end items-center space-x-2 w-full h-full">
           {menuVisible && (
-            <Navbar
+            <NavbarLayout
               pages={
                 isMobile
                   ? [
-                      ...pages,
-                      {
-                        name: 'Back to overview',
-                        href: '/',
-                      },
-                    ]
+                    ...pages,
+                    {
+                      name: 'Back to overview',
+                      href: '/',
+                    },
+                  ]
                   : pages
               }
             />
