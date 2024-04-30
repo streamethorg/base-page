@@ -72,7 +72,7 @@ const EditSessionFrom = ({
   return (
     <Form {...form}>
       <form
-        onError={(errors) => { }}
+        onError={(errors) => {}}
         onSubmit={form.handleSubmit(onSubmit)}
         className="space-y-6">
         <FormField

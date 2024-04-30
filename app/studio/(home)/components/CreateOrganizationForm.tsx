@@ -97,7 +97,7 @@ export default function CreateOrganizationForm({
   return (
     <Form {...form}>
       <form
-        onError={(errors) => { }}
+        onError={(errors) => {}}
         onSubmit={form.handleSubmit(onSubmit)}
         className="space-y-4">
         <div>

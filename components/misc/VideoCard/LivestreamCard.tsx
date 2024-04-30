@@ -29,14 +29,14 @@ const LivestreamCard = ({
   DropdownMenuItems?: React.ReactNode
 }) => {
   return (
-    <div className="flex flex-row md:flex-col space-y-2 w-full min-h-full uppercase rounded-xl">
+    <div className="flex flex-row space-y-2 w-full min-h-full uppercase rounded-xl md:flex-col">
       <div className="flex-none my-auto w-1/4 md:w-full">
         <Link href={link}>
           <Thumbnail imageUrl={thumbnail} />
         </Link>
       </div>
       <div className="flex-grow ml-4 md:ml-0">
-        <CardHeader className="p-1 mt-1 rounded shadow-none md:py-0 lg:py-0 md:px-1 lg:px-1 lg:shadow-none">
+        <CardHeader className="p-1 mt-1 rounded shadow-none md:py-0 md:px-1 lg:py-0 lg:px-1 lg:shadow-none">
           <Link href={link}>
             <CardTitle className="overflow-hidden text-sm capitalize hover:underline line-clamp-2">
               {name}

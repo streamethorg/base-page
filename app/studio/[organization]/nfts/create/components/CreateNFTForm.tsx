@@ -238,20 +238,22 @@ const CreateNFTForm = ({
     <div className="flex overflow-auto m-4 rounded-xl border border-grey">
       <div className="p-4 space-y-2 w-1/3 border-r lg:p-8 bg-muted min-w-[250px] border-grey">
         <p
-          className={`p-2 flex gap-1 rounded-xl items-center ${step == 1
+          className={`p-2 flex gap-1 rounded-xl items-center ${
+            step == 1
               ? 'bg-grey text-black font-medium'
               : 'text-muted-foreground'
-            }`}>
+          }`}>
           {step == 2 && (
             <CheckCircle2 className="w-7 h-7 text-white fill-success" />
           )}{' '}
           Collection Details
         </p>
         <p
-          className={`p-2 flex gap-1 rounded-xl items-center ${step == 2
+          className={`p-2 flex gap-1 rounded-xl items-center ${
+            step == 2
               ? 'bg-grey text-black font-medium'
               : 'text-muted-foreground'
-            }`}>
+          }`}>
           {formState.selectedVideo.length > 0 && (
             <CheckCircle2 className="w-7 h-7 text-white fill-success" />
           )}{' '}

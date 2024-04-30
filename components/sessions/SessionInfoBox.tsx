@@ -150,8 +150,9 @@ const SessionInfoBox = async ({
 
   return (
     <div
-      className={`flex flex-col md:flex-row py-4 md:space-x-2 ${inverted ? 'text-white rounded-lg  text-card-foreground ' : ''
-        }`}>
+      className={`flex flex-col md:flex-row py-4 md:space-x-2 ${
+        inverted ? 'text-white rounded-lg  text-card-foreground ' : ''
+      }`}>
       <div className="flex flex-col justify-start w-full">
         <CardTitle className="flex flex-row justify-between items-start text-xl lg:text-2xl">
           <span>{name}</span>
