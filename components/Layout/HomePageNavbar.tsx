@@ -1,29 +1,17 @@
 'use client'
+
 import React, { useState, Suspense, useLayoutEffect } from 'react'
 import Image from 'next/image'
-import SearchBar from '@/components/misc/SearchBar'
 import Link from 'next/link'
 import { NavigationMenu } from '@/components/ui/navigation-menu'
 import { Menu, X } from 'lucide-react'
-import { ConnectWalletButton } from '../misc/ConnectWalletButton'
-import { Search } from 'lucide-react'
 import { Page } from '@/lib/types'
 import { useSIWE } from 'connectkit'
 import useUserData from '@/lib/hooks/useUserData'
 import { IExtendedOrganization } from '@/lib/types'
 import { cn } from '@/lib/utils/utils'
-import { Button } from '@/components/ui/button'
 import NavbarLayout from './NavbarLayout'
-
-const getPages = (
-  pages: Page[],
-  isSignedIn: boolean,
-  studioOrg?: string
-) => {
-  if (isSignedIn) {
-    return [...pages]
-  } else return pages
-}
+import BaseLogo from '@/lib/svg/BaseLogo'
 
 const HomePageNavbar = ({
   logo,
@@ -111,15 +99,7 @@ const MobileNavBar = ({
             </Link>
           )}
         </div>
-        {menuVisible && (
-          <NavbarLayout
-            pages={getPages(
-              pages,
-              isSignedIn,
-              userData?.organizations?.[0]?.slug
-            )}
-          />
-        )}
+        {menuVisible && <NavbarLayout pages={pages} />}
       </div>
     </NavigationMenu>
   )
@@ -139,30 +119,34 @@ const DesktopNavBar = ({
   const [showSidebar, setShowSidebar] = useState(false)
 
   return (
-    <NavigationMenu className="flex justify-start h-full">
-      {showSidebar ? (
-        <aside className="w-[40%] h-[100vh] bg-[#0052FF]">
-          <div className="flex justify-between items-center p-2">
-            <NavbarLayout
-              pages={getPages(
-                pages,
-                isSignedIn,
-                userData?.organizations?.[0]?.slug
-              )}
-            />
+    <NavigationMenu className="relative h-full">
+      <button
+        onClick={() => setShowSidebar(!showSidebar)}
+        className={`absolute top-4 left-4 z-30 ${showSidebar ? 'hidden' : 'block'}`}>
+        <Menu strokeWidth={1} size={40} className="text-white" />
+      </button>
+
+      {showSidebar && (
+        <>
+          <aside className="absolute w-[40%] bg-base-blue h-full z-20 left-0 top-0">
+            <div className="p-2">
+              <NavbarLayout pages={pages} />
+              <div className="hidden grid-cols-1 gap-4 px-6 mt-8 md:grid">
+                <div className="bg-blue-500 animate-pulse aspect-video" />
+                <div className="bg-red-500 animate-pulse aspect-video" />
+              </div>
+            </div>
+          </aside>
+          <div className="absolute top-0 left-[calc(40%)] p-2 pb-4 h-full z-30 flex flex-col items-center">
             <button
               onClick={() => setShowSidebar(!showSidebar)}
-              className="z-20">
-              <X size={35} strokeWidth={1} className="text-white" />
+              className="z-30">
+              <X size={45} strokeWidth={1} className="text-white" />
             </button>
+            <div className="flex-grow" />
+            <BaseLogo height={'5%'} />
           </div>
-        </aside>
-      ) : (
-        <button
-          onClick={() => setShowSidebar(!showSidebar)}
-          className="z-20">
-          <Menu strokeWidth={1} size={40} />
-        </button>
+        </>
       )}
     </NavigationMenu>
   )
