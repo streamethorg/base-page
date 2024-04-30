@@ -8,15 +8,15 @@ export enum LivepeerEvent {
 }
 
 interface LivepeerPayload {
-  id: string;
-  snapshot: Object;
+  id: string
+  snapshot: Object
 }
 
 export interface ILivepeer {
-  id: string;
-  webhookId: string;
-  createdAt: number;
-  timestamp: number;
-  event: LivepeerEvent;
-  payload: LivepeerPayload;
+  id: string
+  webhookId: string
+  createdAt: number
+  timestamp: number
+  event: LivepeerEvent
+  payload: LivepeerPayload
 }

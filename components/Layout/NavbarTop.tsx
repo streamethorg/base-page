@@ -74,12 +74,12 @@ export default function NavbarTop({
               pages={
                 isMobile
                   ? [
-                    ...pages,
-                    {
-                      name: 'Back to overview',
-                      href: '/',
-                    },
-                  ]
+                      ...pages,
+                      {
+                        name: 'Back to overview',
+                        href: '/',
+                      },
+                    ]
                   : pages
               }
             />

@@ -110,11 +110,11 @@ export async function fetchAllSessions({
     pagination: allSessions?.pagination
       ? allSessions.pagination
       : {
-        currentPage: page,
-        totalPages,
-        totalItems,
-        limit,
-      },
+          currentPage: page,
+          totalPages,
+          totalItems,
+          limit,
+        },
   }
 }
 

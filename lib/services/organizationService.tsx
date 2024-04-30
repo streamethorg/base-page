@@ -14,7 +14,8 @@ export async function fetchOrganization({
       return null
     }
     const response = await fetch(
-      `${apiUrl()}/organizations/${organizationId ? organizationId : organizationSlug
+      `${apiUrl()}/organizations/${
+        organizationId ? organizationId : organizationSlug
       }`,
       {
         cache: 'no-store',

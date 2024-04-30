@@ -46,7 +46,7 @@ const CollectionDetails = ({
       <Form {...form}>
         <form
           className="space-y-4"
-        // onSubmit={form.handleSubmit(onSubmit)}
+          // onSubmit={form.handleSubmit(onSubmit)}
         >
           <div className="flex gap-4 items-center h-full">
             <FormField

@@ -51,7 +51,7 @@ const AddSpeakersInput = ({
             className="justify-between w-[200px]">
             {value
               ? allSpeakers.find((speaker) => speaker._id === value)
-                ?.name
+                  ?.name
               : 'Select speaker...'}
           </Button>
         </PopoverTrigger>

@@ -39,7 +39,7 @@ export default function NavbarLayout({
                   className={cn(
                     navigationMenuTriggerStyle(),
                     pathname === item.href &&
-                    'text-white border-white'
+                      'text-white border-white'
                   )}>
                   {item.name}
                 </NavigationMenuLink>
@@ -56,7 +56,7 @@ export default function NavbarLayout({
           <ConnectWalletButton
             className={
               (navigationMenuTriggerStyle(),
-                'bg-[#0052FF] rounded-none border-b px-0 hover:border-white border-gray-300 hover:text-white text-gray-300')
+              'bg-[#0052FF] rounded-none border-b px-0 hover:border-white border-gray-300 hover:text-white text-gray-300')
             }
           />
         </NavigationMenuItem>

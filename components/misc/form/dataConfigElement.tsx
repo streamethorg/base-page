@@ -101,8 +101,8 @@ const DataConfigElement = ({
           <span>
             {selectedProvider
               ? providers.find(
-                (provider) => provider.value === selectedProvider
-              )?.name
+                  (provider) => provider.value === selectedProvider
+                )?.name
               : 'Select provider'}
           </span>
         </SelectTrigger>
