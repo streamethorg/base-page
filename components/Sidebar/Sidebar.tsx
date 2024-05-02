@@ -1,6 +1,5 @@
 'use client'
 
-import StreamethStudio from '@/lib/svg/StreamethStudio'
 import { ChevronLast, ChevronFirst } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
@@ -17,13 +16,8 @@ export const SidebarUI = ({ children }: { children: ReactNode }) => {
     <aside className="flex flex-col h-screen border-r bg-primary">
       <div className="flex justify-between items-center p-4 pb-2">
         <div
-          className={`flex items-center overflow-hidden transition-all ${
-            expanded ? 'w-48' : 'w-0'
-          }`}>
-          <div className="pl-2">
-            <StreamethStudio />
-          </div>
-        </div>
+          className={`flex items-center overflow-hidden transition-all ${expanded ? 'w-48' : 'w-0'
+            }`}></div>
         <button
           onClick={() => setExpanded((curr) => !curr)}
           className="p-1.5 text-white rounded-lg hover:bg-secondary-foreground">
@@ -65,17 +59,15 @@ export const SidebarItem = ({
         relative flex items-center py-2 px-3 my-1
             font-medium rounded-md cursor-pointer
             transition-colors group
-            ${
-              active
-                ? 'rounded-lg bg-gradient-to-b from-[#4219FF] to-[#3D22BA]'
-                : 'hover:bg-secondary-foreground'
-            }
+            ${active
+          ? 'rounded-lg bg-gradient-to-b from-[#4219FF] to-[#3D22BA]'
+          : 'hover:bg-secondary-foreground'
+        }
     `}>
       {icon}
       <span
-        className={`overflow-hidden transition-all ${
-          expanded ? 'w-52 ml-3' : 'w-0'
-        }`}>
+        className={`overflow-hidden transition-all ${expanded ? 'w-52 ml-3' : 'w-0'
+          }`}>
         {text}
       </span>
 
