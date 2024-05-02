@@ -120,7 +120,7 @@ const DesktopNavBar = ({
         className={` absolute top-4 left-4 z-30 ${showSidebar ? 'hidden' : 'block'}`}>
         <Menu strokeWidth={1} size={40} className="text-white" />
       </button>
-      <ConnectWalletButton className="absolute top-4 right-4 mr-4 end-0 z-30 uppercase bg-transparent border border-white rounded-none" />
+      <ConnectWalletButton className="absolute right-0 top-4 z-30 mr-4 uppercase bg-transparent rounded-none border border-white end-0" />
 
       {showSidebar && (
         <>

@@ -2,27 +2,24 @@
 
 import NotFound from '../not-found'
 import { Metadata, ResolvingMetadata } from 'next'
-import {
-  fetchOrganization,
-  fetchOrganizations,
-} from '@/lib/services/organizationService'
+import { fetchOrganization } from '@/lib/services/organizationService'
 import { ChannelPageParams } from '@/lib/types'
-import ChannelShareIcons from './components/ChannelShareIcons'
-import Image from 'next/image'
-import { AspectRatio } from '@/components/ui/aspect-ratio'
-import { Suspense } from 'react'
-import { Card } from '@/components/ui/card'
-import StreamethLogoWhite from '@/lib/svg/StreamethLogoWhite'
-import WatchGrid, { WatchGridLoading } from './components/WatchGrid'
-import UpcomingStreams, {
-  UpcomingStreamsLoading,
-} from './components/UpcomingStreams'
 import { fetchOrganizationStages } from '@/lib/services/stageService'
 import Player from '@/components/Player/Player'
-import SessionInfoBox from '@/components/sessions/SessionInfoBox'
-import { organizationSlug } from '@/lib/utils'
+import PlayerWithControls from '@/components/ui/Player'
+import Image from 'next/image'
 import { fetchAllSessions } from '@/lib/data'
-import VideoPlayer from './components/VideoPlayer'
+import { organizationSlug } from '@/lib/utils'
+import Footer from './components/Footer'
+
+const watchList = [
+  {
+    name: 'Really good video',
+    playbackId: '8204euokn8bf6vai',
+    downloadUrl:
+      'https://vod-cdn.lp-playback.studio/raw/jxf4iblf6wlsyor6526t4tcmtmqa/catalyst-vod-com/hls/8204euokn8bf6vai/1080p0.mp4',
+  },
+]
 
 const Home = async ({ params, searchParams }: ChannelPageParams) => {
   const organization = await fetchOrganization({
@@ -31,6 +28,10 @@ const Home = async ({ params, searchParams }: ChannelPageParams) => {
 
   if (!organization) {
     return NotFound()
+  }
+
+  const getVideoUrl = () => {
+    return `https://vod-cdn.lp-playback.studio/raw/jxf4iblf6wlsyor6526t4tcmtmqa/catalyst-vod-com/hls/${watchList[0].playbackId}/index.m3u8`
   }
 
   const allStreams = (
@@ -53,7 +54,7 @@ const Home = async ({ params, searchParams }: ChannelPageParams) => {
     ? activeStream[0]
     : nextStreamNotToday[0]
 
-  const videos = (
+  const sessions = (
     await fetchAllSessions({
       organizationSlug,
       onlyVideos: true,
@@ -63,37 +64,42 @@ const Home = async ({ params, searchParams }: ChannelPageParams) => {
   ).sessions
 
   return (
-    <div className="mx-auto w-full aspect-video h-screen bg-black">
-      <div className="relative w-full">
-        {stage ? (
-          <>
-            <Player stage={stage} />
-            <div className="px-4 w-full md:p-0">
-              <SessionInfoBox
-                name={stage.name}
-                description={stage.description ?? ''}
-                date={stage.streamDate as string}
-                vod={true}
+    <div className="flex flex-col justify-center items-center mx-auto w-screen h-screen bg-base-blue">
+      {/* w-max should be change */}
+      <div className="relative w-full w-max-[1300px]">
+        <div className="flex flex-col px-4 w-full h-full md:p-4">
+          <div className="z-10">
+            {playerActive ? (
+              <Player stage={stage} />
+            ) : (
+              <PlayerWithControls
+                src={[
+                  {
+                    src: getVideoUrl() as `${string}m3u8`,
+                    width: 1920,
+                    height: 1080,
+                    mime: 'application/vnd.apple.mpegurl',
+                    type: 'hls',
+                  },
+                ]}
               />
-            </div>
-          </>
-        ) : (
-          <VideoPlayer video={videos[0]} />
-        )}
+            )}
+          </div>
+        </div>
       </div>
-      {/* <Card className="flex items-center p-4 space-y-6 w-full h-full border-none shadow-none md:p-0 bg-base-blue">
-        <Suspense fallback={<WatchGridLoading />}>
-          <div className="md:hidden">
-            <WatchGrid organizationSlug={organizationSlug} />
-          </div>
-          <div className="hidden md:block">
-            <WatchGrid
-              organizationSlug={organizationSlug}
-              gridLength={6}
-            />
-          </div>
-        </Suspense>
-      </Card> */}
+
+      <Footer session={sessions[0]} />
+
+      <div className="overflow-hidden fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 blur-2xl w-[110vw] h-[110vh]">
+        <Image
+          src={sessions[0].coverImage || ''}
+          quality={10}
+          priority
+          alt="Video thumbnail"
+          layout="fill"
+          objectFit="objectFit"
+        />
+      </div>
     </div>
   )
 }
