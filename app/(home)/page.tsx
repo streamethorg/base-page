@@ -109,7 +109,7 @@ export async function generateMetadata(
   parent: ResolvingMetadata
 ): Promise<Metadata> {
   const organizationInfo = await fetchOrganization({
-    organizationSlug: params.organization,
+    organizationSlug: organizationSlug,
   })
 
   if (!organizationInfo) {

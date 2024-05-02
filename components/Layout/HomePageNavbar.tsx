@@ -15,6 +15,7 @@ import BaseLogo from '@/lib/svg/BaseLogo'
 import AllCollections from '@/app/collections/components/AllCollections'
 import { ConnectWalletButton } from '../misc/ConnectWalletButton'
 import useSearchParams from '@/lib/hooks/useSearchParams'
+import AboutVideo from '@/app/(home)/components/about/AboutVideos'
 
 const HomePageNavbar = ({
   pages,
@@ -136,6 +137,7 @@ const DesktopNavBar = ({
                 <div className="bg-red-500 animate-pulse aspect-video" />
               </div> */}
               {tab === eTab.collections && <AllCollections />}
+              {tab === eTab.about && <AboutVideo />}
             </div>
           </aside>
           <div className="absolute top-0 left-[calc(50%)] p-2 pb-4 h-full z-30 flex flex-col items-center">
