@@ -1,11 +1,23 @@
 'use client'
 
+import useSearchParams from '@/lib/hooks/useSearchParams'
 import BaseLogo from '@/lib/svg/BaseLogo'
-import { IExtendedSession } from '@/lib/types'
+import { IExtendedSession, eTab } from '@/lib/types'
 
 const Footer = ({ session }: { session: IExtendedSession }) => {
+  const { searchParams, handleTermChange } = useSearchParams()
+
   const handleClick = () => {
-    console.log('click')
+    handleTermChange([
+      {
+        key: 'tab',
+        value: eTab.about,
+      },
+      {
+        key: 'session',
+        value: session._id.toString(),
+      },
+    ])
   }
 
   return (
@@ -17,7 +29,7 @@ const Footer = ({ session }: { session: IExtendedSession }) => {
         <span className="font-bold">{session.name}</span>
         <button
           onClick={() => handleClick()}
-          className="p-2 hover:bg-white border border-white text-gray-300 transition-all hover:text-gray-500 w-[15%] md:w-min">
+          className="p-2 text-gray-300 border border-white transition-all hover:text-gray-500 hover:bg-white w-min-[60px]">
           About
         </button>
       </div>
