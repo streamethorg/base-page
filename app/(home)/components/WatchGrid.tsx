@@ -15,12 +15,12 @@ const WatchGrid = async ({
     await fetchAllSessions({
       organizationSlug,
       onlyVideos: true,
-      published: true,
+      // published: true,
       limit: gridLength,
     })
   ).sessions
 
-  console.log(videos)
+  // console.log('videos', videos)
 
   return (
     <div className="w-full">

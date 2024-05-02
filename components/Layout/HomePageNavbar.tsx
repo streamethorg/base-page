@@ -12,14 +12,13 @@ import { IExtendedOrganization } from '@/lib/types'
 import { cn } from '@/lib/utils/utils'
 import NavbarLayout from './NavbarLayout'
 import BaseLogo from '@/lib/svg/BaseLogo'
+import AllCollections from '@/app/collections/components/AllCollections'
+import { ConnectWalletButton } from '../misc/ConnectWalletButton'
+import useSearchParams from '@/lib/hooks/useSearchParams'
 
 const HomePageNavbar = ({
-  logo,
   pages,
-  showLogo = true,
   showSearchBar = true,
-  organizations,
-  currentOrganization,
 }: {
   logo?: string
   pages: Page[]
@@ -28,13 +27,16 @@ const HomePageNavbar = ({
   organizations?: IExtendedOrganization[]
   currentOrganization?: string
 }) => {
+  const { searchParams } = useSearchParams()
+  const tab = searchParams.get('tab')
+
   return (
     <Suspense fallback={null}>
       <div className="md:hidden">
         <MobileNavBar pages={pages} showSearchBar={showSearchBar} />
       </div>
       <div className="hidden md:block">
-        <DesktopNavBar pages={pages} showSearchBar={showSearchBar} />
+        <DesktopNavBar pages={pages} tab={tab} />
       </div>
     </Suspense>
   )
@@ -49,18 +51,15 @@ const MobileNavBar = ({
 }) => {
   const [menuVisible, setMenuVisible] = useState(false)
   const [searchVisible, setSearchVisible] = useState(false)
-  const toggleSearch = () => setSearchVisible(!searchVisible)
   const toggleMenu = () => setMenuVisible(!menuVisible)
-  const { isSignedIn } = useSIWE()
-  const { userData } = useUserData()
 
-  useLayoutEffect(() => {
-    if (menuVisible || searchVisible) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = 'auto'
-    }
-  }, [menuVisible, searchVisible])
+  // useLayoutEffect(() => {
+  //   if (menuVisible || searchVisible) {
+  //     document.body.style.overflow = 'hidden'
+  //   } else {
+  //     document.body.style.overflow = 'auto'
+  //   }
+  // }, [menuVisible, searchVisible])
 
   return (
     <NavigationMenu className="flex sticky top-0 flex-row items-center bg-black lg:hidden backdrop-blur z-[999999]">
@@ -107,12 +106,10 @@ const MobileNavBar = ({
 
 const DesktopNavBar = ({
   pages,
-  showLogo = true,
-  showSearchBar,
+  tab,
 }: {
   pages: Page[]
-  showLogo?: boolean
-  showSearchBar: boolean
+  tab?: string | null
 }) => {
   const [showSidebar, setShowSidebar] = useState(false)
 
@@ -120,22 +117,24 @@ const DesktopNavBar = ({
     <NavigationMenu className="relative h-full">
       <button
         onClick={() => setShowSidebar(!showSidebar)}
-        className={`absolute top-4 left-4 z-30 ${showSidebar ? 'hidden' : 'block'}`}>
+        className={` absolute top-4 left-4 z-30 ${showSidebar ? 'hidden' : 'block'}`}>
         <Menu strokeWidth={1} size={40} className="text-white" />
       </button>
+      <ConnectWalletButton className="absolute top-4 right-4 mr-4 end-0 z-30 uppercase bg-transparent border border-white rounded-none" />
 
       {showSidebar && (
         <>
-          <aside className="absolute w-[40%] bg-base-blue h-full z-20 left-0 top-0">
+          <aside className="absolute w-[50%] bg-base-blue overflow-auto h-full z-20 left-0 top-0">
             <div className="p-2">
               <NavbarLayout pages={pages} />
-              <div className="hidden grid-cols-1 gap-4 px-6 mt-8 md:grid">
+              {/* <div className="hidden grid-cols-1 gap-4 px-6 mt-8 md:grid">
                 <div className="bg-blue-500 animate-pulse aspect-video" />
                 <div className="bg-red-500 animate-pulse aspect-video" />
-              </div>
+              </div> */}
+              {tab === 'collections' && <AllCollections />}
             </div>
           </aside>
-          <div className="absolute top-0 left-[calc(40%)] p-2 pb-4 h-full z-30 flex flex-col items-center">
+          <div className="absolute top-0 left-[calc(50%)] p-2 pb-4 h-full z-30 flex flex-col items-center">
             <button
               onClick={() => setShowSidebar(!showSidebar)}
               className="z-30">

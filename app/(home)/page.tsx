@@ -20,12 +20,13 @@ import UpcomingStreams, {
 import { fetchOrganizationStages } from '@/lib/services/stageService'
 import Player from '@/components/Player/Player'
 import SessionInfoBox from '@/components/sessions/SessionInfoBox'
+import { organizationSlug } from '@/lib/utils'
+import { fetchAllSessions } from '@/lib/data'
+import VideoPlayer from './components/VideoPlayer'
 
 const Home = async ({ params, searchParams }: ChannelPageParams) => {
-  const organizationSlug = process.env.NEXT_PUBLIC_ORGANIZATION || ''
-
   const organization = await fetchOrganization({
-    organizationSlug,
+    organizationSlug: organizationSlug,
   })
 
   if (!organization) {
@@ -52,10 +53,19 @@ const Home = async ({ params, searchParams }: ChannelPageParams) => {
     ? activeStream[0]
     : nextStreamNotToday[0]
 
+  const videos = (
+    await fetchAllSessions({
+      organizationSlug,
+      onlyVideos: true,
+      // published: true,
+      limit: 1,
+    })
+  ).sessions
+
   return (
-    <div className="mx-auto w-full max-w-7xl h-screen md:p-4 bg-base-blue">
+    <div className="mx-auto w-full aspect-video h-screen bg-black">
       <div className="relative w-full">
-        {playerActive && (
+        {stage ? (
           <>
             <Player stage={stage} />
             <div className="px-4 w-full md:p-0">
@@ -67,9 +77,11 @@ const Home = async ({ params, searchParams }: ChannelPageParams) => {
               />
             </div>
           </>
+        ) : (
+          <VideoPlayer video={videos[0]} />
         )}
       </div>
-      <Card className="flex items-center p-4 space-y-6 w-full h-full border-none shadow-none md:p-0 bg-base-blue">
+      {/* <Card className="flex items-center p-4 space-y-6 w-full h-full border-none shadow-none md:p-0 bg-base-blue">
         <Suspense fallback={<WatchGridLoading />}>
           <div className="md:hidden">
             <WatchGrid organizationSlug={organizationSlug} />
@@ -81,7 +93,7 @@ const Home = async ({ params, searchParams }: ChannelPageParams) => {
             />
           </div>
         </Suspense>
-      </Card>
+      </Card> */}
     </div>
   )
 }

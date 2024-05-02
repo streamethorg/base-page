@@ -10,6 +10,7 @@ import {
 } from '@/components/ui/navigation-menu'
 import { NavBarProps } from '@/lib/types'
 import { ConnectWalletButton } from '../misc/ConnectWalletButton'
+import useSearchParams from '@/lib/hooks/useSearchParams'
 
 export default function NavbarLayout({
   setIsNavVisible,
@@ -20,8 +21,9 @@ export default function NavbarLayout({
   setIsNavVisible?: React.Dispatch<React.SetStateAction<boolean>>
   pages?: NavBarProps['pages']
 }) {
+  const { searchParams, handleTermChange } = useSearchParams()
   const pathname = usePathname()
-
+  const tab = searchParams.get('tab')
   if (!pages || pages?.length === 0) {
     return null
   }
@@ -31,19 +33,26 @@ export default function NavbarLayout({
       <ul
         onClick={() => isMobile && setIsNavVisible?.(false)}
         className="flex flex-col mx-4 w-full md:flex-row md:justify-between md:space-x-2 lg:px-2">
-        {pages?.map((item) => (
+        {pages?.map((item, index) => (
           <>
-            <NavigationMenuItem key={item.name}>
-              <Link href={item.href} legacyBehavior passHref>
+            <NavigationMenuItem key={index}>
+              <div
+                onClick={() =>
+                  handleTermChange([
+                    {
+                      key: 'tab',
+                      value: item.name.toLowerCase(),
+                    },
+                  ])
+                }>
                 <NavigationMenuLink
                   className={cn(
                     navigationMenuTriggerStyle(),
-                    pathname === item.href &&
-                      'text-white border-white'
+                    tab === item.href && 'text-white border-white'
                   )}>
                   {item.name}
                 </NavigationMenuLink>
-              </Link>
+              </div>
             </NavigationMenuItem>
           </>
         ))}

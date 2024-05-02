@@ -219,17 +219,6 @@ export const sortByStartDateAsc = (
   }
 }
 
-export const renderEventDay = (
-  start: string | Date,
-  end: string | Date
-) => {
-  if (start === end) return new Date(start).toDateString()
-
-  return `${new Date(start).toDateString()} - ${new Date(
-    end
-  ).toDateString()}`
-}
-
 export const copyToClipboard = (text: string) => {
   navigator.clipboard.writeText(text)
   toast('Copied to clipboard')
