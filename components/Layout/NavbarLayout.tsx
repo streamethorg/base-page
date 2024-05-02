@@ -56,11 +56,13 @@ export default function NavbarLayout({
             </NavigationMenuItem>
           </>
         ))}
-        <NavigationMenuItem key={'connect'} className="md:hidden">
+        <NavigationMenuItem
+          key={'connect-mobile'}
+          className="md:hidden">
           <ConnectWalletButton className="flex justify-start w-full p-0 text-gray-300 bg-[#0052FF] rounded-none" />
         </NavigationMenuItem>
         <NavigationMenuItem
-          key={'connect'}
+          key={'connect-desktop'}
           className="hidden md:block">
           <ConnectWalletButton
             className={

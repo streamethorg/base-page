@@ -5,7 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { NavigationMenu } from '@/components/ui/navigation-menu'
 import { Menu, X } from 'lucide-react'
-import { Page } from '@/lib/types'
+import { Page, eTab } from '@/lib/types'
 import { useSIWE } from 'connectkit'
 import useUserData from '@/lib/hooks/useUserData'
 import { IExtendedOrganization } from '@/lib/types'
@@ -15,6 +15,7 @@ import BaseLogo from '@/lib/svg/BaseLogo'
 import AllCollections from '@/app/collections/components/AllCollections'
 import { ConnectWalletButton } from '../misc/ConnectWalletButton'
 import useSearchParams from '@/lib/hooks/useSearchParams'
+import AboutVideo from '@/app/(home)/components/about/AboutVideos'
 
 const HomePageNavbar = ({
   pages,
@@ -111,16 +112,20 @@ const DesktopNavBar = ({
   pages: Page[]
   tab?: string | null
 }) => {
-  const [showSidebar, setShowSidebar] = useState(false)
+  const { searchParams, handleTermChange } = useSearchParams()
+
+  const showSidebar = searchParams.get('tab') !== eTab.none
 
   return (
     <NavigationMenu className="relative h-full">
       <button
-        onClick={() => setShowSidebar(!showSidebar)}
+        onClick={() =>
+          handleTermChange([{ key: 'tab', value: eTab.home }])
+        }
         className={` absolute top-4 left-4 z-30 ${showSidebar ? 'hidden' : 'block'}`}>
         <Menu strokeWidth={1} size={40} className="text-white" />
       </button>
-      <ConnectWalletButton className="absolute top-4 right-4 mr-4 end-0 z-30 uppercase bg-transparent border border-white rounded-none" />
+      <ConnectWalletButton className="absolute right-0 top-4 z-30 mr-4 uppercase bg-transparent rounded-none border border-white end-0" />
 
       {showSidebar && (
         <>
@@ -131,12 +136,15 @@ const DesktopNavBar = ({
                 <div className="bg-blue-500 animate-pulse aspect-video" />
                 <div className="bg-red-500 animate-pulse aspect-video" />
               </div> */}
-              {tab === 'collections' && <AllCollections />}
+              {tab === eTab.collections && <AllCollections />}
+              {tab === eTab.about && <AboutVideo />}
             </div>
           </aside>
           <div className="absolute top-0 left-[calc(50%)] p-2 pb-4 h-full z-30 flex flex-col items-center">
             <button
-              onClick={() => setShowSidebar(!showSidebar)}
+              onClick={() =>
+                handleTermChange([{ key: 'tab', value: eTab.none }])
+              }
               className="z-30">
               <X size={45} strokeWidth={1} className="text-white" />
             </button>

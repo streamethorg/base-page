@@ -1,6 +1,5 @@
 'use client'
 
-import StreamethStudio from '@/lib/svg/StreamethStudio'
 import { ChevronLast, ChevronFirst } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
@@ -19,11 +18,7 @@ export const SidebarUI = ({ children }: { children: ReactNode }) => {
         <div
           className={`flex items-center overflow-hidden transition-all ${
             expanded ? 'w-48' : 'w-0'
-          }`}>
-          <div className="pl-2">
-            <StreamethStudio />
-          </div>
-        </div>
+          }`}></div>
         <button
           onClick={() => setExpanded((curr) => !curr)}
           className="p-1.5 text-white rounded-lg hover:bg-secondary-foreground">

@@ -8,6 +8,14 @@ import { IUser } from './interfaces/user.interface'
 import { IChat } from './interfaces/chat.interface'
 import { INftCollection } from './interfaces/nft.collection.interface'
 
+export enum eTab {
+  none = 'none',
+  home = 'home',
+  about = 'about',
+  collections = 'collections',
+  videos = 'videos',
+}
+
 export enum eSort {
   asc_alpha = 'asc_alpha',
   desc_alpha = 'desc_alpha',
