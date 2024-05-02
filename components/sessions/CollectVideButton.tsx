@@ -19,7 +19,7 @@ import { calMintPrice, getVideoIndex } from '@/lib/utils/utils'
 import { Dialog, DialogContent, DialogTitle } from '../ui/dialog'
 import { CheckCircle2, Loader2 } from 'lucide-react'
 import { type BaseError } from 'wagmi'
-import TransactionHash from '@/app/studio/[organization]/nfts/create/components/TransactionHash'
+import TransactionHash from '@/components/misc/TransactionHash'
 import { ConnectWalletButton } from '../misc/ConnectWalletButton'
 
 const CollectVideButton = ({
