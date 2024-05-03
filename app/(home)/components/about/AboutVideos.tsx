@@ -1,17 +1,13 @@
-'use client'
+'use server'
 
 import { formatDate } from '@/lib/utils/time'
-import useSearchParams from '@/lib/hooks/useSearchParams'
-import { IExtendedSession } from '@/lib/types'
-import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { apiUrl } from '@/lib/utils/utils'
 import React from 'react'
 import {
   NavigationMenu,
-  navigationMenuTriggerStyle,
+  NavigationMenuItem,
 } from '@/components/ui/navigation-menu'
-import { NavigationMenuItem } from '@radix-ui/react-navigation-menu'
 import { Separator } from '@/components/ui/separator'
 import { Dot } from 'lucide-react'
 
@@ -21,28 +17,10 @@ const menuItems = [
   { key: 'share', label: 'SHARE' },
 ]
 
-const AboutVideo = () => {
-  const { searchParams, handleTermChange } = useSearchParams()
-  const [session, setSession] = useState<IExtendedSession | null>(
-    null
-  )
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const sessionParam = searchParams.get('session')
-
-      if (!sessionParam) return
-
-      const response = await fetch(
-        `${apiUrl()}/sessions/${sessionParam}`
-      )
-      const data = await response.json()
-
-      setSession(data.data)
-    }
-
-    fetchData()
-  }, [])
+const AboutVideo = async ({ sessionId }: { sessionId: string }) => {
+  const response = await fetch(`${apiUrl()}/sessions/${sessionId}`)
+  const data = await response.json()
+  const session = data.data
 
   if (!session) return <div>Loading...</div>
 
@@ -72,11 +50,7 @@ const AboutVideo = () => {
         <ul className="flex flex-col justify-start items-start space-y-2 w-full text-gray-300">
           {menuItems.map((item) => (
             <React.Fragment key={item.key}>
-              <NavigationMenuItem
-                className={
-                  (navigationMenuTriggerStyle(),
-                  'border-none transition-all cursor-pointer hover:text-white')
-                }>
+              <NavigationMenuItem className="border-none transition-all cursor-pointer hover:text-white">
                 {item.label}
               </NavigationMenuItem>
               <Separator className="bg-gray-300 transition-all hover:text-white" />

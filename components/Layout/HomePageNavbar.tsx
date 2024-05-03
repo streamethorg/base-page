@@ -9,6 +9,10 @@ import AllCollections from '@/app/collections/components/AllCollections'
 import AboutVideo from '@/app/(home)/components/about/AboutVideos'
 import ConnectButtonNav from './Navbar/ConnectButtonNav'
 import CloseNavigation from './Navbar/XButton'
+import Image from 'next/image'
+import Link from 'next/link'
+import { cn } from '@/lib/utils'
+import MenuVisibleButton from './Navbar/MenuVisibleButton'
 
 const HomePageNavbar = async ({
   pages,
@@ -24,88 +28,77 @@ const HomePageNavbar = async ({
   currentOrganization?: string
 }) => {
   const tab = searchParams.tab
-  console.log(tab)
+  // TODO: Change type of searchParams
+  const sessionId = searchParams.session as string | undefined
 
   return (
     <>
-      {/*<div className="md:hidden">
-        <MobileNavBar pages={pages} showSearchBar={showSearchBar} />
-      </div>*/}
+      <div className="md:hidden">
+        <MobileNavBar
+          pages={pages}
+          tab={tab}
+          sessionId={sessionId}
+          showSearchBar={showSearchBar}
+        />
+      </div>
       <div className="hidden md:block">
-        <DesktopNavBar pages={pages} tab={tab} />
+        <DesktopNavBar
+          pages={pages}
+          sessionId={sessionId}
+          tab={tab}
+        />
       </div>
     </>
   )
 }
 
-// const MobileNavBar = ({
-//   pages,
-//   showSearchBar,
-// }: {
-//   pages: Page[]
-//   showSearchBar: boolean
-// }) => {
-//   const [menuVisible, setMenuVisible] = useState(false)
-//   const [searchVisible, setSearchVisible] = useState(false)
-//   const toggleMenu = () => setMenuVisible(!menuVisible)
-//
-//   // useLayoutEffect(() => {
-//   //   if (menuVisible || searchVisible) {
-//   //     document.body.style.overflow = 'hidden'
-//   //   } else {
-//   //     document.body.style.overflow = 'auto'
-//   //   }
-//   // }, [menuVisible, searchVisible])
-//
-//   return (
-//     <NavigationMenu className="flex sticky top-0 flex-row items-center bg-black lg:hidden backdrop-blur z-[999999]">
-//       {(searchVisible || menuVisible) && (
-//         <div className="fixed inset-0 z-50 bg-opacity-50 backdrop-blur-none" />
-//       )}
-//
-//       <div
-//         className={cn(
-//           'flex relative flex-row items-center p-4 w-full',
-//           menuVisible && 'items-start bg-base-blue h-screen'
-//         )}>
-//         {pages.length > 0 && (
-//           <button onClick={toggleMenu} className="z-50">
-//             {!menuVisible ? (
-//               <Menu
-//                 size={30}
-//                 strokeWidth={2}
-//                 className="text-white text-muted-foreground"
-//               />
-//             ) : (
-//               <X size={30} strokeWidth={1} className="text-white" />
-//             )}
-//           </button>
-//         )}
-//         <div className="ml-auto">
-//           {showSearchBar && (
-//             <Link href={'/'}>
-//               <Image
-//                 src={'/base_logo.png'}
-//                 alt="Logo"
-//                 height={30}
-//                 width={30}
-//                 className="h-full aspect-square"
-//               />
-//             </Link>
-//           )}
-//         </div>
-//         {menuVisible && <NavbarLayout pages={pages} />}
-//       </div>
-//     </NavigationMenu>
-//   )
-// }
-//
-const DesktopNavBar = async ({
+const MobileNavBar = async ({
   pages,
   tab,
+  sessionId,
+  showSearchBar,
 }: {
   pages: Page[]
   tab?: string | null
+  sessionId?: string
+  showSearchBar: boolean
+}) => {
+  const menuVisible = tab !== eTab.none
+  console.log(tab)
+
+  return (
+    <NavigationMenu className="flex sticky top-0 flex-row items-center bg-black lg:hidden backdrop-blur z-[999999]">
+      <div
+        className={cn(
+          'flex relative flex-row items-center p-4 w-full',
+          menuVisible && 'items-start bg-base-blue h-screen'
+        )}>
+        {pages.length > 0 && <MenuVisibleButton />}
+        <div className="ml-auto">
+          <Link href={'/'}>
+            <Image
+              src={'/base_logo.png'}
+              alt="Logo"
+              height={30}
+              width={30}
+              className="h-full aspect-square"
+            />
+          </Link>
+        </div>
+        {menuVisible && <NavbarLayout pages={pages} />}
+      </div>
+    </NavigationMenu>
+  )
+}
+
+const DesktopNavBar = async ({
+  pages,
+  tab,
+  sessionId,
+}: {
+  pages: Page[]
+  tab?: string | null
+  sessionId?: string
 }) => {
   const showSidebar = tab !== eTab.none
 
@@ -119,7 +112,9 @@ const DesktopNavBar = async ({
             <div className="p-2">
               <NavbarLayout pages={pages} />
               {tab === eTab.collections && <AllCollections />}
-              {tab === eTab.about && <AboutVideo />}
+              {tab === eTab.about && (
+                <AboutVideo sessionId={sessionId || ''} />
+              )}
             </div>
           </aside>
           <div className="absolute top-0 left-[calc(50%)] p-2 pb-4 h-full z-30 flex flex-col items-center">
