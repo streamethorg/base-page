@@ -10,7 +10,7 @@ import { INftCollection } from './interfaces/nft.collection.interface'
 
 export enum eTab {
   none = 'none',
-  home = 'home',
+  main = 'main',
   about = 'about',
   collections = 'collections',
   videos = 'videos',
@@ -159,7 +159,7 @@ export interface IExtendedStage
   __v?: string
 }
 export interface IExtendedSpeaker
-  extends Omit<ISpeaker, 'organizationId'> {}
+  extends Omit<ISpeaker, 'organizationId'> { }
 export interface IExtendedUser extends Omit<IUser, 'organizations'> {
   organizations: IExtendedOrganization[]
 }

@@ -15,17 +15,17 @@ import HomePageNavbar from '@/components/Layout/HomePageNavbar'
 
 const pages: Page[] = [
   {
-    name: 'Home',
-    href: 'home',
+    name: 'MAIN',
+    href: 'main',
     bgColor: 'bg-muted',
   },
   {
-    name: 'Collections',
+    name: 'COLLECTIONS',
     href: 'collections',
     bgColor: 'bg-muted',
   },
   {
-    name: 'Browse all videos',
+    name: 'ALL VIDEOS',
     href: 'videos',
     bgColor: 'bg-muted',
   },

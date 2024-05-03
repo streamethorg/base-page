@@ -16,7 +16,7 @@ const ConnectButtonNav = ({
     <>
       <button
         onClick={() =>
-          handleTermChange([{ key: 'tab', value: eTab.home }])
+          handleTermChange([{ key: 'tab', value: eTab.main }])
         }
         className={` absolute top-4 left-4 z-30 ${showSidebar ? 'hidden' : 'block'}`}>
         <Menu strokeWidth={1} size={40} className="text-white" />

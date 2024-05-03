@@ -14,6 +14,7 @@ import Link from 'next/link'
 import { cn } from '@/lib/utils'
 import MenuVisibleButton from './Navbar/MenuVisibleButton'
 import { Suspense } from 'react'
+import MainContent from '@/app/(home)/components/main/MainContent'
 
 const HomePageNavbar = async ({
   pages,
@@ -86,8 +87,13 @@ const MobileNavBar = async ({
         </div>
         {showSidebar && (
           <>
-            <NavbarLayout pages={pages} />
-            <div className="absolute top-0">
+            <div className="absolute top-0 w-full mt-[62px]">
+              <NavbarLayout pages={pages} />
+              {tab === eTab.main && (
+                <Suspense fallback={<div>Loading...</div>}>
+                  <MainContent />
+                </Suspense>
+              )}
               {tab === eTab.about && (
                 <Suspense fallback={<div>Loading...</div>}>
                   <AboutVideo sessionId={sessionId || ''} />
