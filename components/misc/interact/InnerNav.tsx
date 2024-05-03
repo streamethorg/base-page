@@ -7,13 +7,11 @@ import { Separator } from '@/components/ui/separator'
 import useSearchParams from '@/lib/hooks/useSearchParams'
 import React from 'react'
 
-const menuItems = [
-  { key: 'about', label: 'ABOUT' },
-  { key: 'items', label: 'ITEMS' },
-  { key: 'share', label: 'SHARE' },
-]
-
-const CollectionNav = () => {
+const InnerNav = ({
+  menuItems,
+}: {
+  menuItems: { key: string; label: string }[]
+}) => {
   const { handleTermChange } = useSearchParams()
   return (
     <NavigationMenu>
@@ -38,4 +36,4 @@ const CollectionNav = () => {
   )
 }
 
-export default CollectionNav
+export default InnerNav

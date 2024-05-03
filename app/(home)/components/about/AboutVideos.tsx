@@ -4,14 +4,9 @@ import { formatDate } from '@/lib/utils/time'
 import Image from 'next/image'
 import { apiUrl } from '@/lib/utils/utils'
 import React from 'react'
-import {
-  NavigationMenu,
-  NavigationMenuItem,
-  navigationMenuTriggerStyle,
-} from '@/components/ui/navigation-menu'
 
-import { Separator } from '@/components/ui/separator'
 import { Dot } from 'lucide-react'
+import InnerNav from '@/components/misc/interact/InnerNav'
 
 const menuItems = [
   { key: 'about', label: 'ABOUT' },
@@ -19,11 +14,17 @@ const menuItems = [
   { key: 'share', label: 'SHARE' },
 ]
 
-const AboutVideo = async ({ sessionId }: { sessionId: string }) => {
+const AboutVideo = async ({
+  sessionId,
+  searchParams,
+}: {
+  sessionId?: string
+  searchParams: any
+}) => {
   const response = await fetch(`${apiUrl()}/sessions/${sessionId}`)
   const data = await response.json()
   const session = data.data
-
+  const selectedItem = searchParams.m
   if (!session) return <div>Loading...</div>
 
   return (
@@ -48,19 +49,8 @@ const AboutVideo = async ({ sessionId }: { sessionId: string }) => {
           objectFit="cover"
         />
       </div>
-      <NavigationMenu>
-        <ul className="flex flex-col justify-start items-start space-y-2 w-full text-gray-300">
-          {menuItems.map((item) => (
-            <React.Fragment key={item.key}>
-              <NavigationMenuItem className="border-none transition-all cursor-pointer hover:text-white">
-                {item.label}
-              </NavigationMenuItem>
-              <Separator className="bg-gray-300 transition-all hover:text-white" />
-            </React.Fragment>
-          ))}
-        </ul>
-      </NavigationMenu>
-      <p>{session.description}</p>
+      <InnerNav menuItems={menuItems} />
+      {selectedItem === 'about' && <p>{session.description}</p>}
     </div>
   )
 }

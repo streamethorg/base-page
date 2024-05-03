@@ -6,8 +6,15 @@ import Image from 'next/image'
 import React from 'react'
 import CollectionItem from './CollectionItem'
 import DefaultThumbnail from '@/lib/svg/DefaultThumbnail'
-import CollectionNav from './CollectionNav'
+
 import ShareButton from '@/components/misc/interact/ShareButton'
+import InnerNav from '../../../components/misc/interact/InnerNav'
+
+const menuItems = [
+  { key: 'about', label: 'ABOUT' },
+  { key: 'items', label: 'ITEMS' },
+  { key: 'share', label: 'SHARE' },
+]
 
 const AboutCollection = async ({
   searchParams,
@@ -46,7 +53,7 @@ const AboutCollection = async ({
           <DefaultThumbnail />
         )}
       </div>
-      <CollectionNav />
+      <InnerNav menuItems={menuItems} />
 
       {selectedItem === 'about' && <p>{collection.description}</p>}
 
