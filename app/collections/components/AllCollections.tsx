@@ -29,24 +29,22 @@ const AllCollections = async () => {
     <div>
       <div className="hidden grid-cols-1 gap-4 px-6 mt-8 md:grid">
         {collections.map((collection) => (
-          <div
+          <Link
+            href={`/?tab=collection&collectionId=${collection._id}`}
             key={collection._id}
             className="w-full min-h-full uppercase rounded-xl flex flex-col">
-            <Link className="w-full h-full" href={'#'}>
-              <Thumbnail imageUrl={collection.thumbnail} />
-            </Link>
+            <Thumbnail imageUrl={collection.thumbnail} />
+
             <div className="absolute flex justify-between items-start">
               <CardHeader
                 className={`rounded p-1 mt-1 lg:p-2 shadow-none lg:shadow-none `}>
-                <Link href={'link'}>
-                  <CardTitle
-                    className={`uppercase line-clamp-2 overflow-hidden text-white  hover:underline `}>
-                    {collection?.name}
-                  </CardTitle>
-                </Link>
+                <CardTitle
+                  className={`uppercase line-clamp-2 overflow-hidden text-white  hover:underline `}>
+                  {collection?.name}
+                </CardTitle>
               </CardHeader>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>

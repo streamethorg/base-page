@@ -133,7 +133,7 @@ const CollectVideButton = ({
         <Button
           loading={isMintingNftPending || IsSwitchingChain}
           onClick={mintCollection}
-          variant={variant}
+          variant="primary"
           className="w-full md:w-36">
           {all ? 'Collect All Videos' : 'Collect Video'}
         </Button>

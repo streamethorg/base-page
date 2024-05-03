@@ -7,7 +7,9 @@ import React from 'react'
 import {
   NavigationMenu,
   NavigationMenuItem,
+  navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu'
+
 import { Separator } from '@/components/ui/separator'
 import { Dot } from 'lucide-react'
 

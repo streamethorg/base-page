@@ -14,6 +14,7 @@ export enum eTab {
   about = 'about',
   collections = 'collections',
   videos = 'videos',
+  collection = 'collection',
 }
 
 export enum eSort {
