@@ -31,14 +31,14 @@ const pages: Page[] = [
   },
 ]
 
-const watchList = [
-  {
-    name: 'Really good video',
-    playbackId: '8204euokn8bf6vai',
-    downloadUrl:
-      'https://vod-cdn.lp-playback.studio/raw/jxf4iblf6wlsyor6526t4tcmtmqa/catalyst-vod-com/hls/8204euokn8bf6vai/1080p0.mp4',
-  },
-]
+// const watchList = [
+//   {
+//     name: 'Really good video',
+//     playbackId: '8204euokn8bf6vai',
+//     downloadUrl:
+//       'https://vod-cdn.lp-playback.studio/raw/jxf4iblf6wlsyor6526t4tcmtmqa/catalyst-vod-com/hls/8204euokn8bf6vai/1080p0.mp4',
+//   },
+// ]
 
 const Home = async ({ params, searchParams }: ChannelPageParams) => {
   const organization = await fetchOrganization({
@@ -50,7 +50,7 @@ const Home = async ({ params, searchParams }: ChannelPageParams) => {
   }
 
   const getVideoUrl = () => {
-    return `https://vod-cdn.lp-playback.studio/raw/jxf4iblf6wlsyor6526t4tcmtmqa/catalyst-vod-com/hls/${watchList[0].playbackId}/index.m3u8`
+    return `https://vod-cdn.lp-playback.studio/raw/jxf4iblf6wlsyor6526t4tcmtmqa/catalyst-vod-com/hls/${sessions[0].playbackId}/index.m3u8`
   }
 
   const allStreams = (
