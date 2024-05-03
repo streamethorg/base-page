@@ -41,11 +41,7 @@ export default function RootLayout({
                     <Analytics />
                     <main
                       className={`${inter.variable} flex flex-col w-full min-h-screen mx-auto bg-background `}>
-                      <div className="flex flex-col mx-auto w-full min-h-[100vh]">
-                        <div className="flex-grow w-full h-full">
-                          {children}
-                        </div>
-                      </div>
+                      {children}
                     </main>
                   </TopNavbarContextProvider>
                 </ModalContextProvider>
