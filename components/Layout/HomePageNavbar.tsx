@@ -77,6 +77,7 @@ const MobileNavBar = ({
           'flex relative flex-row items-center p-4 w-full',
           menuVisible && 'items-start bg-[#0052FF] h-screen'
         )}>
+<<<<<<< Updated upstream
         {pages.length > 0 && (
           <button onClick={toggleMenu} className="z-50">
             {!menuVisible ? (
@@ -89,6 +90,57 @@ const MobileNavBar = ({
               <X size={30} strokeWidth={1} className="text-white" />
             )}
           </button>
+||||||| Stash base
+        {pages.length > 0 && <MenuVisibleButton />}
+        <div className="ml-auto">
+          <Link href={'/'}>
+            <Image
+              src={'/base_logo.png'}
+              alt="Logo"
+              height={30}
+              width={30}
+              className="h-full aspect-square"
+            />
+          </Link>
+        </div>
+        {menuVisible && (
+          <>
+            <NavbarLayout pages={pages} />
+            <div className="absolute top-0">
+              {tab === eTab.about && (
+                <Suspense fallback={<div>Loading...</div>}>
+                  <AboutVideo sessionId={sessionId || ''} />
+                </Suspense>
+              )}
+            </div>
+          </>
+=======
+        {pages.length > 0 && <MenuVisibleButton />}
+        <div className="ml-auto">
+          <Link href={'/'}>
+            <Image
+              src={'/base_logo.png'}
+              alt="Logo"
+              height={30}
+              width={30}
+              className="h-full aspect-square"
+            />
+          </Link>
+        </div>
+        {menuVisible && (
+          <>
+            <NavbarLayout pages={pages} />
+            {/* Need to look into this*/}
+            <div className="absolute top-0">
+              {tab === eTab.collections && <AllCollections />}
+              {tab === eTab.about && (
+                <Suspense fallback={<div>Loading...</div>}>
+                  <AboutVideo sessionId={sessionId || ''} />
+                </Suspense>
+              )}
+            </div>
+          </>
+>>>>>>> Stashed changes
         )}
         <div className="ml-auto">
           {showSearchBar && (
