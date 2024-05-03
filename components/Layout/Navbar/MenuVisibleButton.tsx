@@ -10,11 +10,11 @@ const MenuVisibleButton = () => {
 
   const toggleMenu = () => {
     if (!menuVisible) {
-      handleTermChange([{ key: 'tab', value: 'home' }])
+      handleTermChange([{ key: 'tab', value: eTab.home }])
       return
     }
 
-    handleTermChange([{ key: 'tab', value: 'none' }])
+    handleTermChange([{ key: 'tab', value: eTab.none }])
   }
 
   return (

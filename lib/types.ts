@@ -210,8 +210,8 @@ export interface ChannelPageParams {
   }
   searchParams: {
     tab?: string
+    session?: string
     search: string
-    id: string
     streamId: string
   }
 }

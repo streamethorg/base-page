@@ -1,7 +1,7 @@
 'use server'
 
 import { NavigationMenu } from '@/components/ui/navigation-menu'
-import { Page, eTab } from '@/lib/types'
+import { ChannelPageParams, Page, eTab } from '@/lib/types'
 import { IExtendedOrganization } from '@/lib/types'
 import NavbarLayout from './NavbarLayout'
 import BaseLogo from '@/lib/svg/BaseLogo'
@@ -13,6 +13,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
 import MenuVisibleButton from './Navbar/MenuVisibleButton'
+import { Suspense } from 'react'
 
 const HomePageNavbar = async ({
   pages,
@@ -24,12 +25,11 @@ const HomePageNavbar = async ({
   showLogo?: boolean
   showSearchBar?: boolean
   organizations?: IExtendedOrganization[]
-  searchParams: any
+  searchParams: ChannelPageParams['searchParams']
   currentOrganization?: string
 }) => {
   const tab = searchParams.tab
-  // TODO: Change type of searchParams
-  const sessionId = searchParams.session as string | undefined
+  const sessionId = searchParams.session
 
   return (
     <>
@@ -64,7 +64,6 @@ const MobileNavBar = async ({
   showSearchBar: boolean
 }) => {
   const menuVisible = tab !== eTab.none
-  console.log(tab)
 
   return (
     <NavigationMenu className="flex sticky top-0 flex-row items-center bg-black lg:hidden backdrop-blur z-[999999]">
@@ -113,7 +112,9 @@ const DesktopNavBar = async ({
               <NavbarLayout pages={pages} />
               {tab === eTab.collections && <AllCollections />}
               {tab === eTab.about && (
-                <AboutVideo sessionId={sessionId || ''} />
+                <Suspense fallback={<div>Loading...</div>}>
+                  <AboutVideo sessionId={sessionId || ''} />
+                </Suspense>
               )}
             </div>
           </aside>
