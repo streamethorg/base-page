@@ -6,13 +6,7 @@ import { apiUrl } from '@/lib/utils/utils'
 import { Dot } from 'lucide-react'
 import AboutInfo from './AboutInfo'
 
-const AboutVideo = async ({
-  sessionId,
-  searchParams,
-}: {
-  sessionId?: string
-  searchParams: any
-}) => {
+const AboutVideo = async ({ sessionId }: { sessionId?: string }) => {
   const response = await fetch(`${apiUrl()}/sessions/${sessionId}`)
   const data = await response.json()
   const session = data.data
