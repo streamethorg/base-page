@@ -16,7 +16,10 @@ export const ConnectWalletButton = ({
     <ConnectKitButton.Custom>
       {({ isConnected, show, truncatedAddress, ensName }) => {
         return (
-          <Button onClick={show} className={className}>
+          <Button
+            variant={'primary'}
+            onClick={show}
+            className={className}>
             {isConnected && !isSignedIn
               ? 'Sign In'
               : isConnected

@@ -1,5 +1,6 @@
-'use server'
-
+import React, { Suspense } from 'react'
+import Image from 'next/image'
+import Link from 'next/link'
 import { NavigationMenu } from '@/components/ui/navigation-menu'
 import { ChannelPageParams, Page, eTab } from '@/lib/types'
 import { IExtendedOrganization } from '@/lib/types'
@@ -35,16 +36,15 @@ const HomePageNavbar = async ({
     <>
       <div className="md:hidden">
         <MobileNavBar
+          searchParams={searchParams}
           pages={pages}
-          tab={tab}
-          sessionId={sessionId}
           showSearchBar={showSearchBar}
         />
       </div>
       <div className="hidden md:block">
         <DesktopNavBar
+          searchParams={searchParams}
           pages={pages}
-          sessionId={sessionId}
           tab={tab}
         />
       </div>
@@ -52,58 +52,81 @@ const HomePageNavbar = async ({
   )
 }
 
-const MobileNavBar = async ({
+const MobileNavBar = ({
   pages,
-  tab,
-  sessionId,
   showSearchBar,
+  searchParams,
 }: {
   pages: Page[]
-  tab?: string | null
-  sessionId?: string
   showSearchBar: boolean
+  searchParams: any
 }) => {
   const menuVisible = tab !== eTab.none
 
   return (
     <NavigationMenu className="flex sticky top-0 flex-row items-center bg-black lg:hidden backdrop-blur z-[999999]">
+      {/* {( menuVisible) && (
+        <div className="fixed inset-0 z-50 bg-opacity-50 backdrop-blur-none" />
+      )}
+
       <div
         className={cn(
           'flex relative flex-row items-center p-4 w-full',
-          menuVisible && 'items-start bg-base-blue h-screen'
+          menuVisible && 'items-start bg-[#0052FF] h-screen'
         )}>
-        {pages.length > 0 && <MenuVisibleButton />}
+        {pages.length > 0 && (
+          <button onClick={toggleMenu} className="z-50">
+            {!menuVisible ? (
+              <Menu
+                size={30}
+                strokeWidth={2}
+                className="text-white text-muted-foreground"
+              />
+            ) : (
+              <X size={30} strokeWidth={1} className="text-white" />
+            )}
+          </button>
+        )}
         <div className="ml-auto">
-          <Link href={'/'}>
-            <Image
-              src={'/base_logo.png'}
-              alt="Logo"
-              height={30}
-              width={30}
-              className="h-full aspect-square"
-            />
-          </Link>
+          {showSearchBar && (
+            <Link href={'/'}>
+              <Image
+                src={'/base_logo.png'}
+                alt="Logo"
+                height={30}
+                width={30}
+                className="h-full aspect-square"
+              />
+            </Link>
+          )}
         </div>
         {menuVisible && <NavbarLayout pages={pages} />}
-      </div>
+      </div> */}
     </NavigationMenu>
   )
 }
 
-const DesktopNavBar = async ({
+const DesktopNavBar = ({
   pages,
   tab,
-  sessionId,
+  searchParams,
 }: {
   pages: Page[]
   tab?: string | null
-  sessionId?: string
+  searchParams: any
 }) => {
-  const showSidebar = tab !== eTab.none
+  const showSidebar = tab !== eTab.none && tab !== null
 
   return (
     <NavigationMenu className="relative h-full">
-      <ConnectButtonNav showSidebar={showSidebar} />
+      <button
+        // onClick={() =>
+        //   handleTermChange([{ key: 'tab', value: eTab.home }])
+        // }
+        className={` absolute top-4 left-4 z-30 ${showSidebar ? 'hidden' : 'block'}`}>
+        <Menu strokeWidth={1} size={40} className="text-white" />
+      </button>
+      <ConnectWalletButton className="absolute right-0 top-4 z-30 mr-4 uppercase bg-transparent rounded-none border border-white end-0" />
 
       {showSidebar && (
         <>
@@ -116,10 +139,18 @@ const DesktopNavBar = async ({
                   <AboutVideo sessionId={sessionId || ''} />
                 </Suspense>
               )}
+              {tab === eTab.collections && <AllCollections />}
+              {/* {tab === eTab.about && <AboutVideo />} */}
             </div>
           </aside>
           <div className="absolute top-0 left-[calc(50%)] p-2 pb-4 h-full z-30 flex flex-col items-center">
-            <CloseNavigation />
+            <button
+              // onClick={() =>
+              //   handleTermChange([{ key: 'tab', value: eTab.none }])
+              // }
+              className="z-30">
+              <X size={45} strokeWidth={1} className="text-white" />
+            </button>
             <div className="flex-grow" />
             <BaseLogo height={'5%'} />
           </div>
