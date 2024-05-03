@@ -56,14 +56,8 @@ export default function NavbarLayout({
         <NavigationMenuItem
           key={'connect-mobile'}
           className="md:hidden">
-          <ConnectWalletButton className="flex justify-start p-0 w-full text-gray-300 rounded-none" />
+          <ConnectWalletButton className="flex justify-start p-0 w-full text-gray-300 rounded-none border-none" />
         </NavigationMenuItem>
-
-        {/* Placeholder... */}
-        <div className="grid grid-cols-1 gap-4 mt-8 md:hidden">
-          <div className="bg-blue-500 animate-pulse w-[350px] aspect-video" />
-          <div className="bg-red-500 animate-pulse aspect-video w-[350px]" />
-        </div>
       </ul>
     </div>
   )

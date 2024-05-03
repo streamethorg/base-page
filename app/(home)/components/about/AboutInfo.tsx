@@ -48,7 +48,7 @@ const AboutInfo = ({ session }: { session: IExtendedSession }) => {
       {currentSection === 'about' && (
         <>
           <p>{session.description}</p>
-          <div className="space-x-2">
+          <div className="space-y-2 space-x-2">
             {session.speakers?.map((speaker) => (
               <SpeakerIcon
                 key={speaker._id?.toString()}

@@ -66,7 +66,7 @@ const MobileNavBar = async ({
   const menuVisible = tab !== eTab.none
 
   return (
-    <NavigationMenu className="flex sticky top-0 flex-row items-center bg-black lg:hidden backdrop-blur z-[999999]">
+    <NavigationMenu className="flex sticky top-0 flex-row items-center bg-black md:hidden backdrop-blur z-[999999]">
       <div
         className={cn(
           'flex relative flex-row items-center p-4 w-full',
@@ -84,7 +84,18 @@ const MobileNavBar = async ({
             />
           </Link>
         </div>
-        {menuVisible && <NavbarLayout pages={pages} />}
+        {menuVisible && (
+          <>
+            <NavbarLayout pages={pages} />
+            <div className="absolute top-0">
+              {tab === eTab.about && (
+                <Suspense fallback={<div>Loading...</div>}>
+                  <AboutVideo sessionId={sessionId || ''} />
+                </Suspense>
+              )}
+            </div>
+          </>
+        )}
       </div>
     </NavigationMenu>
   )
