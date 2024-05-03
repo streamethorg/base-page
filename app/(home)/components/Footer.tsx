@@ -11,7 +11,7 @@ const Footer = ({ session }: { session: IExtendedSession }) => {
     handleTermChange([
       {
         key: 'tab',
-        value: `${eTab.about}&m=about`,
+        value: eTab.about,
       },
       {
         key: 'session',
