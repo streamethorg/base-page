@@ -16,12 +16,15 @@ import * as Player from '@livepeer/react/player'
 import * as Popover from '@radix-ui/react-popover'
 import { ClipPayload } from 'livepeer/dist/models/components'
 import { CheckIcon, ChevronDownIcon, XIcon } from 'lucide-react'
-import React, { useCallback, useTransition } from 'react'
+import React, { useCallback, useEffect, useTransition } from 'react'
 import { toast } from 'sonner'
 
 import { Src } from '@livepeer/react'
 
 export function PlayerWithControls(props: { src: Src[] | null }) {
+  // useEffect(() => {
+  //   window.location.reload()
+  // }, [props.src])
   if (!props.src || !props.src?.[0].src) {
     return (
       <PlayerLoading
