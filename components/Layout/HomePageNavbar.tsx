@@ -5,7 +5,7 @@ import { ChannelPageParams, Page, eTab } from '@/lib/types'
 import { IExtendedOrganization } from '@/lib/types'
 import NavbarLayout from './NavbarLayout'
 import BaseLogo from '@/lib/svg/BaseLogo'
-import AllCollections from '@/app/collections/components/AllCollections'
+import AllCollections from '@/app/(home)/components/collections/AllCollections'
 import AboutVideo from '@/app/(home)/components/about/AboutVideos'
 import ConnectButtonNav from './Navbar/ConnectButtonNav'
 import CloseNavigation from './Navbar/XButton'
@@ -15,6 +15,7 @@ import { cn } from '@/lib/utils'
 import MenuVisibleButton from './Navbar/MenuVisibleButton'
 import { Suspense } from 'react'
 import MainContent from '@/app/(home)/components/main/MainContent'
+import AllVideos from '@/app/(home)/components/videos/AllVideos'
 
 const HomePageNavbar = async ({
   pages,
@@ -67,28 +68,29 @@ const MobileNavBar = async ({
   const showSidebar = tab !== eTab.none && tab !== null
 
   return (
-    <NavigationMenu className="flex sticky top-0 flex-row items-center bg-black md:hidden backdrop-blur z-[999999]">
+    <NavigationMenu className="flex  sticky top-0 flex-row items-center bg-black md:hidden backdrop-blur z-[999999]">
       <div
         className={cn(
-          'flex relative flex-row items-center p-4 w-full',
+          'flex relative flex-col items-center p-4 w-full',
           showSidebar && 'items-start bg-base-blue h-screen'
         )}>
-        {pages.length > 0 && <MenuVisibleButton />}
-        <div className="ml-auto">
-          <Link href={'/'}>
-            <Image
-              src={'/base_logo.png'}
-              alt="Logo"
-              height={30}
-              width={30}
-              className="h-full aspect-square"
-            />
-          </Link>
+        <div className="flex w-full">
+          {pages.length > 0 && <MenuVisibleButton />}
+          <div className="ml-auto">
+            <Link href={'/'}>
+              <Image
+                src={'/base_logo.png'}
+                alt="Logo"
+                height={30}
+                width={30}
+                className="h-full aspect-square"
+              />
+            </Link>
+          </div>
         </div>
         {showSidebar && (
-          <>
-            <div className="absolute top-0 w-full mt-[62px]">
-              <NavbarLayout pages={pages} />
+          <div className="flex flex-grow flex-col w-full">             
+          <NavbarLayout pages={pages} />
               {tab === eTab.main && (
                 <Suspense fallback={<div>Loading...</div>}>
                   <MainContent />
@@ -100,7 +102,6 @@ const MobileNavBar = async ({
                 </Suspense>
               )}
             </div>
-          </>
         )}
       </div>
     </NavigationMenu>
@@ -127,6 +128,7 @@ const DesktopNavBar = async ({
           <aside className="absolute w-[50%] bg-base-blue overflow-auto h-full z-20 left-0 top-0">
             <div className="p-2">
               <NavbarLayout pages={pages} />
+              {tab === eTab.videos && <AllVideos />}
               {tab === eTab.collections && <AllCollections />}
               {tab === eTab.about && (
                 <Suspense fallback={<div>Loading...</div>}>
