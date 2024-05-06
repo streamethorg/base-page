@@ -7,7 +7,7 @@ import React from 'react'
 import CollectionItem from './CollectionItem'
 import DefaultThumbnail from '@/lib/svg/DefaultThumbnail'
 import ShareButton from '@/components/misc/interact/ShareButton'
-import InnerNav from '../../../../components/misc/interact/InnerNav'
+import InnerNav from '@/components/misc/interact/InnerNav'
 
 const menuItems = [
   { key: 'about', label: 'ABOUT' },

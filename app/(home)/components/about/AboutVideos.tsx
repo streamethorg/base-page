@@ -2,21 +2,22 @@
 
 import { formatDate } from '@/lib/utils/time'
 import Image from 'next/image'
-import { apiUrl } from '@/lib/utils/utils'
-import { Dot } from 'lucide-react'
+import { ArrowLeftFromLine, Dot } from 'lucide-react'
 import AboutInfo from './AboutInfo'
+import { fetchSession } from '@/lib/services/sessionService'
+import VideoName from './VideoName'
+import BackButton from './BackButton'
 
 const AboutVideo = async ({ sessionId }: { sessionId?: string }) => {
-  const response = await fetch(`${apiUrl()}/sessions/${sessionId}`)
-  const data = await response.json()
-  const session = data.data
+  const session = await fetchSession({ session: sessionId || '' })
+
+  if (!session) return null
+
   return (
-    <div className="mr-4 space-y-4 mt-[50%] text-white md:m-6">
+    <div className="mt-2 space-y-4 text-white md:m-2 md:mt-4">
       <div className="relative w-full aspect-video">
         <div className="flex absolute top-0 left-0 z-10 flex-col p-3 w-full h-full bg-black bg-opacity-50">
-          <h2 className="text-xl font-bold md:text-2xl">
-            {session.name}
-          </h2>
+          <VideoName session={session} />
           <div className="flex">
             <Dot />
             <p>
@@ -36,6 +37,8 @@ const AboutVideo = async ({ sessionId }: { sessionId?: string }) => {
         />
       </div>
       <AboutInfo session={session} />
+
+      <BackButton />
     </div>
   )
 }

@@ -12,24 +12,67 @@ import { fetchAllSessions } from '@/lib/data'
 import { organizationSlug } from '@/lib/utils'
 import Footer from './components/Footer'
 import HomePageNavbar from '@/components/Layout/HomePageNavbar'
+import { IExtendedSession } from '@/lib/types'
+import { fetchSession } from '@/lib/services/sessionService'
 
 const pages: Page[] = [
   {
-    name: 'Home',
-    href: 'home',
+    name: 'MAIN',
+    href: 'main',
     bgColor: 'bg-muted',
   },
   {
-    name: 'Collections',
+    name: 'COLLECTIONS',
     href: 'collections',
     bgColor: 'bg-muted',
   },
   {
-    name: 'Browse all videos',
+    name: 'ALL VIDEOS',
     href: 'videos',
     bgColor: 'bg-muted',
   },
 ]
+
+const getVideoUrl = (session: IExtendedSession) => {
+  let playbackId = ''
+
+  if (!session) {
+    return ''
+  }
+
+  playbackId = session.playbackId ?? ''
+
+  return playbackId
+    ? `https://vod-cdn.lp-playback.studio/raw/jxf4iblf6wlsyor6526t4tcmtmqa/catalyst-vod-com/hls/${playbackId}/index.m3u8`
+    : 'No playback ID available'
+}
+
+const loadSessions = async ({
+  session,
+  organizationSlug,
+}: {
+  session?: string
+  organizationSlug?: string
+}) => {
+  let sessions: IExtendedSession[] = []
+
+  if (session) {
+    const newSession = await fetchSession({ session })
+
+    if (newSession) {
+      sessions.push(newSession)
+      return sessions
+    }
+  }
+
+  const fetchedSessions = await fetchAllSessions({
+    organizationSlug: organizationSlug || '',
+    onlyVideos: true,
+    limit: 1,
+  })
+
+  return fetchedSessions.sessions
+}
 
 const Home = async ({ params, searchParams }: ChannelPageParams) => {
   const organization = await fetchOrganization({
@@ -38,10 +81,6 @@ const Home = async ({ params, searchParams }: ChannelPageParams) => {
 
   if (!organization) {
     return NotFound()
-  }
-
-  const getVideoUrl = () => {
-    return `https://vod-cdn.lp-playback.studio/raw/jxf4iblf6wlsyor6526t4tcmtmqa/catalyst-vod-com/hls/${sessions[0].playbackId}/index.m3u8`
   }
 
   const allStreams = (
@@ -59,19 +98,17 @@ const Home = async ({ params, searchParams }: ChannelPageParams) => {
     (stream) => stream?.streamSettings?.isActive
   )
 
-  const playerActive = !!activeStream[0] || !!nextStreamNotToday[0]
+  const playerActive =
+    !!activeStream[0] ||
+    (!!nextStreamNotToday[0] && !searchParams.session)
   const stage = activeStream[0]
     ? activeStream[0]
     : nextStreamNotToday[0]
 
-  const sessions = (
-    await fetchAllSessions({
-      organizationSlug,
-      onlyVideos: true,
-      // published: true,
-      limit: 1,
-    })
-  ).sessions
+  const sessions = await loadSessions({
+    session: searchParams.session,
+    organizationSlug: organizationSlug,
+  })
 
   return (
     <div className="flex flex-col mx-auto w-full min-h-[100vh]">
@@ -82,7 +119,7 @@ const Home = async ({ params, searchParams }: ChannelPageParams) => {
       />
 
       <div className="flex-grow w-full h-full">
-        <div className="absolute top-0 flex flex-col justify-center items-center mx-auto w-screen h-screen bg-base-blue">
+        <div className="flex absolute top-0 flex-col justify-center items-center mx-auto w-screen h-screen bg-base-blue">
           {/* w-max should be change */}
           <div className="relative w-full w-max-[1300px]">
             <div className="flex flex-col px-4 w-full h-full md:p-4">
@@ -93,7 +130,9 @@ const Home = async ({ params, searchParams }: ChannelPageParams) => {
                   <PlayerWithControls
                     src={[
                       {
-                        src: getVideoUrl() as `${string}m3u8`,
+                        src: getVideoUrl(
+                          sessions[0]
+                        ) as `${string}m3u8`,
                         width: 1920,
                         height: 1080,
                         mime: 'application/vnd.apple.mpegurl',
@@ -106,11 +145,18 @@ const Home = async ({ params, searchParams }: ChannelPageParams) => {
             </div>
           </div>
 
-          <Footer session={sessions[0]} />
+          <Footer
+            videoId={playerActive ? stage._id! : sessions[0]._id!}
+            videoName={playerActive ? stage.name : sessions[0].name}
+          />
 
           <div className="overflow-hidden fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 blur-2xl w-[110vw] h-[110vh]">
             <Image
-              src={sessions[0].coverImage || ''}
+              src={
+                playerActive
+                  ? stage.thumbnail!
+                  : sessions[0].coverImage!
+              }
               quality={10}
               priority
               alt="Video thumbnail"

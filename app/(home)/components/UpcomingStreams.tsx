@@ -11,7 +11,7 @@ const UpcomingStreams = async ({
 }: {
   organizationId: string
   organizationSlug: string
-  currentStreamId: string
+  currentStreamId?: string
 }) => {
   let livestreams = await fetchStages({
     organizationId,
@@ -44,7 +44,7 @@ const UpcomingStreams = async ({
         ))}
       </div>
       {livestreams.length === 0 && (
-        <div className="flex flex-row justify-center items-center p-4 space-x-4 rounded-xl bg-secondary">
+        <div className="flex flex-row justify-center items-center p-4 space-x-4 text-white rounded-xl">
           <Podcast size={20} />
           <p>No scheduled livestreams</p>
         </div>
@@ -55,8 +55,8 @@ const UpcomingStreams = async ({
 
 export const UpcomingStreamsLoading = () => (
   <>
-    <div className="w-1/4 h-6 bg-gray-300 rounded md:hidden"></div>
-    <div className="grid grid-rows-3 gap-4 m-5 md:hidden md:grid-cols-3 md:m-0">
+    <div className="w-1/4 h-6 rounded animate-pulse md:hidden bg-secondary-foreground"></div>
+    <div className="grid grid-rows-3 gap-4 md:hidden md:grid-cols-3 md:m-0">
       {Array.from({ length: 3 }).map((_, index) => (
         <div key={index} className="block md:hidden">
           <VideoCardSkeletonMobile />

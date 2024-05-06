@@ -29,7 +29,7 @@ const LivestreamCard = ({
   DropdownMenuItems?: React.ReactNode
 }) => {
   return (
-    <div className="flex flex-row space-y-2 w-full min-h-full uppercase rounded-xl md:flex-col">
+    <div className="flex flex-row space-y-2 w-full min-h-full uppercase rounded-md transition-all md:flex-col hover:bg-secondary-foreground">
       <div className="flex-none my-auto w-1/4 md:w-full">
         <Link href={link}>
           <Thumbnail imageUrl={thumbnail} />
@@ -44,7 +44,7 @@ const LivestreamCard = ({
           </Link>
           {showDate && (
             <div className="flex justify-between items-center">
-              <CardDescription className="text-xs truncate">
+              <CardDescription className="text-xs text-white truncate">
                 {formatDate(new Date(date), 'ddd. MMM. D, YYYY')}
               </CardDescription>
             </div>

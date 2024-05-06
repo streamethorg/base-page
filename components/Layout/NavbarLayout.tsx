@@ -29,7 +29,7 @@ export default function NavbarLayout({
     <div className="flex z-50 items-center text-center text-gray-300 border-gray-100 md:relative md:h-full">
       <ul
         onClick={() => isMobile && setIsNavVisible?.(false)}
-        className="flex flex-col w-full uppercase cursor-pointer md:flex-row md:justify-between md:space-x-2 lg:px-2">
+        className="flex flex-col w-full uppercase cursor-pointer md:flex-row md:justify-between md:px-2 md:space-x-2">
         {pages?.map((item, index) => (
           <>
             <NavigationMenuItem key={index}>
@@ -56,7 +56,10 @@ export default function NavbarLayout({
         <NavigationMenuItem
           key={'connect-mobile'}
           className="md:hidden">
-          <ConnectWalletButton className="flex justify-start p-0 w-full text-gray-300 rounded-none border-none" />
+          <ConnectWalletButton
+            btnText="LOGIN"
+            className="flex justify-start p-0 w-full text-gray-300 rounded-none border-none"
+          />
         </NavigationMenuItem>
       </ul>
     </div>

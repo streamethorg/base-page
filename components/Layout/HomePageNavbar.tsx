@@ -14,6 +14,7 @@ import Link from 'next/link'
 import { cn } from '@/lib/utils'
 import MenuVisibleButton from './Navbar/MenuVisibleButton'
 import { Suspense } from 'react'
+import MainContent from '@/app/(home)/components/main/MainContent'
 import AllVideos from '@/app/(home)/components/videos/AllVideos'
 import AboutCollection from '@/app/(home)/components/collections/AboutCollection'
 import { ConnectWalletButton } from '../misc/ConnectWalletButton'
@@ -77,7 +78,8 @@ const MobileNavBar = async ({
       <div
         className={cn(
           'flex relative flex-col items-center p-4 w-full',
-          showSidebar && 'items-start bg-base-blue h-screen'
+          showSidebar &&
+            'items-start bg-base-blue overflow-auto h-screen'
         )}>
         <div className="flex w-full">
           {pages.length > 0 && <MenuVisibleButton />}
@@ -94,20 +96,17 @@ const MobileNavBar = async ({
           </div>
         </div>
         {showSidebar && (
-          <div className="flex flex-grow flex-col w-full">
+          <div className="flex flex-col flex-grow mt-2 w-full">
             <NavbarLayout pages={pages} />
-            {tab === eTab.collections && <AllCollections />}
+            {tab === eTab.main && <MainContent />}
             {tab === eTab.collection && (
               <AboutCollection searchParams={searchParams} />
             )}
-
             {tab === eTab.videos && (
               <AllVideos page={searchParams?.page} />
             )}
             {tab === eTab.about && (
-              <Suspense fallback={<div>Loading...</div>}>
-                <AboutVideo sessionId={sessionId || ''} />
-              </Suspense>
+              <AboutVideo sessionId={sessionId || ''} />
             )}
           </div>
         )}
@@ -146,17 +145,16 @@ const DesktopNavBar = async ({
               )}
 
               {tab === eTab.collections && <AllCollections />}
+              {tab === eTab.main && <MainContent />}
               {tab === eTab.about && (
-                <Suspense fallback={<div>Loading...</div>}>
-                  <AboutVideo sessionId={sessionId || ''} />
-                </Suspense>
+                <AboutVideo sessionId={sessionId || ''} />
               )}
             </div>
           </aside>
-          <div className="backdrop-blur-sm  w-1/2 p-2 pb-4 h-full z-30 flex flex-col justify-between items-start">
-            <div className="flex items-center justify-between w-full">
+          <div className="flex z-30 flex-col justify-between items-start p-2 pb-4 w-1/2 h-full backdrop-blur-sm">
+            <div className="flex justify-between items-center w-full">
               <CloseNavigation />
-              <ConnectWalletButton className="z-30 uppercase bg-transparent rounded-none border border-white" />
+              <ConnectWalletButton className="z-30 m-2 uppercase bg-transparent rounded-none border border-white" />
             </div>
             <div />
             <BaseLogo height={'5%'} />

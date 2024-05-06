@@ -42,16 +42,16 @@ const CollectionItem = async ({
   if (!collection) return null
 
   const link = `/${
-    video.type === 'video' ? 'watch?session' : 'livestream?stage'
+    video.type === 'video' ? 'tabs=none&session' : 'tabs=none&stage'
   }=${session?._id?.toString()}`
   return (
     <div className="w-full relative flex flex-col">
-      <div className="flex z-10 flex-col w-full">
+      <Link href={link} className="flex z-10 flex-col w-full">
         <Thumbnail imageUrl={collectionImage!} />
         <h2 className="text-lg h-full w-full bg-black  bg-opacity-50  line-clamp-2 absolute p-3 font-bold uppercase">
           {collection?.name}
         </h2>
-      </div>
+      </Link>
 
       <div className="mt-3 absolute bottom-0 backdrop-blur-sm right-0 p-4 z-10">
         <CollectVideButton
