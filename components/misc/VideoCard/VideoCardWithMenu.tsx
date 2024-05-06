@@ -21,11 +21,13 @@ import { generateThumbnail } from '@/lib/actions/livepeer'
 const VideoCardWithMenu = async ({
   session,
   showDate = true,
+  showPlayButton = true,
   DropdownMenuItems,
   link,
 }: {
   session: IExtendedSession
   showDate?: boolean
+  showPlayButton?: boolean
   DropdownMenuItems?: ReactNode
   link: string
 }) => {
