@@ -117,7 +117,7 @@ const Home = async ({ params, searchParams }: ChannelPageParams) => {
       />
 
       <div className="flex-grow w-full h-full">
-        <div className="absolute top-0 flex flex-col justify-center items-center mx-auto w-screen h-screen bg-base-blue">
+        <div className="flex absolute top-0 flex-col justify-center items-center mx-auto w-screen h-screen bg-base-blue">
           {/* w-max should be change */}
           <div className="relative w-full w-max-[1300px]">
             <div className="flex flex-col px-4 w-full h-full md:p-4">

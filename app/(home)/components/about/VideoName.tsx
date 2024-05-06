@@ -15,6 +15,7 @@ const VideoName = ({ session }: { session: IExtendedSession }) => {
       { key: 'tab', value: eTab.none },
     ])
 
+    // TODO: Find a way to re-render the Player
     location.reload()
   }
 
