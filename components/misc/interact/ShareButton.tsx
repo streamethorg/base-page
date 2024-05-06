@@ -38,7 +38,7 @@ export const ShareModalContent = ({
   url?: string
   shareFor?: string
 }) => {
-  const text = `Check out this ${shareFor} on @streameth!`
+  const text = `Check out this ${shareFor} on @base!`
   const [currentUrl, setCurrentUrl] = useState(url ?? '')
   useEffect(() => {
     // This code will only run on the client side
@@ -47,14 +47,14 @@ export const ShareModalContent = ({
   }, [])
 
   return (
-    <CredenzaContent>
+    <CredenzaContent className="bg-base-blue text-white">
       <CredenzaHeader>
         <CredenzaTitle className="text-center">
           Share this {shareFor}
         </CredenzaTitle>
-        <CredenzaDescription>
+        <CredenzaDescription className="text-white">
           Share this {shareFor} with your friends and followers, tag
-          @streameth and earn rewards!
+          @base and earn rewards!
         </CredenzaDescription>
       </CredenzaHeader>
       <CredenzaBody>
