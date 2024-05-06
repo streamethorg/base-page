@@ -78,7 +78,8 @@ const MobileNavBar = async ({
       <div
         className={cn(
           'flex relative flex-col items-center p-4 w-full',
-          showSidebar && 'items-start bg-base-blue h-screen'
+          showSidebar &&
+            'items-start bg-base-blue overflow-auto h-screen'
         )}>
         <div className="flex w-full">
           {pages.length > 0 && <MenuVisibleButton />}
