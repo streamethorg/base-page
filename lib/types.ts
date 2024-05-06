@@ -159,7 +159,7 @@ export interface IExtendedStage
   __v?: string
 }
 export interface IExtendedSpeaker
-  extends Omit<ISpeaker, 'organizationId'> { }
+  extends Omit<ISpeaker, 'organizationId'> {}
 export interface IExtendedUser extends Omit<IUser, 'organizations'> {
   organizations: IExtendedOrganization[]
 }

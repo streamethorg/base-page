@@ -22,14 +22,16 @@ export default async function VideoGrid({
   return (
     <div className="bg-transparent border-none lg:w-full max-w-screen">
       <div
-        className={`${scroll ? 'flex flex-row' : 'grid grid-cols-2'
-          }  lg:grid md:grid-cols-3 lg:grid-cols-3 gap-8 gap-x-4`}>
+        className={`${
+          scroll ? 'flex flex-row' : 'grid grid-cols-2'
+        }  lg:grid md:grid-cols-3 lg:grid-cols-3 gap-8 gap-x-4`}>
         {videos.map((video, index) =>
           ({ maxVideos }) && maxVideos && index > maxVideos ? null : (
             <div
               key={video._id}
-              className={`${scroll && 'w-[300px]'
-                } lg:w-full h-full border-none flex-initial`}>
+              className={`${
+                scroll && 'w-[300px]'
+              } lg:w-full h-full border-none flex-initial`}>
               <Suspense
                 fallback={
                   <Card
