@@ -91,21 +91,12 @@ const MobileNavBar = async ({
         {showSidebar && (
           <div className="flex flex-col flex-grow mt-2 w-full">
             <NavbarLayout pages={pages} />
-            {tab === eTab.main && (
-              <Suspense fallback={<div>Loading...</div>}>
-                <MainContent />
-              </Suspense>
-            )}
+            {tab === eTab.main && <MainContent />}
+            {tab === eTab.collections && <AllCollections />}
             {tab === eTab.about && (
-              <Suspense fallback={<div>Loading...</div>}>
-                <AboutVideo sessionId={sessionId || ''} />
-              </Suspense>
+              <AboutVideo sessionId={sessionId || ''} />
             )}
-            {tab === eTab.videos && (
-              <Suspense fallback={<div>Loading...</div>}>
-                <AllVideos />
-              </Suspense>
-            )}
+            {tab === eTab.videos && <AllVideos />}
           </div>
         )}
       </div>

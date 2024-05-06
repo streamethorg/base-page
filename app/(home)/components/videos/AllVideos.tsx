@@ -16,15 +16,15 @@ const AllVideos = async () => {
   ).sessions
 
   return (
-    <div className="grid-cols-1 xl:grid-cols-2 gap-4 px-6 md:mt-8 grid relative">
+    <div className="grid relative grid-cols-1 gap-4 md:px-2 md:mt-8 xl:grid-cols-2">
       {sessions.map((sessions) => (
         <Link
           href={`/?tab=collection&collectionId=${sessions._id}`}
           key={sessions._id}
-          className="w-full relative min-h-full uppercase rounded-xl flex flex-col">
+          className="flex relative flex-col w-full min-h-full uppercase rounded-xl">
           <Thumbnail imageUrl={sessions.coverImage} />
 
-          <div className="absolute backdrop-blur-sm flex justify-between items-start">
+          <div className="flex absolute justify-between items-start backdrop-blur-sm">
             <div
               className={`rounded p-1 mt-1 backdrop-blur-md lg:p-2 shadow-none lg:shadow-none `}>
               <p
