@@ -135,10 +135,9 @@ const DesktopNavBar = async ({
               <NavbarLayout pages={pages} />
               {tab === eTab.videos && <AllVideos />}
               {tab === eTab.collections && <AllCollections />}
+              {tab === eTab.main && <MainContent />}
               {tab === eTab.about && (
-                <Suspense fallback={<div>Loading...</div>}>
-                  <AboutVideo sessionId={sessionId || ''} />
-                </Suspense>
+                <AboutVideo sessionId={sessionId || ''} />
               )}
             </div>
           </aside>

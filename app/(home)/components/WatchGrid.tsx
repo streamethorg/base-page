@@ -24,13 +24,6 @@ const WatchGrid = async ({
     <div className="w-full">
       <div className="flex justify-between items-center pb-4">
         <h1 className="text-xl font-bold">Watch More</h1>
-        <Link href={`/?tab=videos`}>
-          {videos.length !== 0 && (
-            <h3 className="text-sm hover:underline">
-              See more videos
-            </h3>
-          )}
-        </Link>
       </div>
       <Videos
         videos={videos}

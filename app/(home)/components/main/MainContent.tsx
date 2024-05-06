@@ -33,7 +33,7 @@ const MainContent = async () => {
   ).sessions.slice(0, 6)
 
   return (
-    <div className="flex flex-col mt-4 space-y-2 text-white">
+    <div className="flex flex-col mt-4 space-y-2 text-white md:px-2">
       <Suspense fallback={<UpcomingStreamsLoading />}>
         <UpcomingStreams
           organizationId={organization._id}
