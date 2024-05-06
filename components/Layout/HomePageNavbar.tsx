@@ -101,6 +101,11 @@ const MobileNavBar = async ({
                   <AboutVideo sessionId={sessionId || ''} />
                 </Suspense>
               )}
+              {tab === eTab.videos && (
+                <Suspense fallback={<div>Loading...</div>}>
+                  <AllVideos />
+                </Suspense>
+              )}
             </div>
         )}
       </div>
