@@ -26,10 +26,10 @@ export default function NavbarLayout({
   }
 
   return (
-    <div className="flex absolute right-0 z-50 flex-grow items-center w-screen text-center text-gray-300 border-gray-100 md:relative md:h-full top-[62px] lg:w-[unset] lg:top-[unset]">
+    <div className="flex z-50 items-center text-center text-gray-300 border-gray-100 md:relative md:h-full">
       <ul
         onClick={() => isMobile && setIsNavVisible?.(false)}
-        className="flex flex-col mx-4 w-full uppercase cursor-pointer md:flex-row md:justify-between md:space-x-2 lg:px-2">
+        className="flex flex-col w-full uppercase cursor-pointer md:flex-row md:justify-between md:space-x-2 lg:px-2">
         {pages?.map((item, index) => (
           <>
             <NavigationMenuItem key={index}>
@@ -38,7 +38,7 @@ export default function NavbarLayout({
                   handleTermChange([
                     {
                       key: 'tab',
-                      value: item.name.toLowerCase(),
+                      value: item.href.toLowerCase(),
                     },
                   ])
                 }>
