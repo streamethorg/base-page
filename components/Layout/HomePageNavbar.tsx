@@ -15,6 +15,7 @@ import { cn } from '@/lib/utils'
 import MenuVisibleButton from './Navbar/MenuVisibleButton'
 import { Suspense } from 'react'
 import AllVideos from '@/app/(home)/components/videos/AllVideos'
+import AboutCollection from '@/app/(home)/components/collections/AboutCollection'
 
 const HomePageNavbar = async ({
   pages,
@@ -95,6 +96,9 @@ const MobileNavBar = async ({
           <div className="flex flex-grow flex-col w-full">
             <NavbarLayout pages={pages} />
             {tab === eTab.collections && <AllCollections />}
+            {tab === eTab.collection && (
+              <AboutCollection searchParams={searchParams} />
+            )}
 
             {tab === eTab.videos && (
               <AllVideos page={searchParams?.page} />
@@ -136,6 +140,10 @@ const DesktopNavBar = async ({
               {tab === eTab.videos && (
                 <AllVideos page={searchParams?.page} />
               )}
+              {tab === eTab.collection && (
+                <AboutCollection searchParams={searchParams} />
+              )}
+
               {tab === eTab.collections && <AllCollections />}
               {tab === eTab.about && (
                 <Suspense fallback={<div>Loading...</div>}>

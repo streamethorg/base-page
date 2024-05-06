@@ -7,7 +7,7 @@ import React from 'react'
 import CollectionItem from './CollectionItem'
 import DefaultThumbnail from '@/lib/svg/DefaultThumbnail'
 import ShareButton from '@/components/misc/interact/ShareButton'
-import InnerNav from '../../../../../components/misc/interact/InnerNav'
+import InnerNav from '../../../../components/misc/interact/InnerNav'
 
 const menuItems = [
   { key: 'about', label: 'ABOUT' },
@@ -57,7 +57,7 @@ const AboutCollection = async ({
       {selectedItem === 'about' && <p>{collection.description}</p>}
 
       {selectedItem === 'items' && (
-        <div className=" grid grid-cols-1 md:grid-cols-2 gap-8 gap-x-4">
+        <div className=" grid grid-cols-1 gap-8 gap-x-4">
           {collection?.videos?.map((video) => (
             <CollectionItem
               nftCollection={collection}

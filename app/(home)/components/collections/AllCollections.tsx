@@ -24,7 +24,7 @@ const AllCollections = async () => {
     <div className="grid-cols-1 xl:grid-cols-2 gap-4 px-6 md:mt-8 grid">
       {collections.map((collection) => (
         <Link
-          href={`/?tab=collection&collectionId=${collection._id}`}
+          href={`/?tab=collection&collectionId=${collection._id}&m=about`}
           key={collection._id}
           className="w-full relative min-h-full uppercase rounded-xl flex flex-col">
           <Thumbnail imageUrl={collection.thumbnail} />
