@@ -33,6 +33,20 @@ const pages: Page[] = [
   },
 ]
 
+const getVideoUrl = (session: IExtendedSession) => {
+  let playbackId = ''
+
+  if (!session) {
+    return ''
+  }
+
+  playbackId = session.playbackId ?? ''
+
+  return playbackId
+    ? `https://vod-cdn.lp-playback.studio/raw/jxf4iblf6wlsyor6526t4tcmtmqa/catalyst-vod-com/hls/${playbackId}/index.m3u8`
+    : 'No playback ID available'
+}
+
 const loadSessions = async ({
   session,
   organizationSlug,
@@ -67,20 +81,6 @@ const Home = async ({ params, searchParams }: ChannelPageParams) => {
 
   if (!organization) {
     return NotFound()
-  }
-
-  const getVideoUrl = () => {
-    let playbackId = ''
-
-    if (!sessions) {
-      return ''
-    }
-
-    playbackId = sessions[0]?.playbackId ?? ''
-
-    return playbackId
-      ? `https://vod-cdn.lp-playback.studio/raw/jxf4iblf6wlsyor6526t4tcmtmqa/catalyst-vod-com/hls/${playbackId}/index.m3u8`
-      : 'No playback ID available'
   }
 
   const allStreams = (
@@ -128,7 +128,9 @@ const Home = async ({ params, searchParams }: ChannelPageParams) => {
                   <PlayerWithControls
                     src={[
                       {
-                        src: getVideoUrl() as `${string}m3u8`,
+                        src: getVideoUrl(
+                          sessions[0]
+                        ) as `${string}m3u8`,
                         width: 1920,
                         height: 1080,
                         mime: 'application/vnd.apple.mpegurl',
