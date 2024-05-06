@@ -20,13 +20,11 @@ const WatchGrid = async ({
     })
   ).sessions
 
-  // console.log('videos', videos)
-
   return (
     <div className="w-full">
       <div className="flex justify-between items-center pb-4">
         <h1 className="text-xl font-bold">Watch More</h1>
-        <Link href={`/${organizationSlug}/videos`}>
+        <Link href={`/?tab=videos`}>
           {videos.length !== 0 && (
             <h3 className="text-sm hover:underline">
               See more videos
@@ -52,10 +50,10 @@ const WatchGrid = async ({
 export const WatchGridLoading = () => (
   <>
     <div className="flex justify-between items-center">
-      <div className="w-1/4 h-6 bg-gray-300 rounded"></div>
-      <div className="w-1/5 h-4 bg-gray-300 rounded"></div>
+      <div className="w-1/4 h-6 rounded bg-secondary-foreground"></div>
+      <div className="w-1/5 h-4 rounded bg-secondary-foreground"></div>
     </div>
-    <div className="grid grid-cols-2 gap-4 m-5 md:grid-cols-4">
+    <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
       {Array.from({ length: 3 }).map((_, index) => (
         <VideoCardSkeleton key={index} />
       ))}

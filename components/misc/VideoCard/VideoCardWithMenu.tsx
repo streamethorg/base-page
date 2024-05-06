@@ -32,7 +32,7 @@ const VideoCardWithMenu = async ({
   const thumbnail = await generateThumbnail(session)
 
   return (
-    <div className="w-full min-h-full uppercase rounded-xl flex flex-col">
+    <div className="flex flex-col w-full min-h-full uppercase rounded-md transition-all hover:bg-secondary-foreground">
       <Link className="w-full h-full" href={link}>
         <Thumbnail
           imageUrl={session.coverImage}
@@ -50,7 +50,8 @@ const VideoCardWithMenu = async ({
           </Link>
           {showDate && (
             <div className="flex justify-between items-center">
-              <CardDescription className={`text-xs truncate `}>
+              <CardDescription
+                className={`text-xs truncate text-white`}>
                 {formatDate(
                   new Date(session.createdAt as string),
                   'ddd. MMM. D, YYYY'

@@ -68,7 +68,7 @@ const MobileNavBar = async ({
   const showSidebar = tab !== eTab.none && tab !== null
 
   return (
-    <NavigationMenu className="flex  sticky top-0 flex-row items-center bg-black md:hidden backdrop-blur z-[999999]">
+    <NavigationMenu className="flex sticky top-0 flex-row items-center bg-black md:hidden backdrop-blur z-[999999]">
       <div
         className={cn(
           'flex relative flex-col items-center p-4 w-full',
@@ -89,24 +89,24 @@ const MobileNavBar = async ({
           </div>
         </div>
         {showSidebar && (
-          <div className="flex flex-grow flex-col w-full">             
-          <NavbarLayout pages={pages} />
-              {tab === eTab.main && (
-                <Suspense fallback={<div>Loading...</div>}>
-                  <MainContent />
-                </Suspense>
-              )}
-              {tab === eTab.about && (
-                <Suspense fallback={<div>Loading...</div>}>
-                  <AboutVideo sessionId={sessionId || ''} />
-                </Suspense>
-              )}
-              {tab === eTab.videos && (
-                <Suspense fallback={<div>Loading...</div>}>
-                  <AllVideos />
-                </Suspense>
-              )}
-            </div>
+          <div className="flex flex-col flex-grow mt-2 w-full">
+            <NavbarLayout pages={pages} />
+            {tab === eTab.main && (
+              <Suspense fallback={<div>Loading...</div>}>
+                <MainContent />
+              </Suspense>
+            )}
+            {tab === eTab.about && (
+              <Suspense fallback={<div>Loading...</div>}>
+                <AboutVideo sessionId={sessionId || ''} />
+              </Suspense>
+            )}
+            {tab === eTab.videos && (
+              <Suspense fallback={<div>Loading...</div>}>
+                <AllVideos />
+              </Suspense>
+            )}
+          </div>
         )}
       </div>
     </NavigationMenu>
