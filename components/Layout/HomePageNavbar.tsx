@@ -68,7 +68,7 @@ const MobileNavBar = async ({
   showSearchBar: boolean
   searchParams: any
 }) => {
-  const showSidebar = tab !== eTab.none && tab !== null
+  const showSidebar = tab !== eTab.none && !!tab
 
   return (
     <NavigationMenu className="flex sticky top-0 flex-row items-center bg-black md:hidden backdrop-blur z-[999999]">
@@ -122,7 +122,7 @@ const DesktopNavBar = async ({
   sessionId?: string
   searchParams: any
 }) => {
-  const showSidebar = tab !== eTab.none && tab !== null
+  const showSidebar = tab !== eTab.none && !!tab
 
   return (
     <NavigationMenu className="relative h-full">
