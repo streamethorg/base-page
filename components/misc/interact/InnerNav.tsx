@@ -15,7 +15,7 @@ const InnerNav = ({
   const { handleTermChange } = useSearchParams()
   return (
     <NavigationMenu>
-      <ul className="flex flex-col justify-start items-start space-y-2 w-full text-gray-300">
+      <ul className="flex flex-col justify-start items-start space-y-2 w-full flex-grow text-gray-300">
         {menuItems.map((item) => (
           <div
             onClick={() =>

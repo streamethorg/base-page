@@ -128,7 +128,7 @@ const CollectVideButton = ({
   return (
     <div>
       {!account.address ? (
-        <ConnectWalletButton />
+        <ConnectWalletButton btnText="Connect Wallet to mint" />
       ) : (
         <Button
           loading={isMintingNftPending || IsSwitchingChain}

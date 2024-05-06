@@ -57,7 +57,7 @@ const AboutCollection = async ({
       {selectedItem === 'about' && <p>{collection.description}</p>}
 
       {selectedItem === 'items' && (
-        <div className="grid grid-cols-1 gap-x-4 gap-8 md:grid-cols-2">
+        <div className=" grid grid-cols-1 gap-8 gap-x-4">
           {collection?.videos?.map((video) => (
             <CollectionItem
               nftCollection={collection}

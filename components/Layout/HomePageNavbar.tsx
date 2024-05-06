@@ -16,6 +16,8 @@ import MenuVisibleButton from './Navbar/MenuVisibleButton'
 import { Suspense } from 'react'
 import MainContent from '@/app/(home)/components/main/MainContent'
 import AllVideos from '@/app/(home)/components/videos/AllVideos'
+import AboutCollection from '@/app/(home)/components/collections/AboutCollection'
+import { ConnectWalletButton } from '../misc/ConnectWalletButton'
 
 const HomePageNavbar = async ({
   pages,
@@ -41,6 +43,7 @@ const HomePageNavbar = async ({
           tab={tab}
           sessionId={sessionId}
           showSearchBar={showSearchBar}
+          searchParams={searchParams}
         />
       </div>
       <div className="hidden md:block">
@@ -48,6 +51,7 @@ const HomePageNavbar = async ({
           pages={pages}
           sessionId={sessionId}
           tab={tab}
+          searchParams={searchParams}
         />
       </div>
     </>
@@ -59,13 +63,15 @@ const MobileNavBar = async ({
   tab,
   sessionId,
   showSearchBar,
+  searchParams,
 }: {
   pages: Page[]
   tab?: string | null
   sessionId?: string
   showSearchBar: boolean
+  searchParams: any
 }) => {
-  const showSidebar = tab !== eTab.none && tab !== null
+  const showSidebar = tab !== eTab.none && !!tab
 
   return (
     <NavigationMenu className="flex sticky top-0 flex-row items-center bg-black md:hidden backdrop-blur z-[999999]">
@@ -92,11 +98,15 @@ const MobileNavBar = async ({
           <div className="flex flex-col flex-grow mt-2 w-full">
             <NavbarLayout pages={pages} />
             {tab === eTab.main && <MainContent />}
-            {tab === eTab.collections && <AllCollections />}
+            {tab === eTab.collection && (
+              <AboutCollection searchParams={searchParams} />
+            )}
+            {tab === eTab.videos && (
+              <AllVideos page={searchParams?.page} />
+            )}
             {tab === eTab.about && (
               <AboutVideo sessionId={sessionId || ''} />
             )}
-            {tab === eTab.videos && <AllVideos />}
           </div>
         )}
       </div>
@@ -108,23 +118,31 @@ const DesktopNavBar = async ({
   pages,
   tab,
   sessionId,
+  searchParams,
 }: {
   pages: Page[]
   tab?: string | null
   sessionId?: string
+  searchParams: any
 }) => {
-  const showSidebar = tab !== eTab.none && tab !== null
+  const showSidebar = tab !== eTab.none && !!tab
 
   return (
-    <NavigationMenu className="relative h-full">
-      <ConnectButtonNav showSidebar={showSidebar} />
+    <NavigationMenu className="relative h-screen">
+      {!showSidebar && <ConnectButtonNav showSidebar={showSidebar} />}
 
       {showSidebar && (
-        <>
-          <aside className="absolute w-[50%] bg-base-blue overflow-auto h-full z-20 left-0 top-0">
+        <div className="flex w-full h-full">
+          <aside className=" w-[50%] bg-base-blue overflow-auto h-full z-20">
             <div className="p-2">
               <NavbarLayout pages={pages} />
-              {tab === eTab.videos && <AllVideos />}
+              {tab === eTab.videos && (
+                <AllVideos page={searchParams?.page} />
+              )}
+              {tab === eTab.collection && (
+                <AboutCollection searchParams={searchParams} />
+              )}
+
               {tab === eTab.collections && <AllCollections />}
               {tab === eTab.main && <MainContent />}
               {tab === eTab.about && (
@@ -132,12 +150,15 @@ const DesktopNavBar = async ({
               )}
             </div>
           </aside>
-          <div className="absolute top-0 left-[calc(50%)] p-2 pb-4 h-full z-30 flex flex-col items-center">
-            <CloseNavigation />
-            <div className="flex-grow" />
+          <div className="backdrop-blur-sm  w-1/2 p-2 pb-4 h-full z-30 flex flex-col justify-between items-start">
+            <div className="flex items-center justify-between w-full">
+              <CloseNavigation />
+              <ConnectWalletButton className="z-30 uppercase bg-transparent rounded-none border border-white" />
+            </div>
+            <div />
             <BaseLogo height={'5%'} />
           </div>
-        </>
+        </div>
       )}
     </NavigationMenu>
   )

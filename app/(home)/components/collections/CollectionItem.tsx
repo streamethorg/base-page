@@ -48,12 +48,12 @@ const CollectionItem = async ({
     <div className="w-full relative flex flex-col">
       <div className="flex z-10 flex-col w-full">
         <Thumbnail imageUrl={collectionImage!} />
-        <h2 className="text-lg line-clamp-2 absolute p-3 font-bold uppercase">
+        <h2 className="text-lg h-full w-full bg-black  bg-opacity-50  line-clamp-2 absolute p-3 font-bold uppercase">
           {collection?.name}
         </h2>
       </div>
 
-      <div className="mt-3">
+      <div className="mt-3 absolute bottom-0 backdrop-blur-sm right-0 p-4 z-10">
         <CollectVideButton
           variant="primary"
           video={collection as IExtendedSession}

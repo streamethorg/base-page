@@ -24,12 +24,12 @@ const AllCollections = async () => {
     <div className="grid-cols-1 xl:grid-cols-2 gap-4 px-6 md:mt-8 grid">
       {collections.map((collection) => (
         <Link
-          href={`/?tab=collection&collectionId=${collection._id}`}
+          href={`/?tab=collection&collectionId=${collection._id}&m=about`}
           key={collection._id}
           className="w-full relative min-h-full uppercase rounded-xl flex flex-col">
           <Thumbnail imageUrl={collection.thumbnail} />
 
-          <div className="absolute flex justify-between items-start">
+          <div className="absolute h-full w-full bg-black bg-opacity-35  flex justify-between items-start">
             <div
               className={`rounded p-1 mt-1 lg:p-2 shadow-none lg:shadow-none `}>
               <p
