@@ -79,7 +79,7 @@ const MobileNavBar = async ({
         className={cn(
           'flex relative flex-col items-center p-4 w-full',
           showSidebar &&
-            'items-start bg-base-blue overflow-auto h-screen'
+          'items-start bg-base-blue overflow-auto h-screen'
         )}>
         <div className="flex w-full">
           {pages.length > 0 && <MenuVisibleButton />}
@@ -151,10 +151,10 @@ const DesktopNavBar = async ({
               )}
             </div>
           </aside>
-          <div className="backdrop-blur-sm  w-1/2 p-2 pb-4 h-full z-30 flex flex-col justify-between items-start">
-            <div className="flex items-center justify-between w-full">
+          <div className="flex z-30 flex-col justify-between items-start p-2 pb-4 w-1/2 h-full backdrop-blur-sm">
+            <div className="flex justify-between items-center w-full">
               <CloseNavigation />
-              <ConnectWalletButton className="z-30 uppercase bg-transparent rounded-none border border-white" />
+              <ConnectWalletButton className="z-30 m-2 uppercase bg-transparent rounded-none border border-white" />
             </div>
             <div />
             <BaseLogo height={'5%'} />

@@ -44,7 +44,7 @@ const UpcomingStreams = async ({
         ))}
       </div>
       {livestreams.length === 0 && (
-        <div className="flex flex-row justify-center items-center p-4 space-x-4 rounded-xl">
+        <div className="flex flex-row justify-center items-center p-4 space-x-4 text-white rounded-xl">
           <Podcast size={20} />
           <p>No scheduled livestreams</p>
         </div>

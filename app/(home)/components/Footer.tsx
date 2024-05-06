@@ -4,7 +4,13 @@ import useSearchParams from '@/lib/hooks/useSearchParams'
 import BaseLogo from '@/lib/svg/BaseLogo'
 import { IExtendedSession, eTab } from '@/lib/types'
 
-const Footer = ({ session }: { session: IExtendedSession }) => {
+const Footer = ({
+  videoId,
+  videoName,
+}: {
+  videoId: string
+  videoName: string
+}) => {
   const { searchParams, handleTermChange } = useSearchParams()
 
   const handleClick = () => {
@@ -15,7 +21,7 @@ const Footer = ({ session }: { session: IExtendedSession }) => {
       },
       {
         key: 'session',
-        value: session._id.toString(),
+        value: videoId,
       },
     ])
   }
@@ -26,7 +32,7 @@ const Footer = ({ session }: { session: IExtendedSession }) => {
         <BaseLogo width={'40px'} />
       </div>
       <div className="flex justify-between w-full md:min-w-[500px]">
-        <span className="font-bold">{session.name}</span>
+        <span className="font-bold">{videoName}</span>
         <button
           onClick={() => handleClick()}
           className="p-2 text-gray-300 border border-white transition-all hover:text-gray-500 hover:bg-white w-min-[60px]">

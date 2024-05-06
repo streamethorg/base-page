@@ -98,7 +98,9 @@ const Home = async ({ params, searchParams }: ChannelPageParams) => {
     (stream) => stream?.streamSettings?.isActive
   )
 
-  const playerActive = !!activeStream[0] || !!nextStreamNotToday[0]
+  const playerActive =
+    !!activeStream[0] ||
+    (!!nextStreamNotToday[0] && !searchParams.session)
   const stage = activeStream[0]
     ? activeStream[0]
     : nextStreamNotToday[0]
@@ -143,11 +145,18 @@ const Home = async ({ params, searchParams }: ChannelPageParams) => {
             </div>
           </div>
 
-          <Footer session={sessions[0]} />
+          <Footer
+            videoId={playerActive ? stage._id! : sessions[0]._id!}
+            videoName={playerActive ? stage.name : sessions[0].name}
+          />
 
           <div className="overflow-hidden fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 blur-2xl w-[110vw] h-[110vh]">
             <Image
-              src={sessions[0].coverImage || ''}
+              src={
+                playerActive
+                  ? stage.thumbnail!
+                  : sessions[0].coverImage!
+              }
               quality={10}
               priority
               alt="Video thumbnail"
