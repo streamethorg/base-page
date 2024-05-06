@@ -12,6 +12,8 @@ import { fetchAllSessions } from '@/lib/data'
 import { organizationSlug } from '@/lib/utils'
 import Footer from './components/Footer'
 import HomePageNavbar from '@/components/Layout/HomePageNavbar'
+import { IExtendedSession } from '@/lib/types'
+import { fetchSession } from '@/lib/services/sessionService'
 
 const pages: Page[] = [
   {
@@ -31,14 +33,32 @@ const pages: Page[] = [
   },
 ]
 
-// const watchList = [
-//   {
-//     name: 'Really good video',
-//     playbackId: '8204euokn8bf6vai',
-//     downloadUrl:
-//       'https://vod-cdn.lp-playback.studio/raw/jxf4iblf6wlsyor6526t4tcmtmqa/catalyst-vod-com/hls/8204euokn8bf6vai/1080p0.mp4',
-//   },
-// ]
+const loadSessions = async ({
+  session,
+  organizationSlug,
+}: {
+  session?: string
+  organizationSlug?: string
+}) => {
+  let sessions: IExtendedSession[] = []
+
+  if (session) {
+    const newSession = await fetchSession({ session })
+
+    if (newSession) {
+      sessions.push(newSession)
+      return sessions
+    }
+  }
+
+  const fetchedSessions = await fetchAllSessions({
+    organizationSlug: organizationSlug || '',
+    onlyVideos: true,
+    limit: 1,
+  })
+
+  return fetchedSessions.sessions
+}
 
 const Home = async ({ params, searchParams }: ChannelPageParams) => {
   const organization = await fetchOrganization({
@@ -50,7 +70,17 @@ const Home = async ({ params, searchParams }: ChannelPageParams) => {
   }
 
   const getVideoUrl = () => {
-    return `https://vod-cdn.lp-playback.studio/raw/jxf4iblf6wlsyor6526t4tcmtmqa/catalyst-vod-com/hls/${sessions[0].playbackId}/index.m3u8`
+    let playbackId = ''
+
+    if (!sessions) {
+      return ''
+    }
+
+    playbackId = sessions[0]?.playbackId ?? ''
+
+    return playbackId
+      ? `https://vod-cdn.lp-playback.studio/raw/jxf4iblf6wlsyor6526t4tcmtmqa/catalyst-vod-com/hls/${playbackId}/index.m3u8`
+      : 'No playback ID available'
   }
 
   const allStreams = (
@@ -73,14 +103,10 @@ const Home = async ({ params, searchParams }: ChannelPageParams) => {
     ? activeStream[0]
     : nextStreamNotToday[0]
 
-  const sessions = (
-    await fetchAllSessions({
-      organizationSlug,
-      onlyVideos: true,
-      // published: true,
-      limit: 1,
-    })
-  ).sessions
+  const sessions = await loadSessions({
+    session: searchParams.session,
+    organizationSlug: organizationSlug,
+  })
 
   return (
     <div className="flex flex-col mx-auto w-full min-h-[100vh]">
