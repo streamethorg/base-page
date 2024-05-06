@@ -40,6 +40,7 @@ const HomePageNavbar = async ({
           tab={tab}
           sessionId={sessionId}
           showSearchBar={showSearchBar}
+          searchParams={searchParams}
         />
       </div>
       <div className="hidden md:block">
@@ -47,6 +48,7 @@ const HomePageNavbar = async ({
           pages={pages}
           sessionId={sessionId}
           tab={tab}
+          searchParams={searchParams}
         />
       </div>
     </>
@@ -58,16 +60,18 @@ const MobileNavBar = async ({
   tab,
   sessionId,
   showSearchBar,
+  searchParams,
 }: {
   pages: Page[]
   tab?: string | null
   sessionId?: string
   showSearchBar: boolean
+  searchParams: any
 }) => {
   const showSidebar = tab !== eTab.none && tab !== null
 
   return (
-    <NavigationMenu className="flex  sticky top-0 flex-row items-center bg-black md:hidden backdrop-blur z-[999999]">
+    <NavigationMenu className="flex sticky top-0 flex-row items-center bg-black md:hidden backdrop-blur z-[999999]">
       <div
         className={cn(
           'flex relative flex-col items-center p-4 w-full',
@@ -92,7 +96,9 @@ const MobileNavBar = async ({
             <NavbarLayout pages={pages} />
             {tab === eTab.collections && <AllCollections />}
 
-            {tab === eTab.videos && <AllVideos />}
+            {tab === eTab.videos && (
+              <AllVideos page={searchParams?.page} />
+            )}
             {tab === eTab.about && (
               <Suspense fallback={<div>Loading...</div>}>
                 <AboutVideo sessionId={sessionId || ''} />
@@ -109,10 +115,12 @@ const DesktopNavBar = async ({
   pages,
   tab,
   sessionId,
+  searchParams,
 }: {
   pages: Page[]
   tab?: string | null
   sessionId?: string
+  searchParams: any
 }) => {
   const showSidebar = tab !== eTab.none && tab !== null
 
@@ -125,7 +133,9 @@ const DesktopNavBar = async ({
           <aside className="absolute w-[50%] bg-base-blue overflow-auto h-full z-20 left-0 top-0">
             <div className="p-2">
               <NavbarLayout pages={pages} />
-              {tab === eTab.videos && <AllVideos />}
+              {tab === eTab.videos && (
+                <AllVideos page={searchParams?.page} />
+              )}
               {tab === eTab.collections && <AllCollections />}
               {tab === eTab.about && (
                 <Suspense fallback={<div>Loading...</div>}>

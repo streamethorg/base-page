@@ -29,7 +29,7 @@ const AllCollections = async () => {
           className="w-full relative min-h-full uppercase rounded-xl flex flex-col">
           <Thumbnail imageUrl={collection.thumbnail} />
 
-          <div className="absolute flex justify-between items-start">
+          <div className="absolute h-full w-full bg-black bg-opacity-35  flex justify-between items-start">
             <div
               className={`rounded p-1 mt-1 lg:p-2 shadow-none lg:shadow-none `}>
               <p

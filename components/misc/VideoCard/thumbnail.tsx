@@ -24,14 +24,14 @@ export default function Thumbnail({
     return (
       <AspectRatio
         ratio={16 / 9}
-        className="flex justify-center items-center w-full">
+        className="flex rounded-lg justify-center items-center w-full h-full">
         <DefaultThumbnail />
       </AspectRatio>
     )
   }
 
   return (
-    <div className="aspect-video relative w-full">
+    <div className="aspect-video relative w-full h-full">
       <Image
         placeholder="blur"
         blurDataURL={fallbackImage}
