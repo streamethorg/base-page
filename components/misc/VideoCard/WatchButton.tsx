@@ -1,10 +1,13 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
+import { useRouter } from 'next/navigation'
 
-const WatchButton = () => {
+const WatchButton = ({ sessionId }: { sessionId: string }) => {
+  const router = useRouter()
+
   const handleClick = () => {
-    // Route
+    router.push(`/watch?session=${sessionId}`)
   }
 
   return (

@@ -9,6 +9,7 @@ import {
 import { NavBarProps } from '@/lib/types'
 import { ConnectWalletButton } from '../misc/ConnectWalletButton'
 import useSearchParams from '@/lib/hooks/useSearchParams'
+import { Separator } from '../ui/separator'
 
 export default function NavbarLayout({
   setIsNavVisible,
@@ -26,7 +27,7 @@ export default function NavbarLayout({
   }
 
   return (
-    <div className="flex z-50 items-center text-center text-gray-300 border-gray-100 md:relative md:h-full">
+    <div className="flex z-50 items-center text-center text-gray-300 border-gray-100 md:relative md:flex-col md:h-full">
       <ul
         onClick={() => isMobile && setIsNavVisible?.(false)}
         className="flex flex-col w-full uppercase cursor-pointer md:flex-row md:justify-between md:px-2 md:space-x-2">
@@ -45,7 +46,7 @@ export default function NavbarLayout({
                 <NavigationMenuLink
                   className={cn(
                     navigationMenuTriggerStyle(),
-                    tab === item.href && 'text-white border-white'
+                    tab === item.href && 'text-white'
                   )}>
                   {item.name}
                 </NavigationMenuLink>
@@ -62,6 +63,7 @@ export default function NavbarLayout({
           />
         </NavigationMenuItem>
       </ul>
+      <Separator className="hidden md:block" />
     </div>
   )
 }

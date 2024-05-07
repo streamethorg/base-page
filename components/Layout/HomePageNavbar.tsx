@@ -13,7 +13,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
 import MenuVisibleButton from './Navbar/MenuVisibleButton'
-import { Suspense } from 'react'
 import MainContent from '@/app/(home)/components/main/MainContent'
 import AllVideos from '@/app/(home)/components/videos/AllVideos'
 import AboutCollection from '@/app/(home)/components/collections/AboutCollection'
@@ -69,12 +68,12 @@ const MobileNavBar = async ({
   const showSidebar = tab !== eTab.none && !!tab
 
   return (
-    <NavigationMenu className="flex sticky top-0 flex-row items-center backdrop-blur-md md:hidden z-[999999999999]">
+    <NavigationMenu className="flex sticky top-0 flex-row items-center md:hidden backdrop-blur-md z-[999999999999]">
       <div
         className={cn(
           'flex relative flex-col items-center p-4 w-full',
           showSidebar &&
-            'items-start bg-base-blue overflow-auto h-screen'
+          'items-start bg-base-blue overflow-auto h-screen'
         )}>
         <div className="flex w-full">
           {pages.length > 0 && <MenuVisibleButton />}

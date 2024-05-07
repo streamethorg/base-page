@@ -1,9 +1,4 @@
 import Thumbnail from '@/components/misc/VideoCard/thumbnail'
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
 import { IExtendedSession } from '@/lib/types'
 import { formatDate } from '@/lib/utils/time'
 import { Dot, EllipsisVertical } from 'lucide-react'
@@ -46,19 +41,8 @@ const VideoCardWithMenu = async ({
             )}
           </p>
         </div>
-        <WatchButton />
       </div>
-
-      {DropdownMenuItems && (
-        <DropdownMenu>
-          <DropdownMenuTrigger className="z-10">
-            <EllipsisVertical className="mt-2" />
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            {DropdownMenuItems}
-          </DropdownMenuContent>
-        </DropdownMenu>
-      )}
+      <WatchButton sessionId={session._id} />
     </Link>
   )
 }
