@@ -2,10 +2,9 @@
 
 import { formatDate } from '@/lib/utils/time'
 import Image from 'next/image'
-import { ArrowLeftFromLine, Dot } from 'lucide-react'
+import { Dot } from 'lucide-react'
 import AboutInfo from './AboutInfo'
 import { fetchSession } from '@/lib/services/sessionService'
-
 import BackButton from './BackButton'
 import Link from 'next/link'
 
@@ -32,6 +31,11 @@ const AboutVideo = async ({ sessionId }: { sessionId?: string }) => {
               )}
             </p>
           </div>
+          <Link href={`/?tab=none&session=${sessionId}`}>
+            <button className="absolute bottom-0 left-0 z-10 p-2 m-3 border border-white transition-all hover:text-black hover:bg-gray-100">
+              Watch Video
+            </button>
+          </Link>
         </div>
         <Image
           src={session?.coverImage || ''}

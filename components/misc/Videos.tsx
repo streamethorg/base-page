@@ -35,7 +35,7 @@ export default async function VideoGrid({
                     className="border-none shadow-none">
                     <div className="min-h-full uppercase rounded-xl">
                       <div className="w-full animate-pulse bg-secondary aspect-video"></div>
-                      <CardHeader className="px-2 mt-1 bg-white bg-opacity-10 rounded lg:p-0 lg:py-2">
+                      <CardHeader className="px-2 mt-1 bg-opacity-10 rounded lg:p-0 lg:py-2 bg-secondary-foreground">
                         <CardDescription className="flex flex-col space-y-2">
                           <div className="w-full h-5 animate-pulse bg-secondary" />
                           <div className="w-1/2 h-5 animate-pulse bg-secondary" />
