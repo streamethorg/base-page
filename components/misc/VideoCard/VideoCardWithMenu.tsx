@@ -1,23 +1,15 @@
 import Thumbnail from '@/components/misc/VideoCard/thumbnail'
 import {
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card'
-import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import DefaultThumbnail from '@/lib/svg/DefaultThumbnail'
 import { IExtendedSession } from '@/lib/types'
 import { formatDate } from '@/lib/utils/time'
-import { AspectRatio } from '@/components/ui/aspect-ratio'
 import { Dot, EllipsisVertical } from 'lucide-react'
 import Link from 'next/link'
 import React, { ReactNode } from 'react'
-import { generateThumbnail } from '@/lib/actions/livepeer'
-import { Button } from '@/components/ui/button'
+import WatchButton from './WatchButton'
 
 const VideoCardWithMenu = async ({
   session,
@@ -54,14 +46,7 @@ const VideoCardWithMenu = async ({
             )}
           </p>
         </div>
-
-        <div className="flex absolute inset-0 justify-start items-end p-4 transition-opacity duration-300 md:opacity-0 hover:opacity-100">
-          <Button
-            className="transition-colors hover:text-black hover:bg-gray-300"
-            variant="primary">
-            WATCH NOW
-          </Button>
-        </div>
+        <WatchButton />
       </div>
 
       {DropdownMenuItems && (
