@@ -21,7 +21,7 @@ const AllCollections = async () => {
   }
 
   return (
-    <div className="grid-cols-1 xl:grid-cols-2 gap-4 px-6 md:mt-8 grid">
+    <div className="grid-cols-1 xl:grid-cols-2 gap-4 md:mt-8 grid">
       {collections.map((collection) => (
         <Link
           href={`/?tab=collection&collectionId=${collection._id}&m=about`}
