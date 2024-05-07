@@ -2,11 +2,9 @@
 
 import { formatDate } from '@/lib/utils/time'
 import Image from 'next/image'
-import { ArrowLeftFromLine, Dot } from 'lucide-react'
-import Link from 'next/link'
+import { Dot } from 'lucide-react'
 import AboutInfo from './AboutInfo'
 import { fetchSession } from '@/lib/services/sessionService'
-
 import BackButton from './BackButton'
 import Link from 'next/link'
 
