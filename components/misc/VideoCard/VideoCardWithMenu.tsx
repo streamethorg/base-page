@@ -32,8 +32,6 @@ const VideoCardWithMenu = async ({
   DropdownMenuItems?: ReactNode
   link: string
 }) => {
-  const thumbnail = await generateThumbnail(session)
-
   return (
     <Link
       href={link}
@@ -41,14 +39,14 @@ const VideoCardWithMenu = async ({
       className="flex relative flex-col w-full min-h-full uppercase rounded-xl">
       <Thumbnail imageUrl={session.coverImage} />
 
-      <div className="absolute h-full w-full bg-black bg-opacity-50  flex justify-between items-start">
+      <div className="flex absolute justify-between items-start w-full h-full bg-black bg-opacity-50">
         <div
           className={`rounded p-1 mt-1 lg:p-2 shadow-none lg:shadow-none `}>
           <p
             className={`px-2 uppercase line-clamp-2 overflow-hidden text-white font-bold  hover:underline text-xl sm:text-2xl md:text-lg xl:text-xl`}>
             {session?.name}
           </p>
-          <p className="text-white flex items-center">
+          <p className="flex items-center text-white">
             <Dot className="w-10 h-10" />
             {formatDate(
               new Date(session.createdAt as string),
@@ -58,9 +56,14 @@ const VideoCardWithMenu = async ({
         </div>
       </div>
 
-      <div className="mt-3 absolute hidden w-full h-full z-[999999] hover:block bottom-0 backdrop-blur-sm left-0 m-4">
-        <Button variant="primary">WATCH NOW</Button>
+      <div className="flex absolute justify-start items-end p-4 w-full h-full transition-all md:opacity-0 hover:opacity-100 visibility-hidden z-[999999] hover:visibility-visible hover:backdrop-blur-sm">
+        <Button
+          className="transition-all hover:text-black hover:bg-gray-300"
+          variant="primary">
+          WATCH NOW
+        </Button>
       </div>
+
       {DropdownMenuItems && (
         <DropdownMenu>
           <DropdownMenuTrigger className="z-10">
