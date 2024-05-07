@@ -21,16 +21,10 @@ const MainContent = async () => {
   return (
     <div className="flex flex-col mt-4 space-y-2 text-white md:px-2">
       <Suspense fallback={<UpcomingStreamsLoading />}>
-        <UpcomingStreams
-          organizationId={organization._id}
-          organizationSlug={organizationSlug}
-        />
+        <UpcomingStreams organizationId={organization._id} />
       </Suspense>
       <Suspense fallback={<WatchGridLoading />}>
-        <WatchGrid
-          organizationSlug={organizationSlug}
-          gridLength={4}
-        />
+        <WatchGrid gridLength={4} />
       </Suspense>
     </div>
   )

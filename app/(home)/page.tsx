@@ -9,29 +9,17 @@ import Player from '@/components/Player/Player'
 import PlayerWithControls from '@/components/ui/Player'
 import Image from 'next/image'
 import { fetchAllSessions } from '@/lib/data'
-import { organizationSlug } from '@/lib/utils'
+import { organizationSlug, pages } from '@/lib/utils'
 import Footer from './components/Footer'
 import HomePageNavbar from '@/components/Layout/HomePageNavbar'
 import { IExtendedSession } from '@/lib/types'
 import { fetchSession } from '@/lib/services/sessionService'
-
-const pages: Page[] = [
-  {
-    name: 'MAIN',
-    href: 'main',
-    bgColor: 'bg-muted',
-  },
-  {
-    name: 'COLLECTIONS',
-    href: 'collections',
-    bgColor: 'bg-muted',
-  },
-  {
-    name: 'ALL VIDEOS',
-    href: 'videos',
-    bgColor: 'bg-muted',
-  },
-]
+import {
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+} from '@/components/ui/dialog'
+import { Play } from 'lucide-react'
 
 const getVideoUrl = (session: IExtendedSession) => {
   let playbackId = ''
@@ -111,17 +99,42 @@ const Home = async ({ params, searchParams }: ChannelPageParams) => {
   })
 
   return (
-    <div className="flex flex-col mx-auto w-full min-h-[100vh]">
-      <HomePageNavbar
-        searchParams={searchParams}
-        pages={pages}
-        showSearchBar
-      />
+    <div className="flex flex-col mx-auto w-full">
+      <HomePageNavbar searchParams={searchParams} pages={pages} />
 
-      <div className="flex-grow w-full h-full">
+      <div className="flex absolute top-0 flex-col justify-center items-center mx-auto w-screen h-screen bg-black">
+        <Dialog>
+          <DialogTrigger className="absolute h-full w-full z-50">
+            <div className="flex items-center justify-center w-fit mx-auto h-full  cursor-pointer">
+              <Play
+                fill="#fff"
+                className="bg-base-blue text-white w-14 h-14 p-2 rounded-full"
+              />
+            </div>
+          </DialogTrigger>
+
+          <DialogContent className="!p-0 aspect-video !rounded-xl w-full max-w-[1500px]">
+            {playerActive ? (
+              <Player stage={stage} />
+            ) : (
+              <PlayerWithControls
+                src={[
+                  {
+                    src: getVideoUrl(sessions[0]) as `${string}m3u8`,
+                    width: 1920,
+                    height: 1080,
+                    mime: 'application/vnd.apple.mpegurl',
+                    type: 'hls',
+                  },
+                ]}
+              />
+            )}
+          </DialogContent>
+        </Dialog>
+
+        {/* <div className="flex-grow w-full h-full">
         <div className="flex absolute top-0 flex-col justify-center items-center mx-auto w-screen h-screen bg-base-blue">
-          {/* w-max should be change */}
-          <div className="relative w-full w-max-[1300px]">
+          <div className="relative w-full max-w-7xl">
             <div className="flex flex-col px-4 w-full h-full md:p-4">
               <div className="z-10">
                 {playerActive ? (
@@ -143,27 +156,25 @@ const Home = async ({ params, searchParams }: ChannelPageParams) => {
                 )}
               </div>
             </div>
-          </div>
+          </div> */}
 
-          <Footer
-            videoId={playerActive ? stage._id! : sessions[0]._id!}
-            videoName={playerActive ? stage.name : sessions[0].name}
+        {/* <Footer
+          videoId={playerActive ? stage._id! : sessions[0]._id!}
+          videoName={playerActive ? stage.name : sessions[0].name}
+        /> */}
+
+        <div className="overflow-hidden absolute top-0  w-full h-full">
+          <Image
+            src={
+              playerActive
+                ? stage.thumbnail!
+                : sessions[0].coverImage!
+            }
+            priority
+            alt="Video thumbnail"
+            layout="fill"
+            style={{ objectFit: 'cover' }}
           />
-
-          <div className="overflow-hidden fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 blur-2xl w-[110vw] h-[110vh]">
-            <Image
-              src={
-                playerActive
-                  ? stage.thumbnail!
-                  : sessions[0].coverImage!
-              }
-              quality={10}
-              priority
-              alt="Video thumbnail"
-              layout="fill"
-              objectFit="objectFit"
-            />
-          </div>
         </div>
       </div>
     </div>

@@ -6,18 +6,20 @@ import {
   CardHeader,
   CardDescription,
 } from '@/components/ui/card'
+import { headers } from 'next/headers'
 export default async function VideoGrid({
   videos,
-  OrganizationSlug,
   maxVideos,
   scroll,
 }: {
   videos: IExtendedSession[]
-  OrganizationSlug?: string
+
   maxVideos?: number
   scroll?: boolean
 }) {
   if (!videos) return null
+  const headerList = headers()
+  const pathname = headerList.get('x-current-path')
 
   return (
     <div className="bg-transparent border-none lg:w-full max-w-screen">
@@ -50,7 +52,7 @@ export default async function VideoGrid({
                 }>
                 <VideoCardWithMenu
                   session={video}
-                  link={`/?tab=about&session=${video._id.toString()}`}
+                  link={`${pathname}?tab=about&session=${video._id.toString()}`}
                 />
               </Suspense>
             </div>

@@ -22,12 +22,10 @@ import { ConnectWalletButton } from '../misc/ConnectWalletButton'
 const HomePageNavbar = async ({
   pages,
   searchParams,
-  showSearchBar = true,
 }: {
   logo?: string
   pages: Page[]
   showLogo?: boolean
-  showSearchBar?: boolean
   organizations?: IExtendedOrganization[]
   searchParams: ChannelPageParams['searchParams']
   currentOrganization?: string
@@ -36,13 +34,12 @@ const HomePageNavbar = async ({
   const sessionId = searchParams.session
 
   return (
-    <>
+    <div className="z-[99999999]">
       <div className="md:hidden">
         <MobileNavBar
           pages={pages}
           tab={tab}
           sessionId={sessionId}
-          showSearchBar={showSearchBar}
           searchParams={searchParams}
         />
       </div>
@@ -54,7 +51,7 @@ const HomePageNavbar = async ({
           searchParams={searchParams}
         />
       </div>
-    </>
+    </div>
   )
 }
 
@@ -62,19 +59,17 @@ const MobileNavBar = async ({
   pages,
   tab,
   sessionId,
-  showSearchBar,
   searchParams,
 }: {
   pages: Page[]
   tab?: string | null
   sessionId?: string
-  showSearchBar: boolean
   searchParams: any
 }) => {
   const showSidebar = tab !== eTab.none && !!tab
 
   return (
-    <NavigationMenu className="flex sticky top-0 flex-row items-center bg-black md:hidden backdrop-blur z-[999999]">
+    <NavigationMenu className="flex sticky top-0 flex-row items-center bg-black md:hidden backdrop-blur z-[999999999999]">
       <div
         className={cn(
           'flex relative flex-col items-center p-4 w-full',
@@ -129,7 +124,8 @@ const DesktopNavBar = async ({
   const showSidebar = tab !== eTab.none && !!tab
 
   return (
-    <NavigationMenu className="relative h-screen">
+    <NavigationMenu
+      className={cn('relative ', { 'h-screen': showSidebar })}>
       {!showSidebar && <ConnectButtonNav showSidebar={showSidebar} />}
 
       {showSidebar && (
