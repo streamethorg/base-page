@@ -24,7 +24,7 @@ export default function Thumbnail({
     return (
       <AspectRatio
         ratio={16 / 9}
-        className="flex rounded-lg justify-center items-center w-full h-full">
+        className="flex justify-center items-center w-full h-full">
         <DefaultThumbnail />
       </AspectRatio>
     )

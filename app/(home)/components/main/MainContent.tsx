@@ -24,7 +24,7 @@ const MainContent = async () => {
         <UpcomingStreams organizationId={organization._id} />
       </Suspense>
       <Suspense fallback={<WatchGridLoading />}>
-        <WatchGrid gridLength={4} />
+        <WatchGrid gridLength={2} />
       </Suspense>
     </div>
   )

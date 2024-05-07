@@ -5,17 +5,13 @@ import Videos from '@/components/misc/Videos'
 import { Video } from 'lucide-react'
 import { organizationSlug } from '@/lib/utils'
 
-const WatchGrid = async ({
-  gridLength = 4,
-}: {
-  gridLength?: number
-}) => {
+const WatchGrid = async () => {
   const videos = (
     await fetchAllSessions({
       organizationSlug: organizationSlug,
       onlyVideos: true,
       // published: true,
-      limit: gridLength,
+      limit: 6,
     })
   ).sessions
   if (!videos) return null
@@ -24,7 +20,7 @@ const WatchGrid = async ({
       <div className="flex justify-between items-center pb-4">
         <h1 className="text-xl font-bold">Watch More</h1>
       </div>
-      <Videos videos={videos} maxVideos={gridLength} />
+      <Videos videos={videos} maxVideos={6} />
       {videos.length === 0 && (
         <div className="flex flex-row justify-center items-center p-4 space-x-4 rounded-xl bg-secondary">
           <Video size={20} />
