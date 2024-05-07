@@ -13,7 +13,7 @@ const AllVideos = async ({ page }: { page?: string }) => {
     organizationSlug,
     onlyVideos: true,
     page: Number(page || 1),
-    limit: 12,
+    limit: 6,
   })
 
   return (

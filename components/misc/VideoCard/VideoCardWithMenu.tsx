@@ -58,7 +58,7 @@ const VideoCardWithMenu = async ({
         </div>
       </div>
 
-      <div className="mt-3 absolute hidden w-full h-full z-[999999] hover:block bottom-0 backdrop-blur-sm left-0 m-4">
+      <div className="mt-3 absolute   z-[999999] bottom-0 backdrop-blur-sm left-0 m-4">
         <Button variant="primary">WATCH NOW</Button>
       </div>
       {DropdownMenuItems && (

@@ -40,7 +40,7 @@ const Livestream = async ({
             </div>
           </DialogTrigger>
 
-          <DialogContent className="!p-0 aspect-video !rounded-xl w-full max-w-[1500px]">
+          <DialogContent className="!p-0 aspect-video !rounded-xl w-full max-w-[1300px]">
             <Player stage={stage} />
           </DialogContent>
         </Dialog>

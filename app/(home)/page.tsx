@@ -113,7 +113,7 @@ const Home = async ({ params, searchParams }: ChannelPageParams) => {
             </div>
           </DialogTrigger>
 
-          <DialogContent className="!p-0 aspect-video !rounded-xl w-full max-w-[1500px]">
+          <DialogContent className="!p-0 aspect-video !rounded-xl w-full max-w-[1300px]">
             {playerActive ? (
               <Player stage={stage} />
             ) : (
@@ -131,32 +131,6 @@ const Home = async ({ params, searchParams }: ChannelPageParams) => {
             )}
           </DialogContent>
         </Dialog>
-
-        {/* <div className="flex-grow w-full h-full">
-        <div className="flex absolute top-0 flex-col justify-center items-center mx-auto w-screen h-screen bg-base-blue">
-          <div className="relative w-full max-w-7xl">
-            <div className="flex flex-col px-4 w-full h-full md:p-4">
-              <div className="z-10">
-                {playerActive ? (
-                  <Player stage={stage} />
-                ) : (
-                  <PlayerWithControls
-                    src={[
-                      {
-                        src: getVideoUrl(
-                          sessions[0]
-                        ) as `${string}m3u8`,
-                        width: 1920,
-                        height: 1080,
-                        mime: 'application/vnd.apple.mpegurl',
-                        type: 'hls',
-                      },
-                    ]}
-                  />
-                )}
-              </div>
-            </div>
-          </div> */}
 
         {/* <Footer
           videoId={playerActive ? stage._id! : sessions[0]._id!}
