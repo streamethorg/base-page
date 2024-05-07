@@ -1,7 +1,7 @@
 import Thumbnail from '@/components/misc/VideoCard/thumbnail'
 import { IExtendedSession } from '@/lib/types'
 import { formatDate } from '@/lib/utils/time'
-import { Dot, EllipsisVertical } from 'lucide-react'
+import { Dot } from 'lucide-react'
 import Link from 'next/link'
 import React, { ReactNode } from 'react'
 import WatchButton from './WatchButton'
