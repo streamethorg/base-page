@@ -1,9 +1,5 @@
 import Thumbnail from '@/components/misc/VideoCard/thumbnail'
-import {
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card'
+import { Dot } from 'lucide-react'
 import { formatDate } from '@/lib/utils/time'
 import Link from 'next/link'
 import {
@@ -12,56 +8,51 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { EllipsisVertical } from 'lucide-react'
+import { IExtendedStage } from '@/lib/types'
 
 const LivestreamCard = ({
-  name,
-  thumbnail,
-  date,
-  showDate = true,
+  livestream,
   link,
   DropdownMenuItems,
 }: {
-  name: string
-  thumbnail: string
-  date: string
-  showDate?: boolean
+  livestream: IExtendedStage
   link: string
   DropdownMenuItems?: React.ReactNode
 }) => {
   return (
-    <div className="flex flex-row space-y-2 w-full min-h-full uppercase rounded-md transition-all md:flex-col hover:bg-secondary-foreground">
-      <div className="flex-none my-auto w-1/4 md:w-full">
-        <Link href={link}>
-          <Thumbnail imageUrl={thumbnail} />
-        </Link>
+    <Link
+      href={link}
+      key={livestream.name}
+      className="flex relative flex-col w-full min-h-full uppercase rounded-xl">
+      <Thumbnail imageUrl={livestream.thumbnail} />
+
+      <div className="flex absolute justify-between items-start w-full h-full bg-black bg-opacity-50">
+        <div
+          className={`rounded p-1 mt-1 lg:p-2 shadow-none lg:shadow-none `}>
+          <p
+            className={`px-2 uppercase line-clamp-2 overflow-hidden text-white font-bold  hover:underline sm:text-2xl md:text-lg xl:text-xl`}>
+            {livestream.name}
+          </p>
+          <p className="flex items-center text-white">
+            <Dot className="w-10 h-10" />
+            {formatDate(
+              new Date(livestream.streamDate as string),
+              'MMM, YYYY'
+            )}
+          </p>
+        </div>
       </div>
-      <div className="flex-grow ml-4 md:ml-0">
-        <CardHeader className="p-1 mt-1 rounded shadow-none md:py-0 md:px-1 lg:py-0 lg:px-1 lg:shadow-none">
-          <Link href={link}>
-            <CardTitle className="overflow-hidden text-sm capitalize hover:underline line-clamp-2">
-              {name}
-            </CardTitle>
-          </Link>
-          {showDate && (
-            <div className="flex justify-between items-center">
-              <CardDescription className="text-xs text-white truncate">
-                {formatDate(new Date(date), 'ddd. MMM. D, YYYY')}
-              </CardDescription>
-            </div>
-          )}
-        </CardHeader>
-        {DropdownMenuItems && (
-          <DropdownMenu>
-            <DropdownMenuTrigger className="z-10">
-              <EllipsisVertical className="mt-2" />
-            </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              {DropdownMenuItems}
-            </DropdownMenuContent>
-          </DropdownMenu>
-        )}
-      </div>
-    </div>
+      {DropdownMenuItems && (
+        <DropdownMenu>
+          <DropdownMenuTrigger className="z-10">
+            <EllipsisVertical className="mt-2" />
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            {DropdownMenuItems}
+          </DropdownMenuContent>
+        </DropdownMenu>
+      )}
+    </Link>
   )
 }
 

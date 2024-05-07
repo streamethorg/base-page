@@ -1,23 +1,15 @@
 import Thumbnail from '@/components/misc/VideoCard/thumbnail'
 import {
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card'
-import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import DefaultThumbnail from '@/lib/svg/DefaultThumbnail'
 import { IExtendedSession } from '@/lib/types'
 import { formatDate } from '@/lib/utils/time'
-import { AspectRatio } from '@/components/ui/aspect-ratio'
 import { Dot, EllipsisVertical } from 'lucide-react'
 import Link from 'next/link'
 import React, { ReactNode } from 'react'
-import { generateThumbnail } from '@/lib/actions/livepeer'
-import { Button } from '@/components/ui/button'
+import WatchButton from './WatchButton'
 
 const VideoCardWithMenu = async ({
   session,
@@ -32,8 +24,6 @@ const VideoCardWithMenu = async ({
   DropdownMenuItems?: ReactNode
   link: string
 }) => {
-  const thumbnail = await generateThumbnail(session)
-
   return (
     <Link
       href={link}
@@ -41,14 +31,14 @@ const VideoCardWithMenu = async ({
       className="flex relative flex-col w-full min-h-full uppercase rounded-xl">
       <Thumbnail imageUrl={session.coverImage} />
 
-      <div className="absolute h-full w-full bg-black bg-opacity-50  flex justify-between items-start">
-        <div
-          className={`rounded p-1 mt-1 lg:p-2 shadow-none lg:shadow-none `}>
-          <p
-            className={`px-2 uppercase line-clamp-2 overflow-hidden text-white font-bold  hover:underline text-xl sm:text-2xl md:text-lg xl:text-xl`}>
+      <div className="flex absolute justify-between items-start w-full h-full bg-black bg-opacity-50">
+        <div className="absolute inset-0 bg-black bg-opacity-50 transition-all duration-300 hover:backdrop-blur-sm"></div>
+
+        <div className="relative z-20 p-1 mt-1 lg:p-2">
+          <p className="overflow-hidden px-2 text-xl font-bold text-white uppercase sm:text-2xl md:text-lg xl:text-xl line-clamp-2">
             {session?.name}
           </p>
-          <p className="text-white flex items-center">
+          <p className="flex items-center text-white">
             <Dot className="w-10 h-10" />
             {formatDate(
               new Date(session.createdAt as string),
@@ -56,11 +46,9 @@ const VideoCardWithMenu = async ({
             )}
           </p>
         </div>
+        <WatchButton />
       </div>
 
-      <div className="mt-3 absolute   z-[999999] bottom-0 backdrop-blur-sm left-0 m-4">
-        <Button variant="primary">WATCH NOW</Button>
-      </div>
       {DropdownMenuItems && (
         <DropdownMenu>
           <DropdownMenuTrigger className="z-10">

@@ -3,11 +3,11 @@
 import NotFound from '@/app/not-found'
 import { fetchOrganization } from '@/lib/services/organizationService'
 import { organizationSlug } from '@/lib/utils'
-import WatchGrid, { WatchGridLoading } from '../WatchGrid'
+import WatchGrid, { WatchGridLoading } from './WatchGrid'
 import { Suspense } from 'react'
 import UpcomingStreams, {
   UpcomingStreamsLoading,
-} from '../UpcomingStreams'
+} from './UpcomingStreams'
 
 const MainContent = async () => {
   const organization = await fetchOrganization({

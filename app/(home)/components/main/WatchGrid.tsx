@@ -1,5 +1,4 @@
 import { fetchAllSessions } from '@/lib/data'
-import Link from 'next/link'
 import VideoCardSkeleton from '@/components/misc/VideoCard/VideoCardSkeleton'
 import Videos from '@/components/misc/Videos'
 import { Video } from 'lucide-react'
@@ -15,6 +14,7 @@ const WatchGrid = async () => {
     })
   ).sessions
   if (!videos) return null
+
   return (
     <div className="w-full">
       <div className="flex justify-between items-center pb-4">

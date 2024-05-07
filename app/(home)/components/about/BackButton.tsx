@@ -11,8 +11,11 @@ const BackButton = () => {
   }
 
   return (
-    <div className="absolute bottom-3 p-2 rounded-md cursor-pointer hover:bg-secondary-foreground">
-      <ArrowLeftFromLine onClick={() => handleClick()} />
+    <div
+      onClick={() => handleClick()}
+      className="flex items-center p-2 space-x-2 rounded-md cursor-pointer hover:bg-secondary-foreground">
+      <ArrowLeftFromLine />
+      <span>Go back</span>
     </div>
   )
 }
