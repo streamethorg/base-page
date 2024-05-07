@@ -11,7 +11,7 @@ const BackButton = () => {
   }
 
   return (
-    <div className="absolute bottom-3 p-2 rounded-md cursor-pointer hover:bg-secondary-foreground">
+    <div className="p-2 rounded-md cursor-pointer hover:bg-secondary-foreground">
       <ArrowLeftFromLine onClick={() => handleClick()} />
     </div>
   )

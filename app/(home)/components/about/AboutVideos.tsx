@@ -15,6 +15,9 @@ const AboutVideo = async ({ sessionId }: { sessionId?: string }) => {
 
   return (
     <div className="mt-2 space-y-4 text-white md:m-2 md:mt-4">
+      <div className="flex justify-start">
+        <BackButton />
+      </div>
       <div className="relative w-full aspect-video">
         <div className="flex absolute top-0 left-0 z-10 flex-col p-3 w-full h-full bg-black bg-opacity-50">
           <Link href={`/watch?tab=none&session=${session._id}`}>
@@ -31,7 +34,7 @@ const AboutVideo = async ({ sessionId }: { sessionId?: string }) => {
               )}
             </p>
           </div>
-          <Link href={`/?tab=none&session=${sessionId}`}>
+          <Link href={`/watch?tab=none&session=${session._id}`}>
             <button className="absolute bottom-0 left-0 z-10 p-2 m-3 border border-white transition-all hover:text-black hover:bg-gray-100">
               Watch Video
             </button>
@@ -46,8 +49,6 @@ const AboutVideo = async ({ sessionId }: { sessionId?: string }) => {
         />
       </div>
       <AboutInfo session={session} />
-
-      <BackButton />
     </div>
   )
 }
