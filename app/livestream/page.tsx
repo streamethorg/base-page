@@ -40,7 +40,6 @@ const Livestream = async ({
           <Counter timeToStart={timeLeft} />
         ) : (
           <Dialog>
-            {' '}
             <DialogTrigger className="absolute z-50 w-full h-full">
               <div className="flex justify-center items-center mx-auto h-full cursor-pointer w-fit">
                 <Play
