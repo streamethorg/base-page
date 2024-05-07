@@ -39,7 +39,7 @@ const VideoCardWithMenu = async ({
       className="flex relative flex-col w-full min-h-full uppercase rounded-xl">
       <Thumbnail imageUrl={session.coverImage} />
 
-      <div className="flex absolute justify-between items-start w-full h-full bg-black bg-opacity-50">
+      <div className="flex absolute z-10 justify-between items-start w-full h-full bg-black bg-opacity-50">
         <div
           className={`rounded p-1 mt-1 lg:p-2 shadow-none lg:shadow-none `}>
           <p
@@ -56,7 +56,7 @@ const VideoCardWithMenu = async ({
         </div>
       </div>
 
-      <div className="flex absolute justify-start items-end p-4 w-full h-full transition-all md:opacity-0 hover:opacity-100 visibility-hidden z-[999999] hover:visibility-visible hover:backdrop-blur-sm">
+      <div className="flex absolute z-10 justify-start items-end p-4 w-full h-full transition-all md:opacity-0 hover:opacity-100 visibility-hidden hover:visibility-visible hover:backdrop-blur-sm">
         <Button
           className="transition-all hover:text-black hover:bg-gray-300"
           variant="primary">
