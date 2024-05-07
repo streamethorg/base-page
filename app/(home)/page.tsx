@@ -137,7 +137,7 @@ const Home = async ({ params, searchParams }: ChannelPageParams) => {
           videoName={playerActive ? stage.name : sessions[0].name}
         /> */}
 
-        <div className="overflow-hidden absolute top-0  w-full h-full">
+        <div className="overflow-hidden absolute top-0 blur-sm w-full h-full">
           <Image
             src={
               playerActive

@@ -47,7 +47,7 @@ const Livestream = async ({
 
         {/* <Footer videoId={video._id!} videoName={video.name} /> */}
 
-        <div className="overflow-hidden absolute top-0  w-full h-full">
+        <div className="overflow-hidden absolute top-0 blur-sm w-full h-full">
           <Image
             src={stage?.thumbnail!}
             priority
