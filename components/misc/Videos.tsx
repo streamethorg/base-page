@@ -6,30 +6,28 @@ import {
   CardHeader,
   CardDescription,
 } from '@/components/ui/card'
+import { headers } from 'next/headers'
 export default async function VideoGrid({
   videos,
-  OrganizationSlug,
   maxVideos,
-  scroll,
 }: {
   videos: IExtendedSession[]
-  OrganizationSlug?: string
+
   maxVideos?: number
-  scroll?: boolean
 }) {
   if (!videos) return null
+  const headerList = headers()
+  const pathname = headerList.get('x-current-path')
 
   return (
     <div className="bg-transparent border-none lg:w-full max-w-screen">
       <div
-        className={`${scroll ? 'flex flex-row' : 'grid grid-cols-2'
-          }  md:grid md:grid-cols-2 xl:grid-cols-3 gap-8 gap-x-4`}>
+        className={`grid grid-cols-1 lg:grid-cols-2 gap-8 gap-x-4`}>
         {videos.map((video, index) =>
           ({ maxVideos }) && maxVideos && index > maxVideos ? null : (
             <div
               key={video._id}
-              className={`${scroll && 'w-[300px]'
-                } lg:w-full h-full border-none flex-initial`}>
+              className={`w-full h-full border-none flex-initial`}>
               <Suspense
                 fallback={
                   <Card
@@ -48,7 +46,7 @@ export default async function VideoGrid({
                 }>
                 <VideoCardWithMenu
                   session={video}
-                  link={`/?tab=about&session=${video._id.toString()}`}
+                  link={`${pathname}?tab=about&session=${video._id.toString()}`}
                 />
               </Suspense>
             </div>

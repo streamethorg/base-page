@@ -1,21 +1,17 @@
 import Thumbnail from '@/components/misc/VideoCard/thumbnail'
 import CollectVideButton from '@/components/sessions/CollectVideButton'
-import {
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card'
+
 import { fetchSession } from '@/lib/services/sessionService'
 import { fetchStage } from '@/lib/services/stageService'
-import DefaultThumbnail from '@/lib/svg/DefaultThumbnail'
 import {
   IExtendedNftCollections,
   IExtendedSession,
   IExtendedStage,
 } from '@/lib/types'
 import { formatDate } from '@/lib/utils/time'
-import { Link } from 'lucide-react'
+
 import Image from 'next/image'
+import Link from 'next/link'
 import React from 'react'
 
 const CollectionItem = async ({
@@ -42,10 +38,12 @@ const CollectionItem = async ({
   if (!collection) return null
 
   const link = `/${
-    video.type === 'video' ? 'tabs=none&session' : 'tabs=none&stage'
+    video.type === 'video'
+      ? 'watch?tabs=none&session'
+      : 'livestream?tabs=none&stage'
   }=${session?._id?.toString()}`
   return (
-    <div className="w-full relative flex flex-col">
+    <div className="w-full   relative flex flex-col">
       <Link href={link} className="flex z-10 flex-col w-full">
         <Thumbnail imageUrl={collectionImage!} />
         <h2 className="text-lg h-full w-full bg-black  bg-opacity-50  line-clamp-2 absolute p-3 font-bold uppercase">
@@ -53,7 +51,7 @@ const CollectionItem = async ({
         </h2>
       </Link>
 
-      <div className="mt-3 absolute bottom-0 backdrop-blur-sm right-0 p-4 z-10">
+      <div className="mt-3 absolute bottom-0 backdrop-blur-sm right-0 m-4 z-10">
         <CollectVideButton
           variant="primary"
           video={collection as IExtendedSession}

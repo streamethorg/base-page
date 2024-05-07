@@ -6,8 +6,10 @@ import {
 import { Separator } from '@/components/ui/separator'
 import useSearchParams from '@/lib/hooks/useSearchParams'
 import React, { useState } from 'react'
+import { DialogTrigger, Dialog } from '@/components/ui/dialog'
+import { ShareModalContent } from '@/components/misc/interact/ShareButton'
 
-const InnerNav = ({
+const AboutCollectionInfo = ({
   menuItems,
 }: {
   menuItems: { key: string; label: string }[]
@@ -33,9 +35,16 @@ const InnerNav = ({
             <Separator className="bg-gray-300 transition-all w-full hover:text-white" />
           </div>
         ))}
+        <Dialog>
+          <DialogTrigger className="space-y-2 w-full text-left border-none transition-all cursor-pointer hover:text-white">
+            <span>SHARE</span>
+            <Separator className="bg-gray-300 transition-all hover:bg-white" />
+          </DialogTrigger>
+          <ShareModalContent shareFor="collection" />
+        </Dialog>
       </ul>
     </NavigationMenu>
   )
 }
 
-export default InnerNav
+export default AboutCollectionInfo

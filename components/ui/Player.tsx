@@ -16,8 +16,7 @@ import * as Player from '@livepeer/react/player'
 import * as Popover from '@radix-ui/react-popover'
 import { ClipPayload } from 'livepeer/dist/models/components'
 import { CheckIcon, ChevronDownIcon, XIcon } from 'lucide-react'
-import React, { useCallback, useEffect, useTransition } from 'react'
-import { toast } from 'sonner'
+import React from 'react'
 
 import { Src } from '@livepeer/react'
 
@@ -33,7 +32,7 @@ export function PlayerWithControls(props: { src: Src[] | null }) {
 
   return (
     <Player.Root src={props.src}>
-      <Player.Container className="md:rounded-xl bg-gradient-to-b from-black to-[#0052FF]  h-full w-full overflow-hidden  outline-none transition">
+      <Player.Container className="md:rounded-xl bg-black  h-full w-full overflow-hidden  outline-none transition">
         <Player.Video
           title="Live stream"
           className={cn('h-full w-full transition')}
@@ -60,15 +59,15 @@ export function PlayerWithControls(props: { src: Src[] | null }) {
           className="absolute select-none animate-in fade-in-0 inset-0 text-center bg-black/40 backdrop-blur-lg flex flex-col items-center justify-center gap-4 duration-1000 data-[visible=true]:animate-in data-[visible=false]:animate-out data-[visible=false]:fade-out-0 data-[visible=true]:fade-in-0">
           <div className="flex flex-col gap-5">
             <div className="flex flex-col gap-1">
-              <div className="text-lg font-bold sm:text-2xl">
+              <div className="text-lg sm:text-2xl font-bold">
                 Stream is offline
               </div>
-              <div className="text-xs text-gray-100 sm:text-sm">
+              <div className="text-xs sm:text-sm text-gray-100">
                 Playback will start automatically once the stream has
                 started
               </div>
             </div>
-            <LoadingIcon className="mx-auto w-6 h-6 animate-spin md:w-8 md:h-8" />
+            <LoadingIcon className="w-6 h-6 md:w-8 md:h-8 mx-auto animate-spin" />
           </div>
         </Player.ErrorIndicator>
 
@@ -77,32 +76,32 @@ export function PlayerWithControls(props: { src: Src[] | null }) {
           className="absolute select-none inset-0 text-center bg-black/40 backdrop-blur-lg flex flex-col items-center justify-center gap-4 duration-1000 data-[visible=true]:animate-in data-[visible=false]:animate-out data-[visible=false]:fade-out-0 data-[visible=true]:fade-in-0">
           <div className="flex flex-col gap-5">
             <div className="flex flex-col gap-1">
-              <div className="text-lg font-bold sm:text-2xl">
+              <div className="text-lg sm:text-2xl font-bold">
                 Stream is private
               </div>
-              <div className="text-xs text-gray-100 sm:text-sm">
+              <div className="text-xs sm:text-sm text-gray-100">
                 It looks like you do not have permission to view this
                 content
               </div>
             </div>
-            <LoadingIcon className="mx-auto w-6 h-6 animate-spin md:w-8 md:h-8" />
+            <LoadingIcon className="w-6 h-6 md:w-8 md:h-8 mx-auto animate-spin" />
           </div>
         </Player.ErrorIndicator>
 
         <Player.Controls className="bg-gradient-to-b gap-1 px-3 md:px-3 py-2 flex-col-reverse flex from-black/5 via-80% via-black/30 duration-1000 to-black/60 data-[visible=true]:animate-in data-[visible=false]:animate-out data-[visible=false]:fade-out-0 data-[visible=true]:fade-in-0">
-          <div className="flex gap-4 justify-between">
-            <div className="flex flex-1 gap-3 items-center">
-              <Player.PlayPauseTrigger className="flex-shrink-0 w-6 h-6 transition hover:scale-110">
+          <div className="flex justify-between gap-4">
+            <div className="flex flex-1 items-center gap-3">
+              <Player.PlayPauseTrigger className="w-6 h-6 hover:scale-110 transition flex-shrink-0">
                 <Player.PlayingIndicator asChild matcher={false}>
-                  <PlayIcon className="w-full h-full text-white" />
+                  <PlayIcon className="text-white w-full h-full" />
                 </Player.PlayingIndicator>
                 <Player.PlayingIndicator asChild>
-                  <PauseIcon className="w-full h-full text-white" />
+                  <PauseIcon className="text-white w-full h-full" />
                 </Player.PlayingIndicator>
               </Player.PlayPauseTrigger>
 
-              <Player.LiveIndicator className="flex gap-2 items-center">
-                <div className="w-1.5 h-1.5 text-white bg-red-600 rounded-full" />
+              <Player.LiveIndicator className="gap-2 flex items-center">
+                <div className="bg-red-600 text-white h-1.5 w-1.5 rounded-full" />
                 <span className="text-sm text-white select-none">
                   LIVE
                 </span>
@@ -110,51 +109,51 @@ export function PlayerWithControls(props: { src: Src[] | null }) {
               <Player.LiveIndicator
                 matcher={false}
                 className="flex gap-2 items-center">
-                <Player.Time className="text-sm tabular-nums text-white select-none" />
+                <Player.Time className="text-white text-sm tabular-nums select-none" />
               </Player.LiveIndicator>
 
-              <Player.MuteTrigger className="flex-shrink-0 w-6 h-6 transition hover:scale-110">
+              <Player.MuteTrigger className="w-6 h-6 hover:scale-110 transition flex-shrink-0">
                 <Player.VolumeIndicator asChild matcher={false}>
-                  <MuteIcon className="w-full h-full text-white" />
+                  <MuteIcon className="text-white w-full h-full" />
                 </Player.VolumeIndicator>
                 <Player.VolumeIndicator asChild matcher={true}>
-                  <UnmuteIcon className="w-full h-full text-white" />
+                  <UnmuteIcon className="text-white w-full h-full" />
                 </Player.VolumeIndicator>
               </Player.MuteTrigger>
-              <Player.Volume className="flex relative flex-1 items-center mr-1 h-5 cursor-pointer select-none group touch-none max-w-[120px]">
-                <Player.Track className="relative rounded-full transition bg-white/30 grow h-[2px] md:h-[3px] group-hover:h-[3px] group-hover:md:h-[4px]">
-                  <Player.Range className="absolute h-full text-white bg-white rounded-full" />
+              <Player.Volume className="relative mr-1 flex-1 group flex cursor-pointer items-center select-none touch-none max-w-[120px] h-5">
+                <Player.Track className="bg-white/30 relative grow rounded-full transition h-[2px] md:h-[3px] group-hover:h-[3px] group-hover:md:h-[4px]">
+                  <Player.Range className="text-white absolute bg-white rounded-full h-full" />
                 </Player.Track>
-                <Player.Thumb className="block w-3 h-3 text-white bg-white rounded-full transition group-hover:scale-110" />
+                <Player.Thumb className="text-white block transition group-hover:scale-110 w-3 h-3 bg-white rounded-full" />
               </Player.Volume>
             </div>
-            <div className="flex gap-2.5 justify-end items-center sm:flex-1 md:flex-[1.5]">
+            <div className="flex sm:flex-1 md:flex-[1.5] justify-end items-center gap-2.5">
               <Player.FullscreenIndicator matcher={false} asChild>
-                <Settings className="flex-shrink-0 w-6 h-6 text-white transition" />
+                <Settings className="text-white w-6 h-6 transition flex-shrink-0" />
               </Player.FullscreenIndicator>
-              {/* <Clip className="flex justify-center items-center w-6 h-6" /> */}
+              {/* <Clip className="flex items-center w-6 h-6 justify-center" /> */}
 
-              <Player.PictureInPictureTrigger className="flex-shrink-0 w-6 h-6 transition hover:scale-110">
-                <PictureInPictureIcon className="w-full h-full text-white" />
+              <Player.PictureInPictureTrigger className="w-6 h-6 hover:scale-110 transition flex-shrink-0">
+                <PictureInPictureIcon className="text-white w-full h-full" />
               </Player.PictureInPictureTrigger>
 
-              <Player.FullscreenTrigger className="flex-shrink-0 w-6 h-6 transition hover:scale-110">
+              <Player.FullscreenTrigger className="w-6 h-6 hover:scale-110 transition flex-shrink-0">
                 <Player.FullscreenIndicator asChild>
-                  <ExitFullscreenIcon className="w-full h-full text-white" />
+                  <ExitFullscreenIcon className="text-white w-full h-full" />
                 </Player.FullscreenIndicator>
 
                 <Player.FullscreenIndicator matcher={false} asChild>
-                  <EnterFullscreenIcon className="w-full h-full text-white" />
+                  <EnterFullscreenIcon className="text-white w-full h-full" />
                 </Player.FullscreenIndicator>
               </Player.FullscreenTrigger>
             </div>
           </div>
-          <Player.Seek className="flex relative items-center w-full h-5 cursor-pointer select-none group touch-none">
-            <Player.Track className="relative rounded-full transition bg-white/30 grow h-[2px] md:h-[3px] group-hover:h-[3px] group-hover:md:h-[4px]">
-              <Player.SeekBuffer className="absolute h-full rounded-full transition duration-1000 bg-black/30" />
-              <Player.Range className="absolute h-full bg-white rounded-full" />
+          <Player.Seek className="relative group flex cursor-pointer items-center select-none touch-none w-full h-5">
+            <Player.Track className="bg-white/30 relative grow rounded-full transition h-[2px] md:h-[3px] group-hover:h-[3px] group-hover:md:h-[4px]">
+              <Player.SeekBuffer className="absolute bg-black/30 transition duration-1000 rounded-full h-full" />
+              <Player.Range className="absolute bg-white rounded-full h-full" />
             </Player.Track>
-            <Player.Thumb className="block w-3 h-3 bg-white rounded-full transition group-hover:scale-110" />
+            <Player.Thumb className="block group-hover:scale-110 w-3 h-3 bg-white transition rounded-full" />
           </Player.Seek>
         </Player.Controls>
       </Player.Container>
@@ -171,23 +170,23 @@ export const PlayerLoading = ({
   title?: React.ReactNode
   description?: React.ReactNode
 }) => (
-  <div className="flex overflow-hidden relative flex-col-reverse gap-3 py-2 px-3 w-full rounded-sm aspect-video bg-white/10">
+  <div className="relative w-full px-3 py-2 gap-3 flex-col-reverse flex aspect-video bg-white/10 overflow-hidden rounded-sm">
     <div className="flex justify-between">
-      <div className="flex gap-2 items-center">
-        <div className="overflow-hidden w-6 h-6 rounded-lg animate-pulse bg-white/5" />
-        <div className="overflow-hidden w-16 h-6 rounded-lg animate-pulse md:w-20 md:h-7 bg-white/5" />
+      <div className="flex items-center gap-2">
+        <div className="w-6 h-6 animate-pulse bg-white/5 overflow-hidden rounded-lg" />
+        <div className="w-16 h-6 md:w-20 md:h-7 animate-pulse bg-white/5 overflow-hidden rounded-lg" />
       </div>
 
-      <div className="flex gap-2 items-center">
-        <div className="overflow-hidden w-6 h-6 rounded-lg animate-pulse bg-white/5" />
-        <div className="overflow-hidden w-6 h-6 rounded-lg animate-pulse bg-white/5" />
+      <div className="flex items-center gap-2">
+        <div className="w-6 h-6 animate-pulse bg-white/5 overflow-hidden rounded-lg" />
+        <div className="w-6 h-6 animate-pulse bg-white/5 overflow-hidden rounded-lg" />
       </div>
     </div>
-    <div className="overflow-hidden w-full h-2 rounded-lg animate-pulse bg-white/5" />
+    <div className="w-full h-2 animate-pulse bg-white/5 overflow-hidden rounded-lg" />
 
     {title && (
-      <div className="flex absolute inset-10 flex-col gap-1 justify-center items-center text-center">
-        <span className="text-lg font-medium text-white">
+      <div className="absolute flex flex-col gap-1 inset-10 text-center justify-center items-center">
+        <span className="text-white text-lg font-medium">
           {title}
         </span>
         {description && (
@@ -234,9 +233,9 @@ export const PlayerLoading = ({
 //       <Player.ClipTrigger
 //         onClip={createClipComposed}
 //         disabled={isPending}
-//         className="flex-shrink-0 transition hover:scale-110">
+//         className="hover:scale-110 transition flex-shrink-0">
 //         {isPending ? (
-//           <LoadingIcon className="w-full h-full animate-spin" />
+//           <LoadingIcon className="h-full w-full animate-spin" />
 //         ) : (
 //           <ClipIcon className="w-full h-full" />
 //         )}
@@ -271,28 +270,28 @@ export const Settings = React.forwardRef(function Search(
           align="end"
           onClick={(e) => e.stopPropagation()}>
           <div className="flex flex-col gap-2">
-            <p className="mb-1 text-sm font-medium text-white/90">
+            <p className="text-white/90 font-medium text-sm mb-1">
               Settings
             </p>
             <Player.LiveIndicator
               matcher={false}
-              className="flex flex-col gap-2">
+              className="gap-2 flex-col flex">
               <label
-                className="text-xs font-medium text-white/90"
+                className="text-xs text-white/90 font-medium"
                 htmlFor="speedSelect">
                 Playback speed
               </label>
               <Player.RateSelect name="speedSelect">
                 <Player.SelectTrigger
-                  className="inline-flex gap-1 justify-between items-center px-1 h-7 text-xs leading-none rounded-sm outline-none outline-1 outline-white/50"
+                  className="inline-flex items-center justify-between rounded-sm px-1 outline-1 outline-white/50 text-xs leading-none h-7 gap-1 outline-none"
                   aria-label="Playback speed">
                   <Player.SelectValue placeholder="Select a speed..." />
                   <Player.SelectIcon>
-                    <ChevronDownIcon className="w-4 h-4" />
+                    <ChevronDownIcon className="h-4 w-4" />
                   </Player.SelectIcon>
                 </Player.SelectTrigger>
                 <Player.SelectPortal>
-                  <Player.SelectContent className="overflow-hidden bg-white rounded-sm border border-white/50">
+                  <Player.SelectContent className=" overflow-hidden bg-white border border-white/50 rounded-sm">
                     <Player.SelectViewport className="p-1">
                       <Player.SelectGroup>
                         <RateSelectItem value={0.5}>
@@ -320,9 +319,9 @@ export const Settings = React.forwardRef(function Search(
                 </Player.SelectPortal>
               </Player.RateSelect>
             </Player.LiveIndicator>
-            <div className="flex flex-col gap-2">
+            <div className="gap-2 flex-col flex">
               <label
-                className="text-xs font-medium text-white/90"
+                className="text-xs text-white/90 font-medium"
                 htmlFor="qualitySelect">
                 Quality
               </label>
@@ -330,11 +329,11 @@ export const Settings = React.forwardRef(function Search(
                 name="qualitySelect"
                 defaultValue="1.0">
                 <Player.SelectTrigger
-                  className="inline-flex gap-1 justify-between items-center px-1 h-7 text-xs leading-none rounded-sm outline-none outline-1 outline-white/50"
+                  className="inline-flex items-center justify-between rounded-sm px-1 outline-1 outline-white/50 text-xs leading-none h-7 gap-1 outline-none"
                   aria-label="Playback quality">
                   <Player.SelectValue placeholder="Select a quality..." />
                   <Player.SelectIcon>
-                    <ChevronDownIcon className="w-4 h-4" />
+                    <ChevronDownIcon className="h-4 w-4" />
                   </Player.SelectIcon>
                 </Player.SelectTrigger>
                 <Player.SelectPortal>
@@ -364,7 +363,7 @@ export const Settings = React.forwardRef(function Search(
             </div>
           </div>
           <Popover.Close
-            className="inline-flex absolute top-2.5 right-2.5 justify-center items-center w-5 h-5 rounded-full outline-none"
+            className="rounded-full h-5 w-5 inline-flex items-center justify-center absolute top-2.5 right-2.5 outline-none"
             aria-label="Close">
             <XIcon />
           </Popover.Close>
@@ -391,7 +390,7 @@ export const RateSelectItem = React.forwardRef<
       {...props}
       ref={forwardedRef}>
       <Player.SelectItemText>{children}</Player.SelectItemText>
-      <Player.SelectItemIndicator className="inline-flex absolute left-0 justify-center items-center w-[25px]">
+      <Player.SelectItemIndicator className="absolute left-0 w-[25px] inline-flex items-center justify-center">
         <CheckIcon className="w-4 h-4" />
       </Player.SelectItemIndicator>
     </Player.RateSelectItem>
@@ -414,7 +413,7 @@ export const VideoQualitySelectItem = React.forwardRef<
       {...props}
       ref={forwardedRef}>
       <Player.SelectItemText>{children}</Player.SelectItemText>
-      <Player.SelectItemIndicator className="inline-flex absolute left-0 justify-center items-center w-[25px]">
+      <Player.SelectItemIndicator className="absolute left-0 w-[25px] inline-flex items-center justify-center">
         <CheckIcon className="w-4 h-4" />
       </Player.SelectItemIndicator>
     </Player.VideoQualitySelectItem>

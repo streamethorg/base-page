@@ -214,6 +214,7 @@ export interface ChannelPageParams {
     session?: string
     search: string
     streamId: string
+    stage?: string
   }
 }
 
