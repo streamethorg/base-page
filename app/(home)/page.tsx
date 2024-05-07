@@ -5,6 +5,7 @@ import { Metadata, ResolvingMetadata } from 'next'
 import { fetchOrganization } from '@/lib/services/organizationService'
 import { ChannelPageParams, Page } from '@/lib/types'
 import { fetchOrganizationStages } from '@/lib/services/stageService'
+import { cn } from '@/lib/utils'
 import Player from '@/components/Player/Player'
 import PlayerWithControls from '@/components/ui/Player'
 import Image from 'next/image'
@@ -20,6 +21,7 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog'
 import { Play } from 'lucide-react'
+import Counter from '@/components/misc/Counter'
 
 const getVideoUrl = (session: IExtendedSession) => {
   let playbackId = ''
@@ -98,39 +100,48 @@ const Home = async ({ params, searchParams }: ChannelPageParams) => {
     organizationSlug: organizationSlug,
   })
 
+  const timeLeft =
+    new Date(stage.streamDate as string).getTime() - Date.now()
+
   return (
     <div className="flex flex-col mx-auto w-full">
       <HomePageNavbar searchParams={searchParams} pages={pages} />
 
       <div className="flex absolute top-0 flex-col justify-center items-center mx-auto w-screen h-screen bg-black">
-        <Dialog>
-          <DialogTrigger className="absolute h-full w-full z-50">
-            <div className="flex items-center justify-center w-fit mx-auto h-full  cursor-pointer">
-              <Play
-                fill="#fff"
-                className="bg-base-blue text-white w-14 h-14 p-2 rounded-full"
-              />
-            </div>
-          </DialogTrigger>
+        {timeLeft > 0 ? (
+          <Counter timeToStart={timeLeft} />
+        ) : (
+          <Dialog>
+            <DialogTrigger className="absolute z-50 w-full h-full">
+              <div className="flex justify-center items-center mx-auto h-full cursor-pointer w-fit">
+                <Play
+                  fill="#fff"
+                  className="p-2 w-14 h-14 text-white rounded-full bg-base-blue"
+                />
+              </div>
+            </DialogTrigger>
 
-          <DialogContent className="!p-0 aspect-video !rounded-xl w-full max-w-[1500px]">
-            {playerActive ? (
-              <Player stage={stage} />
-            ) : (
-              <PlayerWithControls
-                src={[
-                  {
-                    src: getVideoUrl(sessions[0]) as `${string}m3u8`,
-                    width: 1920,
-                    height: 1080,
-                    mime: 'application/vnd.apple.mpegurl',
-                    type: 'hls',
-                  },
-                ]}
-              />
-            )}
-          </DialogContent>
-        </Dialog>
+            <DialogContent className="!p-0 aspect-video !rounded-xl w-full max-w-[1500px]">
+              {playerActive ? (
+                <Player stage={stage} />
+              ) : (
+                <PlayerWithControls
+                  src={[
+                    {
+                      src: getVideoUrl(
+                        sessions[0]
+                      ) as `${string}m3u8`,
+                      width: 1920,
+                      height: 1080,
+                      mime: 'application/vnd.apple.mpegurl',
+                      type: 'hls',
+                    },
+                  ]}
+                />
+              )}
+            </DialogContent>
+          </Dialog>
+        )}
 
         {/* <div className="flex-grow w-full h-full">
         <div className="flex absolute top-0 flex-col justify-center items-center mx-auto w-screen h-screen bg-base-blue">
@@ -163,7 +174,11 @@ const Home = async ({ params, searchParams }: ChannelPageParams) => {
           videoName={playerActive ? stage.name : sessions[0].name}
         /> */}
 
-        <div className="overflow-hidden absolute top-0  w-full h-full">
+        <div
+          className={cn(
+            'overflow-hidden absolute top-0 w-full h-full',
+            timeLeft > 0 && 'blur'
+          )}>
           <Image
             src={
               playerActive

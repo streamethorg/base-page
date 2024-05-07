@@ -30,7 +30,7 @@ const LivestreamCard = ({
         <div
           className={`rounded p-1 mt-1 lg:p-2 shadow-none lg:shadow-none `}>
           <p
-            className={`px-2 uppercase line-clamp-2 overflow-hidden text-white font-bold  hover:underline text-2xl`}>
+            className={`px-2 uppercase line-clamp-2 overflow-hidden text-white font-bold  hover:underline sm:text-2xl md:text-lg xl:text-xl`}>
             {livestream.name}
           </p>
           <p className="flex items-center text-white">
