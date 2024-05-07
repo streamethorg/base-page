@@ -45,6 +45,7 @@ export default function NavbarLayout({
                 }>
                 <NavigationMenuLink
                   className={cn(
+                    'border-b border-white md:border-none',
                     navigationMenuTriggerStyle(),
                     tab === item.href && 'text-white'
                   )}>
@@ -56,10 +57,10 @@ export default function NavbarLayout({
         ))}
         <NavigationMenuItem
           key={'connect-mobile'}
-          className="md:hidden">
+          className="md:hidden border-b border-white md:border-none">
           <ConnectWalletButton
             btnText="LOGIN"
-            className="flex justify-start p-0 w-full text-gray-300 rounded-none border-none"
+            className="flex justify-start p-0 w-full hover:text-white hover:bg-transparent text-gray-300 rounded-none border-none"
           />
         </NavigationMenuItem>
       </ul>
