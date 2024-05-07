@@ -40,14 +40,14 @@ const Livestream = async ({
             </div>
           </DialogTrigger>
 
-          <DialogContent className="!p-0 aspect-video !rounded-xl w-full max-w-[1500px]">
+          <DialogContent className="!p-0 aspect-video !rounded-xl w-full max-w-[1300px]">
             <Player stage={stage} />
           </DialogContent>
         </Dialog>
 
         {/* <Footer videoId={video._id!} videoName={video.name} /> */}
 
-        <div className="overflow-hidden absolute top-0  w-full h-full">
+        <div className="overflow-hidden absolute top-0 blur-sm w-full h-full">
           <Image
             src={stage?.thumbnail!}
             priority
