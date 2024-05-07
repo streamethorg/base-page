@@ -101,7 +101,7 @@ const Home = async ({ params, searchParams }: ChannelPageParams) => {
   })
 
   const timeLeft =
-    new Date(stage.streamDate as string).getTime() - Date.now()
+    new Date(stage?.streamDate as string).getTime() - Date.now()
 
   return (
     <div className="flex flex-col mx-auto w-full">
