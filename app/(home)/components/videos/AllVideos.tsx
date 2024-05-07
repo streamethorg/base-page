@@ -21,7 +21,7 @@ const AllVideos = async ({ page }: { page?: string }) => {
       <div className="mt-2">
         <Pagination {...videos.pagination} />
       </div>
-      <div className="grid-cols-1 lg:grid-cols-2 gap-4 px-6 md:mt-8 grid relative">
+      <div className="grid-cols-1 xl:grid-cols-2 gap-4 md:mt-8 grid relative">
         {videos.sessions.map((session) => (
           <VideoCardWithMenu
             link={`/?tab=about&session=${session._id}`}

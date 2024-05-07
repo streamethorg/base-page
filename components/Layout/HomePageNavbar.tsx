@@ -97,6 +97,7 @@ const MobileNavBar = async ({
             {tab === eTab.collection && (
               <AboutCollection searchParams={searchParams} />
             )}
+            {tab === eTab.collections && <AllCollections />}
             {tab === eTab.videos && (
               <AllVideos page={searchParams?.page} />
             )}
