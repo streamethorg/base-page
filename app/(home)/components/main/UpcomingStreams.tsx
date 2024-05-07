@@ -1,7 +1,9 @@
 import { fetchStages } from '@/lib/services/stageService'
 import LivestreamCard from '@/components/misc/VideoCard/LivestreamCard'
 import React from 'react'
-import { VideoCardSkeletonMobile } from '@/components/misc/VideoCard/VideoCardSkeleton'
+import VideoCardSkeleton, {
+  VideoCardSkeletonMobile,
+} from '@/components/misc/VideoCard/VideoCardSkeleton'
 import { Podcast } from 'lucide-react'
 
 const UpcomingStreams = async ({
@@ -32,9 +34,7 @@ const UpcomingStreams = async ({
           <React.Fragment key={livestream?._id?.toString()}>
             <div>
               <LivestreamCard
-                name={livestream.name}
-                date={livestream.streamDate as string}
-                thumbnail={''}
+                livestream={livestream}
                 link={`/livestream?stage=${livestream?._id?.toString()}`}
               />
             </div>
@@ -54,11 +54,16 @@ const UpcomingStreams = async ({
 export const UpcomingStreamsLoading = () => (
   <>
     <div className="w-1/4 h-6 rounded animate-pulse md:hidden bg-secondary-foreground"></div>
-    <div className="grid grid-rows-3 gap-4 md:hidden md:grid-cols-3 md:m-0">
-      {Array.from({ length: 3 }).map((_, index) => (
-        <div key={index} className="block md:hidden">
-          <VideoCardSkeletonMobile />
-        </div>
+    <div className="grid grid-rows-3 gap-4 md:grid-rows-1 md:m-0">
+      {Array.from({ length: 2 }).map((_, index) => (
+        <>
+          <div key={index} className="md:hidden">
+            <VideoCardSkeletonMobile />
+          </div>
+          <div key={index} className="hidden md:block">
+            <VideoCardSkeleton />
+          </div>
+        </>
       ))}
     </div>
   </>
