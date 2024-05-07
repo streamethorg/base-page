@@ -66,7 +66,7 @@ const Watch = async ({ searchParams }: ChannelPageParams) => {
               </div>
             </DialogTrigger>
 
-            <DialogContent className="!p-0 aspect-video !rounded-xl w-full max-w-[1500px]">
+            <DialogContent className="!p-0 aspect-video !rounded-xl w-full max-w-[1300px]">
               <PlayerWithControls
                 src={[
                   {
@@ -83,7 +83,7 @@ const Watch = async ({ searchParams }: ChannelPageParams) => {
 
           {/* <Footer videoId={video._id!} videoName={video.name} /> */}
 
-          <div className="overflow-hidden absolute top-0  w-full h-full">
+          <div className="overflow-hidden absolute blur-sm top-0  w-full h-full">
             <Image
               src={video?.coverImage!}
               priority

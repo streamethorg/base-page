@@ -69,7 +69,7 @@ const MobileNavBar = async ({
   const showSidebar = tab !== eTab.none && !!tab
 
   return (
-    <NavigationMenu className="flex sticky top-0 flex-row items-center bg-black md:hidden backdrop-blur z-[999999999999]">
+    <NavigationMenu className="flex sticky top-0 flex-row items-center backdrop-blur-md md:hidden z-[999999999999]">
       <div
         className={cn(
           'flex relative flex-col items-center p-4 w-full',
