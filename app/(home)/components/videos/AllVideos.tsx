@@ -14,7 +14,7 @@ const AllVideos = async ({ page }: { page?: string }) => {
 
   return (
     <>
-      <div className="mt-2">
+      <div className="mt-4 md:px-2">
         <Pagination {...videos.pagination} />
       </div>
       <div className="grid relative grid-cols-1 gap-4 md:mt-2 xl:grid-cols-2">

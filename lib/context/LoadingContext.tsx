@@ -31,7 +31,7 @@ const LoadingModal = ({ isLoading }: { isLoading: boolean }) => {
         {/* <div className="w-20 h-20 border-4 border-black rounded-full animate-spin"></div> */}
         <Image
           src="/logo.png"
-          alt="Streameth logo"
+          alt="Base logo"
           width={100}
           height={100}
           className=" animate-pulse"
