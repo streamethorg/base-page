@@ -4,10 +4,8 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import { Analytics } from '@vercel/analytics/react'
-import { TopNavbarContextProvider } from '@/lib/context/TopNavbarContext'
 import './globals.css'
 import GeneralContext from '@/lib/context/GeneralContext'
-import { ModalContextProvider } from '@/lib/context/ModalContext'
 import { MobileContextProvider } from '@/lib/context/MobileContext'
 import { LoadingContextProvider } from '@/lib/context/LoadingContext'
 import { Toaster } from '@/components/ui/sonner'
@@ -36,15 +34,11 @@ export default function RootLayout({
             <Toaster />
             <LoadingContextProvider>
               <MobileContextProvider>
-                <ModalContextProvider>
-                  <TopNavbarContextProvider>
-                    <Analytics />
-                    <main
-                      className={`${inter.variable} flex flex-col w-full min-h-screen mx-auto bg-background `}>
-                      {children}
-                    </main>
-                  </TopNavbarContextProvider>
-                </ModalContextProvider>
+                <Analytics />
+                <main
+                  className={`${inter.variable} flex flex-col w-full min-h-screen mx-auto bg-background `}>
+                  {children}
+                </main>
               </MobileContextProvider>
             </LoadingContextProvider>
           </GeneralContext>
