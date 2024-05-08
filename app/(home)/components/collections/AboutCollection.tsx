@@ -9,6 +9,7 @@ import DefaultThumbnail from '@/lib/svg/DefaultThumbnail'
 import ShareButton from '@/components/misc/interact/ShareButton'
 import InnerNav from '@/components/misc/interact/InnerNav'
 import AboutCollectionInfo from './AboutCollectionInfo'
+import BackButton from '../about/BackButton'
 
 const menuItems = [
   { key: 'about', label: 'ABOUT' },
@@ -26,7 +27,10 @@ const AboutCollection = async ({
   const collection = await fetchNFTCollection({ collectionId })
   if (!collection) return
   return (
-    <div className="m-6 space-y-4 text-white">
+    <div className="mt-4 md:px-2 space-y-4 text-white">
+      <div className="flex justify-start">
+        <BackButton />
+      </div>
       <div className="relative w-full aspect-video">
         <div className="flex absolute backdrop-blur-sm top-0 left-0 z-10 flex-col p-3 w-full h-full">
           <h2 className="text-2xl font-bold">{collection?.name}</h2>
