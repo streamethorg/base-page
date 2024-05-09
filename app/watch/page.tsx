@@ -18,21 +18,13 @@ import { ChannelPageParams } from '@/lib/types'
 
 const Loading = () => {
   return (
-    <div className="flex flex-col gap-4 mx-auto w-full max-w-7xl h-full animate-pulse">
-      <div className="flex flex-col w-full h-full md:p-4">
-        <div className="w-full bg-gray-300 aspect-video"></div>
+    <div className="flex flex-col gap-4 mx-auto w-full h-screen bg-gray-500">
+      <div className="flex flex-col w-full h-full animate-pulse md:p-4">
+        <div className="w-full bg-secondary-foreground aspect-video"></div>
         <div className="px-4 mt-4 space-y-2 w-full md:px-0">
-          <div className="w-3/4 h-6 bg-gray-200 rounded"></div>
-          <div className="w-full h-4 bg-gray-200 rounded"></div>
-          <div className="w-1/4 h-4 bg-gray-200 rounded"></div>
-        </div>
-      </div>
-      <div className="px-4">
-        <div className="grid grid-cols-2 gap-4">
-          <div className="w-full h-32 bg-gray-300 rounded md:h-60"></div>
-          <div className="w-full h-32 bg-gray-300 rounded md:h-60"></div>
-          <div className="w-full h-32 bg-gray-300 rounded md:h-60"></div>
-          <div className="w-full h-32 bg-gray-300 rounded md:h-60"></div>
+          <div className="w-3/4 h-6 rounded bg-secondary-foreground"></div>
+          <div className="w-full h-4 rounded bg-secondary-foreground"></div>
+          <div className="w-1/4 h-4 rounded bg-secondary-foreground"></div>
         </div>
       </div>
     </div>
@@ -50,6 +42,7 @@ const Watch = async ({ searchParams }: ChannelPageParams) => {
     video?.playbackId
   )
   if (!video || !videoUrl) return notFound()
+
   return (
     <Suspense key={video._id} fallback={<Loading />}>
       <div className="flex flex-col mx-auto w-full">
@@ -57,11 +50,11 @@ const Watch = async ({ searchParams }: ChannelPageParams) => {
 
         <div className="flex absolute top-0 flex-col justify-center items-center mx-auto w-screen h-screen bg-black">
           <Dialog>
-            <DialogTrigger className="absolute h-full w-full z-50">
-              <div className="flex items-center justify-center w-fit mx-auto h-full  cursor-pointer">
+            <DialogTrigger className="absolute z-50 w-full h-full">
+              <div className="flex justify-center items-center mx-auto h-full cursor-pointer w-fit">
                 <Play
                   fill="#fff"
-                  className="bg-base-blue text-white w-14 h-14 p-2 rounded-full"
+                  className="p-2 w-14 h-14 text-white rounded-full bg-base-blue"
                 />
               </div>
             </DialogTrigger>
@@ -83,7 +76,7 @@ const Watch = async ({ searchParams }: ChannelPageParams) => {
 
           {/* <Footer videoId={video._id!} videoName={video.name} /> */}
 
-          <div className="overflow-hidden absolute blur-sm top-0  w-full h-full">
+          <div className="overflow-hidden absolute top-0 w-full h-full blur-sm">
             <Image
               src={video?.coverImage!}
               priority
