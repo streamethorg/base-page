@@ -15,7 +15,6 @@ import Image from 'next/image'
 import Player from '@/components/Player/Player'
 import Counter from '@/components/misc/Counter'
 import { fetchOrganization } from '@/lib/services/organizationService'
-import NotFound from '@/app/not-found'
 
 export async function generateStaticParams() {
   const organization = await fetchOrganization({
