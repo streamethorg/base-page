@@ -17,39 +17,40 @@ import MainContent from '@/app/(home)/components/main/MainContent'
 import AllVideos from '@/app/(home)/components/videos/AllVideos'
 import AboutCollection from '@/app/(home)/components/collections/AboutCollection'
 import { ConnectWalletButton } from '../misc/ConnectWalletButton'
+import Device from '@/lib/utils/device'
 
 const HomePageNavbar = async ({
   pages,
   searchParams,
 }: {
-  logo?: string
   pages: Page[]
-  showLogo?: boolean
-  organizations?: IExtendedOrganization[]
   searchParams: ChannelPageParams['searchParams']
-  currentOrganization?: string
 }) => {
   const tab = searchParams.tab
   const sessionId = searchParams.session
+  const isMobile = await Device()
 
   return (
     <div className="z-[99999999]">
-      <div className="md:hidden">
-        <MobileNavBar
-          pages={pages}
-          tab={tab}
-          sessionId={sessionId}
-          searchParams={searchParams}
-        />
-      </div>
-      <div className="hidden md:block">
-        <DesktopNavBar
-          pages={pages}
-          sessionId={sessionId}
-          tab={tab}
-          searchParams={searchParams}
-        />
-      </div>
+      {isMobile ? (
+        <div className="md:hidden">
+          <MobileNavBar
+            pages={pages}
+            tab={tab}
+            sessionId={sessionId}
+            searchParams={searchParams}
+          />
+        </div>
+      ) : (
+        <div className="hidden md:block">
+          <DesktopNavBar
+            pages={pages}
+            sessionId={sessionId}
+            tab={tab}
+            searchParams={searchParams}
+          />
+        </div>
+      )}
     </div>
   )
 }
@@ -73,7 +74,7 @@ const MobileNavBar = async ({
         className={cn(
           'flex relative flex-col items-center p-4 w-full',
           showSidebar &&
-            'items-start bg-base-blue overflow-auto h-screen'
+          'items-start bg-base-blue overflow-auto h-screen'
         )}>
         <div className="flex w-full">
           {pages.length > 0 && <MenuVisibleButton />}
