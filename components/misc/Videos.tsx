@@ -31,7 +31,7 @@ export default async function VideoGrid({
               <Suspense fallback={<Loading index={index} />}>
                 <VideoCardWithMenu
                   session={video}
-                  link={`${pathname}?tab=about&session=${video._id.toString()}`}
+                  link={`/?tab=about&session=${video._id.toString()}`}
                 />
               </Suspense>
             </div>
