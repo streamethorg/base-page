@@ -9,7 +9,6 @@ import GeneralContext from '@/lib/context/GeneralContext'
 import { MobileContextProvider } from '@/lib/context/MobileContext'
 import { LoadingContextProvider } from '@/lib/context/LoadingContext'
 import { Toaster } from '@/components/ui/sonner'
-import { TooltipProvider } from '@/components/ui/tooltip'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -29,20 +28,18 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <TooltipProvider>
-          <GeneralContext>
-            <Toaster />
-            <LoadingContextProvider>
-              <MobileContextProvider>
-                <Analytics />
-                <main
-                  className={`${inter.variable} flex flex-col w-full min-h-screen mx-auto bg-background `}>
-                  {children}
-                </main>
-              </MobileContextProvider>
-            </LoadingContextProvider>
-          </GeneralContext>
-        </TooltipProvider>
+        <GeneralContext>
+          <Toaster />
+          <LoadingContextProvider>
+            <MobileContextProvider>
+              <Analytics />
+              <main
+                className={`${inter.variable} flex flex-col w-full min-h-screen mx-auto bg-background `}>
+                {children}
+              </main>
+            </MobileContextProvider>
+          </LoadingContextProvider>
+        </GeneralContext>
       </body>
     </html>
   )
