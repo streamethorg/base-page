@@ -28,7 +28,7 @@ const HomePageNavbar = async ({
 }) => {
   const tab = searchParams.tab
   const sessionId = searchParams.session
-  const isMobile = await Device()
+  const isMobile = Device()
 
   return (
     <div className="z-[99999999]">
@@ -74,7 +74,7 @@ const MobileNavBar = async ({
         className={cn(
           'flex relative flex-col items-center p-4 w-full',
           showSidebar &&
-            'items-start bg-base-blue overflow-auto h-screen'
+          'items-start bg-base-blue overflow-auto h-screen'
         )}>
         <div className="flex w-full">
           {pages.length > 0 && <MenuVisibleButton />}
