@@ -1,12 +1,10 @@
 import HomePageNavbar from '@/components/Layout/HomePageNavbar'
-import SessionInfoBox from '@/components/sessions/SessionInfoBox'
 import PlayerWithControls from '@/components/ui/Player'
 import { getVideoUrlAction } from '@/lib/actions/livepeer'
 import { fetchSession } from '@/lib/services/sessionService'
 import { organizationSlug, pages } from '@/lib/utils'
 import { notFound } from 'next/navigation'
 import React, { Suspense } from 'react'
-import Footer from '../(home)/components/Footer'
 import Image from 'next/image'
 import { Play } from 'lucide-react'
 import {
@@ -14,7 +12,8 @@ import {
   DialogContent,
   DialogTrigger,
 } from '@/components/ui/dialog'
-import { ChannelPageParams } from '@/lib/types'
+import { WatchPageParams } from '@/lib/types'
+import { fetchAllSessions } from '@/lib/data'
 
 const Loading = () => {
   return (
@@ -31,10 +30,24 @@ const Loading = () => {
   )
 }
 
-const Watch = async ({ searchParams }: ChannelPageParams) => {
-  if (!searchParams.session) return notFound()
+export async function generateStaticParams() {
+  const sessions = (
+    await fetchAllSessions({
+      organizationSlug: organizationSlug,
+    })
+  ).sessions
+  const paths = sessions.map((session) => ({
+    session: session._id.toString(),
+  }))
+
+  return paths
+}
+
+const Watch = async ({ params, searchParams }: WatchPageParams) => {
+  if (!params.session) return notFound()
+
   const video = await fetchSession({
-    session: searchParams.session,
+    session: params.session,
   })
 
   const videoUrl = await getVideoUrlAction(

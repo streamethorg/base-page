@@ -20,7 +20,7 @@ const AboutVideo = async ({ sessionId }: { sessionId?: string }) => {
       </div>
       <div className="relative w-full aspect-video">
         <div className="flex absolute top-0 left-0 z-10 flex-col p-3 w-full h-full bg-black bg-opacity-50">
-          <Link href={`/watch?tab=none&session=${session._id}`}>
+          <Link href={`/watch/${session._id.toString()}?tab=none`}>
             <h2 className="text-xl font-bold cursor-pointer md:text-2xl hover:underline">
               {session.name}
             </h2>
@@ -34,7 +34,7 @@ const AboutVideo = async ({ sessionId }: { sessionId?: string }) => {
               )}
             </p>
           </div>
-          <Link href={`/watch?tab=none&session=${session._id}`}>
+          <Link href={`/watch/${session._id.toString()}?tab=none`}>
             <button className="absolute bottom-0 left-0 z-10 p-2 m-3 border border-white transition-all hover:text-black hover:bg-gray-100">
               Watch Video
             </button>

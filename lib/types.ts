@@ -159,7 +159,7 @@ export interface IExtendedStage
   __v?: string
 }
 export interface IExtendedSpeaker
-  extends Omit<ISpeaker, 'organizationId'> {}
+  extends Omit<ISpeaker, 'organizationId'> { }
 export interface IExtendedUser extends Omit<IUser, 'organizations'> {
   organizations: IExtendedOrganization[]
 }
@@ -186,14 +186,6 @@ export interface EmbedPageParams {
   }
 }
 
-export interface LivestreamPageParams {
-  params: {
-    organization: string
-    streamId: string
-  }
-  searchParams: { layout: eLayout; sort: eSort; show: boolean }
-}
-
 export interface IGenerateEmbed {
   playbackId?: string
   vod?: boolean
@@ -205,15 +197,31 @@ export interface IGenerateEmbedCode extends IGenerateEmbed {
   url: string
 }
 
+export interface LivestreamPageParams {
+  params: {
+    stage: string
+  }
+  searchParams: {
+    tab?: string
+  }
+}
+
+export interface WatchPageParams {
+  params: {
+    session: string
+  }
+  searchParams: {
+    tab?: string
+  }
+}
+
 export interface ChannelPageParams {
   params: {
-    organization: string
+    session: string
   }
   searchParams: {
     tab?: string
     session?: string
-    search: string
-    streamId: string
     stage?: string
   }
 }

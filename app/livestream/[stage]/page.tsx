@@ -1,28 +1,49 @@
-import { fetchOrganization } from '@/lib/services/organizationService'
-import { ChannelPageParams, OrganizationPageProps } from '@/lib/types'
-import React from 'react'
+'use server'
+
+import { LivestreamPageParams } from '@/lib/types'
 import {
   Dialog,
   DialogContent,
   DialogTrigger,
 } from '@/components/ui/dialog'
-import { fetchStage } from '@/lib/services/stageService'
+import { fetchStage, fetchStages } from '@/lib/services/stageService'
 import { notFound } from 'next/navigation'
 import HomePageNavbar from '@/components/Layout/HomePageNavbar'
-import { pages } from '@/lib/utils'
+import { organizationSlug, pages } from '@/lib/utils'
 import { Play } from 'lucide-react'
 import Image from 'next/image'
 import Player from '@/components/Player/Player'
 import Counter from '@/components/misc/Counter'
+import { fetchOrganization } from '@/lib/services/organizationService'
+import NotFound from '@/app/not-found'
+
+export async function generateStaticParams() {
+  const organization = await fetchOrganization({
+    organizationSlug: organizationSlug,
+  })
+
+  if (!organization) {
+    return []
+  }
+
+  const stages = await fetchStages({
+    organizationId: organization._id.toString(),
+  })
+  const paths = stages.map((stage) => ({
+    stage: stage._id!.toString(),
+  }))
+
+  return paths
+}
 
 const Livestream = async ({
   params,
   searchParams,
-}: ChannelPageParams) => {
-  if (!searchParams.stage) return notFound()
+}: LivestreamPageParams) => {
+  if (!params.stage) return notFound()
 
   const stage = await fetchStage({
-    stage: searchParams.stage,
+    stage: params.stage,
   })
 
   if (!stage?._id || !stage.streamSettings?.streamId)

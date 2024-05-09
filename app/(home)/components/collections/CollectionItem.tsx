@@ -1,17 +1,12 @@
 import Thumbnail from '@/components/misc/VideoCard/thumbnail'
 import CollectVideButton from '@/components/sessions/CollectVideButton'
 import { Button } from '@/components/ui/button'
-
 import { fetchSession } from '@/lib/services/sessionService'
 import { fetchStage } from '@/lib/services/stageService'
 import {
   IExtendedNftCollections,
   IExtendedSession,
-  IExtendedStage,
 } from '@/lib/types'
-import { formatDate } from '@/lib/utils/time'
-
-import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
@@ -38,31 +33,31 @@ const CollectionItem = async ({
 
   if (!collection) return null
 
-  const watchLink = `/${
-    video.type === 'video' ? 'watch?session' : 'livestream?stage'
-  }=${session?._id?.toString()}`
+  const watchLink =
+    video.type === 'video'
+      ? `/ watch / ${session?._id?.toString()}`
+      : `/ livestream / ${stage?._id?.toString()} `
 
-  const link = `/${
-    video.type === 'video' ? '?tab=about&session' : 'livestream?stage'
-  }=${session?._id?.toString()}`
+  const link = `/ ${video.type === 'video' ? '?tab=about&session' : 'livestream?stage'
+    }=${session?._id?.toString()} `
   return (
-    <div className="w-full relative flex flex-col">
+    <div className="flex relative flex-col w-full">
       <Link href={link} className="flex z-10 flex-col w-full">
         <Thumbnail imageUrl={collectionImage!} />
-        <h2 className="text-lg h-full w-full bg-black  bg-opacity-50  line-clamp-2 absolute p-3 font-bold uppercase">
+        <h2 className="absolute p-3 w-full h-full text-lg font-bold uppercase bg-black bg-opacity-50 line-clamp-2">
           {collection?.name}
         </h2>
       </Link>
       <Link
         href={watchLink}
-        className="absolute z-50 h-fit bottom-0 p-4 transition-opacity duration-300 cursor-pointer">
+        className="absolute bottom-0 z-50 p-4 transition-opacity duration-300 cursor-pointer h-fit">
         <Button
           className="transition-colors hover:text-black hover:bg-gray-300"
           variant="primary">
           WATCH NOW
         </Button>
       </Link>
-      <div className="mt-3 absolute bottom-0 backdrop-blur-sm right-0 m-4 z-10">
+      <div className="absolute right-0 bottom-0 z-10 m-4 mt-3 backdrop-blur-sm">
         <CollectVideButton
           variant="primary"
           video={collection as IExtendedSession}

@@ -35,7 +35,7 @@ const UpcomingStreams = async ({
             <div>
               <LivestreamCard
                 livestream={livestream}
-                link={`/livestream?stage=${livestream?._id?.toString()}`}
+                link={`/livestream/${livestream?._id?.toString()}`}
               />
             </div>
           </React.Fragment>

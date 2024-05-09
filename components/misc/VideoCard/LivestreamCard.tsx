@@ -2,22 +2,14 @@ import Thumbnail from '@/components/misc/VideoCard/thumbnail'
 import { Dot } from 'lucide-react'
 import { formatDate } from '@/lib/utils/time'
 import Link from 'next/link'
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
-import { EllipsisVertical } from 'lucide-react'
 import { IExtendedStage } from '@/lib/types'
 
 const LivestreamCard = ({
   livestream,
   link,
-  DropdownMenuItems,
 }: {
   livestream: IExtendedStage
   link: string
-  DropdownMenuItems?: React.ReactNode
 }) => {
   return (
     <Link
@@ -42,16 +34,6 @@ const LivestreamCard = ({
           </p>
         </div>
       </div>
-      {DropdownMenuItems && (
-        <DropdownMenu>
-          <DropdownMenuTrigger className="z-10">
-            <EllipsisVertical className="mt-2" />
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            {DropdownMenuItems}
-          </DropdownMenuContent>
-        </DropdownMenu>
-      )}
     </Link>
   )
 }
