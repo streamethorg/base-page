@@ -1,9 +1,9 @@
 import { fetchStages } from '@/lib/services/stageService'
-import LivestreamCard from '@/components/misc/VideoCard/LivestreamCard'
+import LivestreamCard from '@/components/video-ui/LivestreamCard'
 import React from 'react'
 import VideoCardSkeleton, {
   VideoCardSkeletonMobile,
-} from '@/components/misc/VideoCard/VideoCardSkeleton'
+} from '@/components/video-ui/VideoCardSkeleton'
 import { Podcast } from 'lucide-react'
 
 const UpcomingStreams = async ({

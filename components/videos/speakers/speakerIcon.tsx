@@ -7,7 +7,7 @@ import {
   AvatarImage,
 } from '@/components/ui/avatar'
 import SpeakerModal from './SpeakerModal'
-import { Credenza, CredenzaTrigger } from '../ui/crezenda'
+import { Credenza, CredenzaTrigger } from '../../ui/crezenda'
 import { IExtendedSpeaker } from '@/lib/types'
 function CreateBlockie(username: string) {
   return makeBlockie(username)

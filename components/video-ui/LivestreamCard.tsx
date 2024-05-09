@@ -1,4 +1,4 @@
-import Thumbnail from '@/components/misc/VideoCard/thumbnail'
+import Thumbnail from '@/components/video-ui/thumbnail'
 import { Dot } from 'lucide-react'
 import { formatDate } from '@/lib/utils/time'
 import Link from 'next/link'

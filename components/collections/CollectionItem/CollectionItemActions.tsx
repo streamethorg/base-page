@@ -1,5 +1,4 @@
-import Thumbnail from '@/components/misc/VideoCard/thumbnail'
-import CollectVideButton from '@/components/sessions/CollectVideButton'
+import CollectVideButton from './CollectVideButton'
 import { Button } from '@/components/ui/button'
 import { fetchSession } from '@/lib/services/sessionService'
 import { fetchStage } from '@/lib/services/stageService'
@@ -9,6 +8,8 @@ import {
 } from '@/lib/types'
 import Link from 'next/link'
 import React from 'react'
+
+import Thumbnail from '@/components/video-ui/thumbnail'
 
 const CollectionItem = async ({
   video,

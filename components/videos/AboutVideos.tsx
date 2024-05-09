@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { Dot } from 'lucide-react'
 import AboutInfo from './AboutInfo'
 import { fetchSession } from '@/lib/services/sessionService'
-import BackButton from './BackButton'
+import BackButton from '../ui/back-button'
 import Link from 'next/link'
 
 const AboutVideo = async ({ sessionId }: { sessionId?: string }) => {

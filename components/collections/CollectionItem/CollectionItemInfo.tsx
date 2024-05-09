@@ -1,13 +1,15 @@
 'use client'
+import React, { useState } from 'react'
+
 import {
   NavigationMenu,
   NavigationMenuItem,
 } from '@/components/ui/navigation-menu'
 import { Separator } from '@/components/ui/separator'
-import useSearchParams from '@/lib/hooks/useSearchParams'
-import React, { useState } from 'react'
+import { ShareModalContent } from '@/components/ui/share-button'
 import { DialogTrigger, Dialog } from '@/components/ui/dialog'
-import { ShareModalContent } from '@/components/misc/interact/ShareButton'
+
+import useSearchParams from '@/lib/hooks/useSearchParams'
 
 const AboutCollectionInfo = ({
   menuItems,

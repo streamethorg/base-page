@@ -1,22 +1,16 @@
 'use server'
-
-import NotFound from '@/app/not-found'
-import { fetchOrganization } from '@/lib/services/organizationService'
-import { organizationSlug } from '@/lib/utils'
+import { IExtendedOrganization } from '@/lib/types'
 import WatchGrid, { WatchGridLoading } from './WatchGrid'
 import { Suspense } from 'react'
 import UpcomingStreams, {
   UpcomingStreamsLoading,
 } from './UpcomingStreams'
 
-const MainContent = async () => {
-  const organization = await fetchOrganization({
-    organizationSlug: organizationSlug,
-  })
-
-  if (!organization) {
-    return NotFound()
-  }
+const MainContent = async ({
+  organization,
+}: {
+  organization: IExtendedOrganization
+}) => {
 
   return (
     <div className="flex flex-col mt-4 space-y-2 text-white md:px-2">

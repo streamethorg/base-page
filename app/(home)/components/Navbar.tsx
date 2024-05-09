@@ -3,20 +3,20 @@
 import { NavigationMenu } from '@/components/ui/navigation-menu'
 import { ChannelPageParams, Page, eTab } from '@/lib/types'
 import { IExtendedOrganization } from '@/lib/types'
-import NavbarLayout from './NavbarLayout'
+import NavbarNavigation from '../../../components/layout/Navbar/NavbarNavigation'
 import BaseLogo from '@/lib/svg/BaseLogo'
-import AllCollections from '@/app/(home)/components/collections/AllCollections'
-import AboutVideo from '@/app/(home)/components/about/AboutVideos'
-import ConnectButtonNav from './Navbar/ConnectButtonNav'
-import CloseNavigation from './Navbar/XButton'
+import AllCollections from '@/components/collections/AllCollections'
+import AboutVideo from '@/components/videos/AboutVideos'
+import ConnectButtonNav from '../../../components/layout/Navbar/ConnectButtonNav'
+import CloseNavigation from '../../../components/layout/Navbar/XButton'
 import Image from 'next/image'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
-import MenuVisibleButton from './Navbar/MenuVisibleButton'
-import MainContent from '@/app/(home)/components/main/MainContent'
-import AllVideos from '@/app/(home)/components/videos/AllVideos'
-import AboutCollection from '@/app/(home)/components/collections/AboutCollection'
-import { ConnectWalletButton } from '../misc/ConnectWalletButton'
+import MenuVisibleButton from '../../../components/layout/Navbar/MenuVisibleButton'
+import MainContent from '@/components/home'
+import AllVideos from '@/components/videos/AllVideos'
+import CollectionItem from '@/components/collections/CollectionItem'
+import { ConnectWalletButton } from '../../../components/ui/ConnectWalletButton'
 import Device from '@/lib/utils/device'
 
 const HomePageNavbar = async ({
@@ -34,12 +34,12 @@ const HomePageNavbar = async ({
     <div className="z-[99999999]">
       {isMobile ? (
         <div className="md:hidden">
-          <MobileNavBar
+          {/* <MobileNavBar
             pages={pages}
             tab={tab}
             sessionId={sessionId}
             searchParams={searchParams}
-          />
+          /> */}
         </div>
       ) : (
         <div className="hidden md:block">
@@ -74,7 +74,7 @@ const MobileNavBar = async ({
         className={cn(
           'flex relative flex-col items-center p-4 w-full',
           showSidebar &&
-          'items-start bg-base-blue overflow-auto h-screen'
+            'items-start bg-base-blue overflow-auto h-screen'
         )}>
         <div className="flex w-full">
           {pages.length > 0 && <MenuVisibleButton />}
@@ -92,8 +92,9 @@ const MobileNavBar = async ({
         </div>
         {showSidebar && (
           <div className="flex flex-col flex-grow mt-2 w-full">
-            <NavbarLayout pages={pages} />
-            {tab === eTab.main && <MainContent />}
+            <NavbarNavigation pages={pages} />
+
+            {/* {tab === eTab.main && <MainContent />}
             {tab === eTab.collection && (
               <AboutCollection searchParams={searchParams} />
             )}
@@ -103,7 +104,7 @@ const MobileNavBar = async ({
             )}
             {tab === eTab.about && (
               <AboutVideo sessionId={sessionId || ''} />
-            )}
+            )} */}
           </div>
         )}
       </div>
@@ -133,16 +134,16 @@ const DesktopNavBar = async ({
         <div className="flex w-full h-full">
           <aside className=" w-[50%] bg-base-blue overflow-auto h-full z-20">
             <div className="p-2">
-              <NavbarLayout pages={pages} />
+              <NavbarNavigation pages={pages} />
               {tab === eTab.videos && (
                 <AllVideos page={searchParams?.page} />
               )}
               {tab === eTab.collection && (
-                <AboutCollection searchParams={searchParams} />
+                <CollectionItem searchParams={searchParams} />
               )}
 
               {tab === eTab.collections && <AllCollections />}
-              {tab === eTab.main && <MainContent />}
+              {tab === eTab.main && <MainContent organization={} />}
               {tab === eTab.about && (
                 <AboutVideo sessionId={sessionId || ''} />
               )}

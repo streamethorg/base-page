@@ -1,12 +1,9 @@
-import Thumbnail from '@/components/misc/VideoCard/thumbnail'
-
-import { fetchOrganizationNFTCollections } from '@/lib/services/nftCollectionService'
-import { fetchOrganization } from '@/lib/services/organizationService'
-
-import { organizationSlug } from '@/lib/utils'
+import Thumbnail from '@/components/video-ui/thumbnail'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import React from 'react'
+import { fetchOrganizationNFTCollections } from '@/lib/services/nftCollectionService'
+import { fetchOrganization } from '@/lib/services/organizationService'
+import { organizationSlug } from '@/lib/utils'
 
 const AllCollections = async () => {
   const organization = await fetchOrganization({

@@ -29,7 +29,7 @@ import {
   CredenzaTrigger,
 } from '@/components/ui/crezenda'
 import { Button } from '@/components/ui/button'
-import CopyText from '@/components/misc/CopyText'
+import CopyText from '@/components/ui/CopyText'
 
 export const ShareModalContent = ({
   url,

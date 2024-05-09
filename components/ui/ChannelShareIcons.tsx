@@ -3,7 +3,7 @@
 import React from 'react'
 import { Globe, Share2 } from 'lucide-react'
 import { Credenza, CredenzaTrigger } from '@/components/ui/crezenda'
-import { ShareModalContent } from '@/components/misc/interact/ShareButton'
+import { ShareModalContent } from '@/components/ui/share-button'
 import Link from 'next/link'
 import { IExtendedOrganization } from '@/lib/types'
 

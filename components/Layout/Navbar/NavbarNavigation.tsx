@@ -7,11 +7,11 @@ import {
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu'
 import { NavBarProps } from '@/lib/types'
-import { ConnectWalletButton } from '../misc/ConnectWalletButton'
+import { ConnectWalletButton } from '../../ui/ConnectWalletButton'
 import useSearchParams from '@/lib/hooks/useSearchParams'
-import { Separator } from '../ui/separator'
+import { Separator } from '../../ui/separator'
 
-export default function NavbarLayout({
+export default function NavbarNavigation({
   setIsNavVisible,
   isMobile,
   pages,

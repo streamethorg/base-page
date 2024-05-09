@@ -2,14 +2,10 @@ import { fetchNFTCollection } from '@/lib/services/nftCollectionService'
 import { formatDate } from '@/lib/utils/time'
 import { Dot } from 'lucide-react'
 import Image from 'next/image'
-
-import React from 'react'
-import CollectionItem from './CollectionItem'
+import CollectionItem from './CollectionItemActions'
+import AboutCollectionInfo from './CollectionItemInfo'
 import DefaultThumbnail from '@/lib/svg/DefaultThumbnail'
-import ShareButton from '@/components/misc/interact/ShareButton'
-import InnerNav from '@/components/misc/interact/InnerNav'
-import AboutCollectionInfo from './AboutCollectionInfo'
-import BackButton from '../about/BackButton'
+import BackButton from '@/components/ui/back-button'
 
 const menuItems = [
   { key: 'about', label: 'ABOUT' },

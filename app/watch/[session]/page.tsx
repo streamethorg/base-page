@@ -1,4 +1,4 @@
-import HomePageNavbar from '@/components/Layout/HomePageNavbar'
+import HomePageNavbar from '@/app/(home)/components/Navbar'
 import PlayerWithControls from '@/components/ui/Player'
 import { getVideoUrlAction } from '@/lib/actions/livepeer'
 import { fetchSession } from '@/lib/services/sessionService'

@@ -1,16 +1,18 @@
 import { fetchAllSessions } from '@/lib/data'
-import VideoCardSkeleton from '@/components/misc/VideoCard/VideoCardSkeleton'
-import Videos from '@/components/misc/Videos'
 import { Video } from 'lucide-react'
 import { organizationSlug } from '@/lib/utils'
+import VideoCardWithMenu from '@/components/video-ui/VideoCardWithMenu'
+import VideoCardSkeleton from '@/components/video-ui/VideoCardSkeleton'
 
 const WatchGrid = async () => {
+  const maxVideos = 6
+
   const videos = (
     await fetchAllSessions({
       organizationSlug: organizationSlug,
       onlyVideos: true,
       // published: true,
-      limit: 6,
+      limit: maxVideos,
     })
   ).sessions
   if (!videos) return null
@@ -20,7 +22,25 @@ const WatchGrid = async () => {
       <div className="flex justify-between items-center pb-4">
         <h1 className="text-xl font-bold">Watch More</h1>
       </div>
-      <Videos videos={videos} maxVideos={6} />
+      <div className="bg-transparent border-none lg:w-full max-w-screen">
+        <div
+          className={`grid grid-cols-1 lg:grid-cols-2 gap-8 gap-x-4`}>
+          {videos.map((video, index) =>
+            ({ maxVideos }) &&
+            maxVideos &&
+            index > maxVideos ? null : (
+              <div
+                key={video._id}
+                className={`w-full h-full border-none flex-initial`}>
+                <VideoCardWithMenu
+                  session={video}
+                  link={`/?tab=about&session=${video._id.toString()}`}
+                />
+              </div>
+            )
+          )}
+        </div>
+      </div>
       {videos.length === 0 && (
         <div className="flex flex-row justify-center items-center p-4 space-x-4 rounded-xl bg-secondary">
           <Video size={20} />

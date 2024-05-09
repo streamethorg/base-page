@@ -1,6 +1,6 @@
 'use client'
 import React, { useEffect, useState } from 'react'
-import { Button } from '../ui/button'
+import { Button } from '../../ui/button'
 import {
   IExtendedNftCollections,
   IExtendedSession,
@@ -16,11 +16,11 @@ import {
 import { VideoNFTAbi, contractChainID } from '@/lib/contract'
 import { toast } from 'sonner'
 import { calMintPrice, getVideoIndex } from '@/lib/utils/utils'
-import { Dialog, DialogContent, DialogTitle } from '../ui/dialog'
+import { Dialog, DialogContent, DialogTitle } from '../../ui/dialog'
 import { CheckCircle2, Loader2 } from 'lucide-react'
 import { type BaseError } from 'wagmi'
-import TransactionHash from '@/components/misc/TransactionHash'
-import { ConnectWalletButton } from '../misc/ConnectWalletButton'
+import TransactionHash from '@/components/ui/TransactionHash'
+import { ConnectWalletButton } from '../../ui/ConnectWalletButton'
 
 const CollectVideButton = ({
   video,

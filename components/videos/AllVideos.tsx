@@ -1,8 +1,8 @@
 import { fetchAllSessions } from '@/lib/data'
 import React from 'react'
 import { organizationSlug } from '@/lib/utils'
-import Pagination from '../Pagination'
-import VideoCardWithMenu from '@/components/misc/VideoCard/VideoCardWithMenu'
+import Pagination from '../ui/Pagination'
+import VideoCardWithMenu from '@/components/video-ui/VideoCardWithMenu'
 
 const AllVideos = async ({ page }: { page?: string }) => {
   const videos = await fetchAllSessions({

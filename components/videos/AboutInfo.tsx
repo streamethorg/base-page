@@ -7,9 +7,9 @@ import {
   NavigationMenuItem,
 } from '@/components/ui/navigation-menu'
 import { Separator } from '@/components/ui/separator'
-import { ShareModalContent } from '@/components/misc/interact/ShareButton'
+import { ShareModalContent } from '@/components/ui/share-button'
 import { DialogTrigger, Dialog } from '@/components/ui/dialog'
-import SpeakerIcon from '@/components/speakers/speakerIcon'
+import SpeakerIcon from '@/components/videos/speakers/speakerIcon'
 
 const menuItems = [{ key: 'about', label: 'ABOUT' }]
 
