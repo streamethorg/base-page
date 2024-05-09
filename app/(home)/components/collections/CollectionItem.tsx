@@ -38,8 +38,9 @@ const CollectionItem = async ({
       ? `/ watch / ${session?._id?.toString()}`
       : `/ livestream / ${stage?._id?.toString()} `
 
-  const link = `/ ${video.type === 'video' ? '?tab=about&session' : 'livestream?stage'
-    }=${session?._id?.toString()} `
+  const link = `/ ${
+    video.type === 'video' ? '?tab=about&session' : 'livestream?stage'
+  }=${session?._id?.toString()} `
   return (
     <div className="flex relative flex-col w-full">
       <Link href={link} className="flex z-10 flex-col w-full">
