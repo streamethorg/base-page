@@ -9,7 +9,6 @@ import Thumbnail from './thumbnail'
 import Image from 'next/image'
 import { IExtendedSession, IExtendedEvent } from '@/lib/types'
 import { generateThumbnail } from '@/lib/actions/livepeer'
-import SessionInfoBox from '@/components/sessions/SessionInfoBox'
 
 const VideoCard = ({
   session,
@@ -30,7 +29,7 @@ const VideoCard = ({
     generateThumbnail(session).then((url) => url && setImageUrl(url))
   }, [session])
   return (
-    <div className="min-h-full w-full rounded-xl  uppercase">
+    <div className="w-full min-h-full uppercase rounded-xl">
       <Thumbnail imageUrl={session.coverImage} fallBack={imageUrl} />
       <CardHeader
         className={`rounded p-1 mt-1 lg:p-2 shadow-none lg:shadow-none ${headerClass}`}>
@@ -38,9 +37,9 @@ const VideoCard = ({
           {session.name}
         </CardTitle>
         {event && (
-          <div className="flex flex-row items-center justify-start">
+          <div className="flex flex-row justify-start items-center">
             <Image
-              className="rounded-md mr-2"
+              className="mr-2 rounded-md"
               alt="logo"
               quality={80}
               src={event.logo!}
