@@ -101,10 +101,10 @@ export async function generateMetadata({
 }: LivestreamPageParams): Promise<Metadata> {
   if (!params.stage) return generalMetadata
 
-  const stage = fetchStage({ stage: params.stage })
+  const stage = await fetchStage({ stage: params.stage })
 
   if (!stage) return generalMetadata
-  return stageMetadata({ stage: video })
+  return stageMetadata({ stage: stage })
 }
 
 export default Livestream
