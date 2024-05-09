@@ -14,6 +14,8 @@ import {
 } from '@/components/ui/dialog'
 import { WatchPageParams } from '@/lib/types'
 import { fetchAllSessions } from '@/lib/data'
+import { Metadata, ResolvingMetadata } from 'next'
+import { generalMetadata, watchMetadata } from '@/lib/utils/metadata'
 
 const Loading = () => {
   return (
@@ -87,8 +89,6 @@ const Watch = async ({ params, searchParams }: WatchPageParams) => {
             </DialogContent>
           </Dialog>
 
-          {/* <Footer videoId={video._id!} videoName={video.name} /> */}
-
           <div className="overflow-hidden absolute top-0 w-full h-full blur-sm">
             <Image
               src={video?.coverImage!}
@@ -102,6 +102,17 @@ const Watch = async ({ params, searchParams }: WatchPageParams) => {
       </div>
     </Suspense>
   )
+}
+
+export async function generateMetadata({
+  params,
+}: WatchPageParams): Promise<Metadata> {
+  if (!params.session) return generalMetadata
+  const session = await fetchSession({ session: params.session })
+
+  if (!session) return generalMetadata
+
+  return watchMetadata({ session: session })
 }
 
 export default Watch

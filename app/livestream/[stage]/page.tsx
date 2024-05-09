@@ -15,6 +15,12 @@ import Image from 'next/image'
 import Player from '@/components/Player/Player'
 import Counter from '@/components/misc/Counter'
 import { fetchOrganization } from '@/lib/services/organizationService'
+import { Metadata } from 'next'
+import {
+  generalMetadata,
+  stageMetadata,
+  watchMetadata,
+} from '@/lib/utils/metadata'
 
 export async function generateStaticParams() {
   const organization = await fetchOrganization({
@@ -88,6 +94,17 @@ const Livestream = async ({
       </div>
     </div>
   )
+}
+
+export async function generateMetadata({
+  params,
+}: LivestreamPageParams): Promise<Metadata> {
+  if (!params.stage) return generalMetadata
+
+  const stage = fetchStage({ stage: params.stage })
+
+  if (!stage) return generalMetadata
+  return stageMetadata({ stage: video })
 }
 
 export default Livestream
