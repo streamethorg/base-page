@@ -71,8 +71,9 @@ const MobileNavBar = async ({
     <NavigationMenu className="flex sticky top-0 flex-row items-center md:hidden backdrop-blur-md z-[999999999999]">
       <div
         className={cn(
-          'flex relative flex-col items-center p-4 w-full duration-200 ease-in-out transition-all h-screen',
-          showSidebar && `items-start bg-base-blue overflow-auto`
+          'flex relative flex-col items-center p-4 w-full',
+          showSidebar &&
+          'items-start bg-base-blue overflow-auto h-screen'
         )}>
         <div className="flex w-full">
           {pages.length > 0 && <MenuVisibleButton />}
@@ -88,21 +89,22 @@ const MobileNavBar = async ({
             </Link>
           </div>
         </div>
-        <div
-          className={`flex flex-col flex-grow mt-2 w-full transition-all duration-200 ease-in-out ${showSidebar ? 'opacity-100' : 'opacity-0'}`}>
-          <NavbarLayout pages={pages} />
-          {tab === eTab.main && <MainContent />}
-          {tab === eTab.collection && (
-            <AboutCollection searchParams={searchParams} />
-          )}
-          {tab === eTab.collections && <AllCollections />}
-          {tab === eTab.videos && (
-            <AllVideos page={searchParams?.page} />
-          )}
-          {tab === eTab.about && (
-            <AboutVideo sessionId={sessionId || ''} />
-          )}
-        </div>
+        {showSidebar && (
+          <div className="flex flex-col flex-grow mt-2 w-full">
+            <NavbarLayout pages={pages} />
+            {tab === eTab.main && <MainContent />}
+            {tab === eTab.collection && (
+              <AboutCollection searchParams={searchParams} />
+            )}
+            {tab === eTab.collections && <AllCollections />}
+            {tab === eTab.videos && (
+              <AllVideos page={searchParams?.page} />
+            )}
+            {tab === eTab.about && (
+              <AboutVideo sessionId={sessionId || ''} />
+            )}
+          </div>
+        )}
       </div>
     </NavigationMenu>
   )
@@ -126,37 +128,35 @@ const DesktopNavBar = async ({
       className={cn('relative ', { 'h-screen': showSidebar })}>
       {!showSidebar && <ConnectButtonNav showSidebar={showSidebar} />}
 
-      <div className={`flex w-full h-full`}>
-        <aside
-          className={`transition-all duration-200 ease-in-out ${showSidebar ? 'opacity-100 w-[50%]' : 'opacity-0 w-[48%]'} bg-base-blue overflow-auto h-full z-20`}>
-          <div className="p-2">
-            <NavbarLayout pages={pages} />
-            {tab === eTab.none && <div className="w-full h-screen" />}
-            {tab === eTab.videos && (
-              <AllVideos page={searchParams?.page} />
-            )}
-            {tab === eTab.collection && (
-              <AboutCollection searchParams={searchParams} />
-            )}
+      {showSidebar && (
+        <div className="flex w-full h-full">
+          <aside className=" w-[50%] bg-base-blue overflow-auto h-full z-20">
+            <div className="p-2">
+              <NavbarLayout pages={pages} />
+              {tab === eTab.videos && (
+                <AllVideos page={searchParams?.page} />
+              )}
+              {tab === eTab.collection && (
+                <AboutCollection searchParams={searchParams} />
+              )}
 
-            {tab === eTab.collections && <AllCollections />}
-            {tab === eTab.main && <MainContent />}
-            {tab === eTab.about && (
-              <AboutVideo sessionId={sessionId || ''} />
-            )}
-          </div>
-        </aside>
-        {showSidebar && (
-          <>
-            <div className="flex z-30 flex-col justify-between items-start p-2 pb-4 w-1/2 h-full transition-all backdrop-blur-sm">
-              <CloseNavigation />
-              <div />
-              <BaseLogo height={'5%'} />
+              {tab === eTab.collections && <AllCollections />}
+              {tab === eTab.main && <MainContent />}
+              {tab === eTab.about && (
+                <AboutVideo sessionId={sessionId || ''} />
+              )}
             </div>
-            <ConnectWalletButton className="absolute right-0 top-4 z-30 mr-4 uppercase bg-transparent rounded-none border border-white end-0" />
-          </>
-        )}
-      </div>
+          </aside>
+          <div className="flex z-30 flex-col justify-between items-start p-2 pb-4 w-1/2 h-full backdrop-blur-sm">
+            <div className="flex justify-between items-center w-full">
+              <CloseNavigation />
+              <ConnectWalletButton className="z-30 m-2 uppercase bg-transparent rounded-none border border-white" />
+            </div>
+            <div />
+            <BaseLogo height={'5%'} />
+          </div>
+        </div>
+      )}
     </NavigationMenu>
   )
 }
