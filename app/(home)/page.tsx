@@ -5,7 +5,7 @@ import { fetchOrganization } from '@/lib/services/organizationService'
 import { ChannelPageParams } from '@/lib/types'
 import { organizationSlug, organizationId } from '@/lib/utils'
 import { pages } from '@/lib/utils'
-import HomePageNavbar from '@/app/(home)/components/Navbar'
+import HomePageNavbar from './components/Navbar'
 import PlayerArea from './components/PlayerArea'
 import { notFound } from 'next/navigation'
 const Home = async ({ searchParams, params }: ChannelPageParams) => {
