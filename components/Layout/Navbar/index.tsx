@@ -18,6 +18,7 @@ import CollectionItem from '@/components/collections/CollectionItem'
 import AllVideos from '@/components/videos/AllVideos'
 import AboutVideo from '@/components/videos/AboutVideos'
 
+
 const Navbar = async ({
   pages,
   searchParams,
