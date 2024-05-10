@@ -8,11 +8,10 @@ import {
 } from '@/components/ui/dialog'
 import { fetchStage, fetchStages } from '@/lib/services/stageService'
 import { notFound } from 'next/navigation'
-import HomePageNavbar from '@/app/(home)/components/Navbar'
+import Navbar from '@/components/layout/Navbar'
 import { organizationSlug, pages } from '@/lib/utils'
 import { Play } from 'lucide-react'
 import Image from 'next/image'
-import Player from '@/components/ui/Player'
 import Counter from '@/components/ui/Counter'
 import { fetchOrganization } from '@/lib/services/organizationService'
 import { Metadata } from 'next'
@@ -65,7 +64,7 @@ const Livestream = async ({
 
   return (
     <div className="flex flex-col mx-auto w-full">
-      <HomePageNavbar searchParams={searchParams} pages={pages} />
+      <Navbar searchParams={searchParams} pages={pages} />
 
       <div className="flex absolute top-0 flex-col justify-center items-center mx-auto w-screen h-screen bg-black">
         {timeLeft > 0 ? (

@@ -1,24 +1,24 @@
-'use server'
-
-import { NavigationMenu } from '@/components/ui/navigation-menu'
+"use server"
+import { cn } from '@/lib/utils'
 import { ChannelPageParams, Page, eTab } from '@/lib/types'
-import NavbarNavigation from '@/components/layout/Navbar/NavbarNavigation'
 import BaseLogo from '@/lib/svg/BaseLogo'
-import AllCollections from '@/components/collections/AllCollections'
-import AboutVideo from '@/components/videos/AboutVideos'
-import ConnectButtonNav from '@/components/layout/Navbar/ConnectButtonNav'
-import CloseNavigation from '@/components/layout/Navbar/XButton'
+import { Suspense } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { cn } from '@/lib/utils'
-import MenuVisibleButton from '@/components/layout/Navbar/MenuVisibleButton'
-import MainContent from '@/components/home'
-import AllVideos from '@/components/videos/AllVideos'
-import CollectionItem from '@/components/collections/CollectionItem'
-import { ConnectWalletButton } from '@/components/ui/ConnectWalletButton'
-import { Suspense } from 'react'
 
-const HomePageNavbar = async ({
+import { NavigationMenu } from '@/components/ui/navigation-menu'
+import ConnectButtonNav from './ConnectButtonNav'
+import CloseNavigation from './XButton'
+import MenuVisibleButton from './MenuVisibleButton'
+import NavbarNavigation from './NavbarNavigation'
+import { ConnectWalletButton } from '@/components/ui/ConnectWalletButton'
+import MainContent from '@/components/home'
+import AllCollections from '@/components/collections/AllCollections'
+import CollectionItem from '@/components/collections/CollectionItem'
+import AllVideos from '@/components/videos/AllVideos'
+import AboutVideo from '@/components/videos/AboutVideos'
+
+const Navbar = async ({
   pages,
   searchParams,
 }: {
@@ -114,4 +114,4 @@ const HomePageNavbar = async ({
   )
 }
 
-export default HomePageNavbar
+export default Navbar

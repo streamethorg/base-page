@@ -1,4 +1,4 @@
-import HomePageNavbar from '@/app/(home)/components/Navbar'
+import Navbar from '@/components/layout/Navbar'
 import PlayerWithControls from '@/components/ui/Player'
 import { getVideoUrlAction } from '@/lib/actions/livepeer'
 import { fetchSession } from '@/lib/services/sessionService'
@@ -14,7 +14,7 @@ import {
 } from '@/components/ui/dialog'
 import { WatchPageParams } from '@/lib/types'
 import { fetchAllSessions } from '@/lib/data'
-import { Metadata, ResolvingMetadata } from 'next'
+import { Metadata } from 'next'
 import { generalMetadata, watchMetadata } from '@/lib/utils/metadata'
 
 const Loading = () => {
@@ -61,7 +61,7 @@ const Watch = async ({ params, searchParams }: WatchPageParams) => {
   return (
     <Suspense key={video._id} fallback={<Loading />}>
       <div className="flex flex-col mx-auto w-full">
-        <HomePageNavbar searchParams={searchParams} pages={pages} />
+        <Navbar searchParams={searchParams} pages={pages} />
 
         <div className="flex absolute top-0 flex-col justify-center items-center mx-auto w-screen h-screen bg-black">
           <Dialog>

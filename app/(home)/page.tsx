@@ -5,16 +5,22 @@ import { fetchOrganization } from '@/lib/services/organizationService'
 import { ChannelPageParams } from '@/lib/types'
 import { organizationSlug, organizationId } from '@/lib/utils'
 import { pages } from '@/lib/utils'
-import HomePageNavbar from './components/Navbar'
+import Navbar from '@/components/layout/Navbar'
 import PlayerArea from './components/PlayerArea'
 import { notFound } from 'next/navigation'
-const Home = async ({ searchParams, params }: ChannelPageParams) => {
+import { Suspense } from 'react'
+const Home = async ({ searchParams }: ChannelPageParams) => {
   if (!organizationSlug || !organizationId) return notFound()
 
   return (
     <div className="flex flex-col mx-auto w-full">
-      <HomePageNavbar searchParams={searchParams} pages={pages} />
-      <PlayerArea />
+      <Navbar searchParams={searchParams} pages={pages} />
+      <Suspense
+        fallback={
+          <div className="w-full h-full bg-black">Loading...</div>
+        }>
+        <PlayerArea />
+      </Suspense>
     </div>
   )
 }
