@@ -1,7 +1,7 @@
 'use client'
 
 import useSearchParams from '@/lib/hooks/useSearchParams'
-import { ConnectWalletButton } from '@/components/misc/ConnectWalletButton'
+import { ConnectWalletButton } from '@/components/ui/ConnectWalletButton'
 import { Menu } from 'lucide-react'
 import { eTab } from '@/lib/types'
 

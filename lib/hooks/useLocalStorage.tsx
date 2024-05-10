@@ -1,5 +1,4 @@
-import { useState, useContext, useEffect } from 'react'
-import { LoadingContext } from '../context/LoadingContext'
+import { useState } from 'react'
 
 function useLocalStorage<T>(key: string, initialValue: T) {
   // State to store our value

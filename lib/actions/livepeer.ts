@@ -9,6 +9,21 @@ const livepeer = new Livepeer({
   apiKey: process.env.LIVEPEER_API_KEY,
 })
 
+export const getPlaybackInfo = async (playbackId: string) => {
+  try {
+    const playback = await livepeer.playback.get(playbackId)
+    if (playback.statusCode !== 200) {
+      console.error(playback.rawResponse)
+      return null
+    }
+
+    return playback.playbackInfo
+  } catch (e) {
+    console.error('Error fetching playback: ', playbackId)
+    return null
+  }
+}
+
 export const getVideoPhaseAction = async (assetId: string) => {
   try {
     const asset = await livepeer.asset.get(assetId)

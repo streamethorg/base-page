@@ -120,22 +120,20 @@ export const watchMetadata = ({
 }
 
 export const stageMetadata = ({
-  event,
   stage,
 }: {
-  event: IExtendedEvent
   stage: IExtendedStage
 }): Metadata => {
-  const imageUrl = event.eventCover ? event.eventCover : BASE_IMAGE
+  const imageUrl = stage.thumbnail ? stage.thumbnail : BASE_IMAGE
 
   return {
     title: `${stage.name} | StreamETH`,
-    description: `${event.description}`,
+    description: `${stage.description}`,
     metadataBase: new URL('https://streameth.org'),
     openGraph: {
       title: `${stage.name} | StreamETH`,
       siteName: 'StreamETH',
-      description: `${event.description}`,
+      description: `${stage.description}`,
       images: {
         url: imageUrl,
         alt: 'StreamETH Logo',
@@ -144,7 +142,7 @@ export const stageMetadata = ({
     twitter: {
       card: 'summary_large_image',
       title: `${stage.name} | StreamETH`,
-      description: `${event.description}`,
+      description: `${stage.description}`,
       images: {
         url: imageUrl,
         alt: 'StreamETH Logo',

@@ -1,54 +1,44 @@
-import StreamethLogoGray from '@/lib/svg/StreamethLogoGray'
-import Image from 'next/image'
-import Link from 'next/link'
+'use client'
 
-const items = {
-  // about: {
-  //   item: 'About us',
-  //   href: 'https://info.streameth.org',
-  // },
-  // contact: {
-  //   item: 'Contact',
-  //   href: 'https://info.streameth.org/#team',
-  // },
-  // docs: {
-  //   item: 'Docs',
-  //   href: 'https://streameth.notion.site/a473a629420b4942904c851155a18c9b?v=4a29b97e7fd94bbbb38269cb808d3ac4',
-  // },
-  privacy: {
-    item: 'Privacy',
-    href: '/privacy',
-  },
-  terms: {
-    item: 'Terms',
-    href: '/terms',
-  },
-}
+import useSearchParams from '@/lib/hooks/useSearchParams'
+import BaseLogo from '@/lib/svg/BaseLogo'
+import { IExtendedSession, eTab } from '@/lib/types'
 
-const Footer = ({ active }: { active?: string }) => {
-  const year = new Date().getFullYear()
+const Footer = ({
+  videoId,
+  videoName,
+}: {
+  videoId: string
+  videoName: string
+}) => {
+  const { searchParams, handleTermChange } = useSearchParams()
+
+  const handleClick = () => {
+    handleTermChange([
+      {
+        key: 'tab',
+        value: eTab.about,
+      },
+      {
+        key: 'session',
+        value: videoId,
+      },
+    ])
+  }
 
   return (
-    <footer className="flex flex-wrap justify-center items-center mt-5 mb-3 space-y-2 md:mb-5 z-[99999999]">
-      <StreamethLogoGray height={25} className="mb-2" />
-      {/* Visible only on small screens */}
-      <div className="flex justify-center w-full text-sm text-gray-500 md:hidden">
-        © {year} StreamETH International B.V.
+    <footer className="flex absolute bottom-0 z-10 justify-between items-center px-4 m-4 mb-8 w-full text-white">
+      <div className="hidden flex-grow w-full md:block">
+        <BaseLogo width={'40px'} />
       </div>
-      {/* Visible on larger screens */}
-      <div className="hidden text-sm text-gray-500 md:block">
-        © {year} StreamETH International B.V. |
+      <div className="flex justify-between w-full md:min-w-[500px]">
+        <span className="font-bold">{videoName}</span>
+        <button
+          onClick={() => handleClick()}
+          className="p-2 text-gray-300 border border-white transition-all hover:text-gray-500 hover:bg-white w-min-[60px]">
+          About
+        </button>
       </div>
-      {Object.entries(items).map(([key, { item, href }]) => (
-        <Link
-          key={key}
-          href={href}
-          className={`mx-1 text-sm ${
-            active === key ? 'font-bold' : 'font-light'
-          } text-gray-500 underline hover:no-underline`}>
-          {item}
-        </Link>
-      ))}
     </footer>
   )
 }
