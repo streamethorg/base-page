@@ -1,11 +1,10 @@
-"use server"
+'use server'
 import { cn } from '@/lib/utils'
 import { ChannelPageParams, Page, eTab } from '@/lib/types'
 import BaseLogo from '@/lib/svg/BaseLogo'
 import { Suspense } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-
 
 import { NavigationMenu } from '@/components/ui/navigation-menu'
 import ConnectButtonNav from './ConnectButtonNav'
@@ -18,7 +17,6 @@ import AllCollections from '@/components/collections/AllCollections'
 import CollectionItem from '@/components/collections/CollectionItem'
 import AllVideos from '@/components/videos/AllVideos'
 import AboutVideo from '@/components/videos/AboutVideos'
-
 
 const Navbar = async ({
   pages,
@@ -38,16 +36,16 @@ const Navbar = async ({
       )}>
       <div
         className={cn(
-          'flex relative flex-col items-center p-4 md:p-0 w-full',
+          'flex relative flex-col items-center p-0 w-full',
           showSidebar &&
-            'items-start bg-base-blue md:bg-transparent overflow-auto h-screen'
+            'items-start bg-base-blue md:bg-transparent h-screen'
         )}>
         {!showSidebar && (
           <div className="hidden md:block">
             <ConnectButtonNav showSidebar={showSidebar} />
           </div>
         )}
-        <div className="md:hidden flex w-full">
+        <div className="md:hidden flex w-full p-2">
           {pages.length > 0 && <MenuVisibleButton />}
           <div className="ml-auto">
             <Link href={'/'}>
@@ -62,43 +60,40 @@ const Navbar = async ({
           </div>
         </div>
         {showSidebar && (
-          <div className="flex w-full flex-grow">
-            <aside className="w-full md:w-[50%] bg-base-blue overflow-auto z-20">
-              <div className="p-2">
-                <NavbarNavigation pages={pages} />
-
-                {(() => {
-                  switch (tab) {
-                    case eTab.videos:
-                      return (
-                        <Suspense fallback={<div>Loading...</div>}>
-                          <AllVideos page={page} />
-                        </Suspense>
-                      )
-                    case eTab.collection:
-                      return (
-                        <Suspense fallback={<div>Loading...</div>}>
-                          <CollectionItem
-                            searchParams={searchParams}
-                          />
-                        </Suspense>
-                      )
-                    case eTab.collections:
-                      return (
-                        <Suspense fallback={<div>Loading...</div>}>
-                          <AllCollections />
-                        </Suspense>
-                      )
-                    case eTab.about:
-                      return (
-                        <Suspense fallback={<div>Loading...</div>}>
-                          <AboutVideo sessionId={sessionId || ''} />
-                        </Suspense>
-                      )
-                    default:
-                      return <MainContent />
-                  }
-                })()}
+          <div className="flex w-full h-[calc(100%-46px)] md:h-full">
+            <aside className="w-full md:w-[50%] bg-base-blue h-full z-20">
+              <NavbarNavigation pages={pages} />
+              <div className='h-[calc(100%-161px)] md:h-[calc(100%-57px)] w-full p-2 overflow-auto'>
+              {(() => {
+                switch (tab) {
+                  case eTab.videos:
+                    return (
+                      <Suspense fallback={<div>Loading...</div>}>
+                        <AllVideos page={page} />
+                      </Suspense>
+                    )
+                  case eTab.collection:
+                    return (
+                      <Suspense fallback={<div>Loading...</div>}>
+                        <CollectionItem searchParams={searchParams} />
+                      </Suspense>
+                    )
+                  case eTab.collections:
+                    return (
+                      <Suspense fallback={<div>Loading...</div>}>
+                        <AllCollections />
+                      </Suspense>
+                    )
+                  case eTab.about:
+                    return (
+                      <Suspense fallback={<div>Loading...</div>}>
+                        <AboutVideo sessionId={sessionId || ''} />
+                      </Suspense>
+                    )
+                  default:
+                    return <MainContent />
+                }
+              })()}
               </div>
             </aside>
             <div className="hidden md:flex z-30 flex-col justify-between items-start p-2 pb-4 w-1/2 h-full backdrop-blur-sm">

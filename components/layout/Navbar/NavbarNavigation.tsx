@@ -27,14 +27,15 @@ export default function NavbarNavigation({
   }
 
   return (
-    <div className="flex z-50 items-center text-center text-gray-300 border-gray-100 md:relative md:flex-col md:h-full">
+    <div className="flex z-50 items-center text-center text-gray-300 border-gray-100 md:relative md:flex-col">
       <ul
         onClick={() => isMobile && setIsNavVisible?.(false)}
-        className="flex flex-col w-full uppercase cursor-pointer md:flex-row md:justify-between md:px-2 md:space-x-2">
+        className="flex flex-col w-full uppercase cursor-pointer md:flex-row md:justify-between md:p-2 md:space-x-2 md:h-[56px]">
         {pages?.map((item, index) => (
           <>
             <NavigationMenuItem key={index}>
               <div
+                className='flex justify-center items-center h-full w-full'
                 onClick={() =>
                   handleTermChange([
                     {
@@ -45,11 +46,11 @@ export default function NavbarNavigation({
                 }>
                 <NavigationMenuLink
                   className={cn(
-                    'border-b border-white md:border-none',
+                    'border-b border-white md:border-none flex p-0 ',
                     navigationMenuTriggerStyle(),
                     tab === item.href && 'text-white'
                   )}>
-                  {item.name}
+                  <span className='px-2 md:px-0 my-auto' >{item.name}</span>
                 </NavigationMenuLink>
               </div>
             </NavigationMenuItem>
