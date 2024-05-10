@@ -30,83 +30,22 @@ const HomePageNavbar = async ({
 
   return (
     <NavigationMenu
-      className={cn('relative z-[9999] ', { 'h-screen': showSidebar })}>
-      {!showSidebar && <ConnectButtonNav showSidebar={showSidebar} />}
-
-      {showSidebar && (
-        <div className="flex w-full h-full">
-          <aside className=" w-[50%] bg-base-blue overflow-auto h-full z-20">
-            <div className="p-2">
-              <NavbarNavigation pages={pages} />
-
-              {(() => {
-                switch (tab) {
-                  case eTab.videos:
-                    return (
-                      <Suspense fallback={<div>Loading...</div>}>
-                        <AllVideos page={page} />
-                      </Suspense>
-                    )
-                  case eTab.collection:
-                    return (
-                      <Suspense fallback={<div>Loading...</div>}>
-                        <CollectionItem searchParams={searchParams} />
-                      </Suspense>
-                    )
-                  case eTab.collections:
-                    return (
-                      <Suspense fallback={<div>Loading...</div>}>
-                        <AllCollections />
-                      </Suspense>
-                    )
-                  case eTab.about:
-                    return (
-                      <Suspense fallback={<div>Loading...</div>}>
-                        <AboutVideo sessionId={sessionId || ''} />
-                      </Suspense>
-                    )
-                  default:
-                    return <MainContent />
-                }
-              })()}
-            </div>
-          </aside>
-          <div className="flex z-30 flex-col justify-between items-start p-2 pb-4 w-1/2 h-full backdrop-blur-sm">
-            <div className="flex justify-between items-center w-full">
-              <CloseNavigation />
-              <ConnectWalletButton className="z-30 m-2 uppercase bg-transparent rounded-none border border-white" />
-            </div>
-            <div />
-            <BaseLogo height={'5%'} />
-          </div>
-        </div>
-      )}
-    </NavigationMenu>
-  )
-}
-
-const MobileNavBar = async ({
-  pages,
-  tab,
-  sessionId,
-  searchParams,
-}: {
-  pages: Page[]
-  tab?: string | null
-  sessionId?: string
-  searchParams: any
-}) => {
-  const showSidebar = tab !== eTab.none && !!tab
-
-  return (
-    <NavigationMenu className="flex sticky top-0 flex-row items-center md:hidden backdrop-blur-md z-[999999999999]">
+      className={cn(
+        'relative z-[9999] flex flex-col items-center backdrop-blur-md',
+        { 'h-screen': showSidebar }
+      )}>
       <div
         className={cn(
-          'flex relative flex-col items-center p-4 w-full',
+          'flex relative flex-col items-center p-4 md:p-0 w-full',
           showSidebar &&
-            'items-start bg-base-blue overflow-auto h-screen'
+            'items-start bg-base-blue md:bg-transparent overflow-auto h-screen'
         )}>
-        <div className="flex w-full">
+        {!showSidebar && (
+          <div className="hidden md:block">
+            <ConnectButtonNav showSidebar={showSidebar} />
+          </div>
+        )}
+        <div className="md:hidden flex w-full">
           {pages.length > 0 && <MenuVisibleButton />}
           <div className="ml-auto">
             <Link href={'/'}>
@@ -121,20 +60,53 @@ const MobileNavBar = async ({
           </div>
         </div>
         {showSidebar && (
-          <div className="flex flex-col flex-grow mt-2 w-full">
-            <NavbarNavigation pages={pages} />
+          <div className="flex w-full flex-grow">
+            <aside className="w-full md:w-[50%] bg-base-blue overflow-auto z-20">
+              <div className="p-2">
+                <NavbarNavigation pages={pages} />
 
-            {/* {tab === eTab.main && <MainContent />}
-            {tab === eTab.collection && (
-              <AboutCollection searchParams={searchParams} />
-            )}
-            {tab === eTab.collections && <AllCollections />}
-            {tab === eTab.videos && (
-              <AllVideos page={searchParams?.page} />
-            )}
-            {tab === eTab.about && (
-              <AboutVideo sessionId={sessionId || ''} />
-            )} */}
+                {(() => {
+                  switch (tab) {
+                    case eTab.videos:
+                      return (
+                        <Suspense fallback={<div>Loading...</div>}>
+                          <AllVideos page={page} />
+                        </Suspense>
+                      )
+                    case eTab.collection:
+                      return (
+                        <Suspense fallback={<div>Loading...</div>}>
+                          <CollectionItem
+                            searchParams={searchParams}
+                          />
+                        </Suspense>
+                      )
+                    case eTab.collections:
+                      return (
+                        <Suspense fallback={<div>Loading...</div>}>
+                          <AllCollections />
+                        </Suspense>
+                      )
+                    case eTab.about:
+                      return (
+                        <Suspense fallback={<div>Loading...</div>}>
+                          <AboutVideo sessionId={sessionId || ''} />
+                        </Suspense>
+                      )
+                    default:
+                      return <MainContent />
+                  }
+                })()}
+              </div>
+            </aside>
+            <div className="hidden md:flex z-30 flex-col justify-between items-start p-2 pb-4 w-1/2 h-full backdrop-blur-sm">
+              <div className="flex justify-between items-center w-full">
+                <CloseNavigation />
+                <ConnectWalletButton className="z-30 m-2 uppercase bg-transparent rounded-none border border-white" />
+              </div>
+              <div />
+              <BaseLogo height={'5%'} />
+            </div>
           </div>
         )}
       </div>

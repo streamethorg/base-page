@@ -6,8 +6,6 @@ import './globals.css'
 import { Analytics } from '@vercel/analytics/react'
 import './globals.css'
 import GeneralContext from '@/lib/context/GeneralContext'
-import { MobileContextProvider } from '@/lib/context/MobileContext'
-import { LoadingContextProvider } from '@/lib/context/LoadingContext'
 import { Toaster } from '@/components/ui/sonner'
 
 const inter = Inter({

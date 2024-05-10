@@ -56,7 +56,7 @@ const PlayerArea = async ({ sessionId }: { sessionId?: string }) => {
     }
   }
   if (!playbackInfo) return null
-
+  const thumbnail = session?.coverImage || stream?.thumbnail || ''
   return (
     <div className="flex absolute top-0 flex-col justify-center items-center mx-auto w-screen h-screen bg-black">
       {timeLeft > 0 ? (
@@ -93,7 +93,7 @@ const PlayerArea = async ({ sessionId }: { sessionId?: string }) => {
           timeLeft > 0 && 'blur'
         )}>
         <Image
-          src={stream ? stream?.thumbnail : session?.coverImage}
+          src={thumbnail}
           priority
           alt="Video thumbnail"
           layout="fill"

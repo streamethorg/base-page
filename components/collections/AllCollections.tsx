@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { fetchOrganizationNFTCollections } from '@/lib/services/nftCollectionService'
 import { fetchOrganization } from '@/lib/services/organizationService'
-import { organizationSlug } from '@/lib/utils'
+import { organizationSlug, organizationId } from '@/lib/utils'
 
 const AllCollections = async () => {
   const organization = await fetchOrganization({
@@ -11,7 +11,7 @@ const AllCollections = async () => {
   })
 
   const collections = await fetchOrganizationNFTCollections({
-    organizationId: organization?._id,
+    organizationId: organizationId,
   })
   if (!organization || !collections) {
     return notFound()

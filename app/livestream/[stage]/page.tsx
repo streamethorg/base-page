@@ -21,7 +21,8 @@ import {
   stageMetadata,
   watchMetadata,
 } from '@/lib/utils/metadata'
-
+import { getPlaybackInfo } from '@/lib/actions/livepeer'
+import { PlayerWithControls } from '@/components/ui/Player'
 export async function generateStaticParams() {
   const organization = await fetchOrganization({
     organizationSlug: organizationSlug,
@@ -51,11 +52,16 @@ const Livestream = async ({
     stage: params.stage,
   })
 
-  if (!stage?._id || !stage.streamSettings?.streamId)
+  if (!stage?._id || !stage.streamSettings?.playbackId)
     return notFound()
 
   const timeLeft =
     new Date(stage?.streamDate as string).getTime() - Date.now()
+  const playbackInfo = await getPlaybackInfo(
+    stage?.streamSettings?.playbackId
+  )
+
+  if (!playbackInfo) return notFound()
 
   return (
     <div className="flex flex-col mx-auto w-full">
@@ -75,7 +81,18 @@ const Livestream = async ({
               </div>
             </DialogTrigger>
             <DialogContent className="!p-0 aspect-video !rounded-xl w-full max-w-[1300px]">
-              <Player stage={stage} />
+              <PlayerWithControls
+                src={[
+                  {
+                    src: playbackInfo.meta.source[0]
+                      .url as `${string}m3u8`,
+                    width: 1920,
+                    height: 1080,
+                    mime: 'application/vnd.apple.mpegurl',
+                    type: 'hls',
+                  },
+                ]}
+              />
             </DialogContent>
           </Dialog>
         )}
