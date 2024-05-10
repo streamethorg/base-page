@@ -8,11 +8,9 @@ import Image from 'next/image'
 import Counter from '@/components/ui/Counter'
 import { cn } from '@/lib/utils'
 import { fetchOrganizationStages } from '@/lib/services/stageService'
-import { fetchSession } from '@/lib/services/sessionService'
 import { fetchAllSessions } from '@/lib/data'
 import { getPlaybackInfo } from '@/lib/actions/livepeer'
 import { organizationId, organizationSlug } from '@/lib/utils'
-import { IExtendedSession } from '@/lib/types'
 import PlayerWithControls from '@/components/ui/Player'
 
 const PlayerArea = async ({ sessionId }: { sessionId?: string }) => {
