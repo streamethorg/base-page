@@ -6,7 +6,7 @@ import CollectionItem from './CollectionItemActions'
 import AboutCollectionInfo from './CollectionItemInfo'
 import DefaultThumbnail from '@/lib/svg/DefaultThumbnail'
 import BackButton from '@/components/ui/back-button'
-
+import { ChannelPageParams } from '@/lib/types'
 const menuItems = [
   { key: 'about', label: 'ABOUT' },
   { key: 'items', label: 'ITEMS' },
@@ -15,10 +15,9 @@ const menuItems = [
 const AboutCollection = async ({
   searchParams,
 }: {
-  searchParams: any
+  searchParams: ChannelPageParams['searchParams']
 }) => {
-  const selectedItem = searchParams.m
-  const collectionId = searchParams.collectionId
+  const { m: selectedItem, collectionId } = searchParams
   if (!collectionId) return
   const collection = await fetchNFTCollection({ collectionId })
   if (!collection) return

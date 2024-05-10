@@ -30,15 +30,10 @@ export default function RootLayout({
       <body>
         <GeneralContext>
           <Toaster />
-          <LoadingContextProvider>
-            <MobileContextProvider>
-              <Analytics />
-              <main
-                className={`${inter.variable} flex flex-col w-full min-h-screen mx-auto bg-background `}>
-                {children}
-              </main>
-            </MobileContextProvider>
-          </LoadingContextProvider>
+          <main
+            className={`${inter.variable} flex flex-col w-full min-h-screen mx-auto bg-background `}>
+            {children}
+          </main>
         </GeneralContext>
       </body>
     </html>

@@ -223,6 +223,9 @@ export interface ChannelPageParams {
     tab?: string
     session?: string
     stage?: string
+    page?: string
+    collectionId?: string
+    m?: string
   }
 }
 

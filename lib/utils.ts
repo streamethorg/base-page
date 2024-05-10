@@ -9,6 +9,7 @@ export function cn(...inputs: ClassValue[]) {
 export const organizationSlug =
   process.env.NEXT_PUBLIC_ORGANIZATION || ''
 
+export const organizationId = process.env.NEXT_PUBLIC_ORGANIZATION_ID || ''
 export const pages: Page[] = [
   {
     name: 'MAIN',
