@@ -6,6 +6,7 @@ import { Suspense } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 
+
 import { NavigationMenu } from '@/components/ui/navigation-menu'
 import ConnectButtonNav from './ConnectButtonNav'
 import CloseNavigation from './XButton'
