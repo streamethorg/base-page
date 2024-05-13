@@ -6,7 +6,7 @@ import { Menu, X } from 'lucide-react'
 
 const MenuVisibleButton = () => {
   const { searchParams, handleTermChange } = useSearchParams()
-  const menuVisible = searchParams.get('tab') !== eTab.none
+  const menuVisible = searchParams.get('tab') !== eTab.none && !!searchParams.get('tab')
 
   const toggleMenu = () => {
     if (!menuVisible) {

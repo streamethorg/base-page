@@ -32,7 +32,7 @@ export default function NavbarNavigation({
         onClick={() => isMobile && setIsNavVisible?.(false)}
         className="flex flex-col w-full uppercase cursor-pointer md:flex-row md:justify-between md:p-2 md:space-x-2 md:h-[56px]">
         {pages?.map((item, index) => (
-          <>
+          <div key={index}>
             <NavigationMenuItem key={index}>
               <div
                 className='flex justify-center items-center h-full w-full'
@@ -54,7 +54,7 @@ export default function NavbarNavigation({
                 </NavigationMenuLink>
               </div>
             </NavigationMenuItem>
-          </>
+          </div>
         ))}
         <NavigationMenuItem
           key={'connect-mobile'}
