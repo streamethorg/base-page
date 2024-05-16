@@ -13,13 +13,13 @@ import {
 const config = createConfig(
   getDefaultConfig({
     // Your dApps chains
-    chains: [baseSepolia, base],
+    chains: [base, baseSepolia],
     transports: {
       // RPC URL for each chain
+      [base.id]: http(),
       [baseSepolia.id]: http(
         process.env.NEXT_PUBLIC_SEPOLIA_RPC_URL || ''
       ),
-      [base.id]: http(),
     },
     ssr: true,
     // Required API Keys
