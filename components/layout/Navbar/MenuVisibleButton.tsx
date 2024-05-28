@@ -1,22 +1,18 @@
-import { eTab } from '@/lib/types'
+'use client'
 import { Menu, X } from 'lucide-react'
-import Link from 'next/link'
-import { headers } from "next/headers";
 
-const MenuVisibleButton = ({ tab }: { tab: eTab }) => {
-  const menuVisible = tab !== eTab.none && !!tab
-
-  const host = headers().get("host");
-  const url = new URL(`http://${host}/`)
-  url.searchParams.set('tab', tab === eTab.main ? eTab.none : eTab.main)
-
+const MenuVisibleButton = ({
+  showSidebar,
+  setShowSidebar,
+}: {
+  showSidebar: boolean
+  setShowSidebar: (showSidebar: boolean) => void
+}) => {
   return (
-    <Link
-      href={url.toString()}
-      passHref
-      scroll={false}
+    <button
+      onClick={() => setShowSidebar(!showSidebar)}
       className="z-30">
-      {!menuVisible ? (
+      {!showSidebar ? (
         <Menu
           size={30}
           strokeWidth={2}
@@ -25,7 +21,7 @@ const MenuVisibleButton = ({ tab }: { tab: eTab }) => {
       ) : (
         <X size={30} strokeWidth={1} className="text-white" />
       )}
-    </Link>
+    </button>
   )
 }
 
