@@ -4,13 +4,17 @@ import { X } from 'lucide-react'
 import { eTab } from '@/lib/types'
 import useSearchParams from '@/lib/hooks/useSearchParams'
 
-const CloseNavigation = () => {
+const CloseNavigation = ({
+  setShowSidebar,
+}: {
+  setShowSidebar: (showSidebar: boolean) => void
+}) => {
   const { handleTermChange } = useSearchParams()
 
   return (
     <button
       onClick={() =>
-        handleTermChange([{ key: 'tab', value: eTab.none }])
+        setShowSidebar(false) 
       }
       className="z-30">
       <X size={45} strokeWidth={1} className="text-white" />

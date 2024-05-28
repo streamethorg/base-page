@@ -1,25 +1,18 @@
 'use client'
-
-import useSearchParams from '@/lib/hooks/useSearchParams'
-import { eTab } from '@/lib/types'
 import { Menu, X } from 'lucide-react'
 
-const MenuVisibleButton = () => {
-  const { searchParams, handleTermChange } = useSearchParams()
-  const menuVisible = searchParams.get('tab') !== eTab.none && !!searchParams.get('tab')
-
-  const toggleMenu = () => {
-    if (!menuVisible) {
-      handleTermChange([{ key: 'tab', value: eTab.main }])
-      return
-    }
-
-    handleTermChange([{ key: 'tab', value: eTab.none }])
-  }
-
+const MenuVisibleButton = ({
+  showSidebar,
+  setShowSidebar,
+}: {
+  showSidebar: boolean
+  setShowSidebar: (showSidebar: boolean) => void
+}) => {
   return (
-    <button onClick={toggleMenu} className="z-50">
-      {!menuVisible ? (
+    <button
+      onClick={() => setShowSidebar(!showSidebar)}
+      className="z-30">
+      {!showSidebar ? (
         <Menu
           size={30}
           strokeWidth={2}

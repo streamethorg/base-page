@@ -15,12 +15,7 @@ const Home = async ({ searchParams }: ChannelPageParams) => {
   return (
     <div className="flex flex-col mx-auto w-full">
       <Navbar searchParams={searchParams} pages={pages} />
-      <Suspense
-        fallback={
-          <div className="w-full h-full bg-black">Loading...</div>
-        }>
-        <PlayerArea />
-      </Suspense>
+      <PlayerArea />
     </div>
   )
 }

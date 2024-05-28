@@ -1,5 +1,3 @@
-'use server'
-
 import { formatDate } from '@/lib/utils/time'
 import Image from 'next/image'
 import { Dot } from 'lucide-react'

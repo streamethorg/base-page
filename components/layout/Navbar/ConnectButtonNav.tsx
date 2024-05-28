@@ -1,23 +1,18 @@
 'use client'
-
-import useSearchParams from '@/lib/hooks/useSearchParams'
 import { ConnectWalletButton } from '@/components/ui/ConnectWalletButton'
 import { Menu } from 'lucide-react'
-import { eTab } from '@/lib/types'
 
 const ConnectButtonNav = ({
   showSidebar,
+  setShowSidebar,
 }: {
   showSidebar: boolean
+  setShowSidebar: (showSidebar: boolean) => void
 }) => {
-  const { handleTermChange } = useSearchParams()
-
   return (
     <>
       <button
-        onClick={() =>
-          handleTermChange([{ key: 'tab', value: eTab.main }])
-        }
+        onClick={() => setShowSidebar(!showSidebar)}
         className={`absolute top-4 z-[999999999999999] left-4 ${showSidebar ? 'hidden' : 'block'}`}>
         <Menu strokeWidth={1} size={40} className="text-white" />
       </button>
