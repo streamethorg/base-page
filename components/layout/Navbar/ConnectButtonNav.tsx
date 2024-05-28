@@ -2,12 +2,15 @@ import { ConnectWalletButton } from '@/components/ui/ConnectWalletButton'
 import { Menu } from 'lucide-react'
 import { eTab } from '@/lib/types'
 import Link from 'next/link'
+import { headers } from "next/headers";
+
 const ConnectButtonNav = ({
   showSidebar,
 }: {
   showSidebar: boolean
 }) => {
-  const url = new URL('http://localhost:3000/')
+  const host = headers().get("host");
+  const url = new URL(`http://${host}/`)
   url.searchParams.set('tab', eTab.main)
 
   return (

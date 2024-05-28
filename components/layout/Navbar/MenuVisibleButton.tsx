@@ -1,10 +1,13 @@
 import { eTab } from '@/lib/types'
 import { Menu, X } from 'lucide-react'
 import Link from 'next/link'
+import { headers } from "next/headers";
+
 const MenuVisibleButton = ({ tab }: { tab: eTab }) => {
   const menuVisible = tab !== eTab.none && !!tab
 
-  const url = new URL('http://localhost:3000/')
+  const host = headers().get("host");
+  const url = new URL(`http://${host}/`)
   url.searchParams.set('tab', tab === eTab.main ? eTab.none : eTab.main)
 
   return (

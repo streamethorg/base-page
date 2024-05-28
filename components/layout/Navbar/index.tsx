@@ -30,23 +30,25 @@ const Navbar = async ({
 
   return (
     <NavigationMenu
-      className={cn(
-        'relative z-[9999] flex flex-col items-center backdrop-blur-md',
-        { 'h-screen': showSidebar }
-      )}>
+      className={`relative z-[9999] flex flex-col items-center backdrop-blur-md
+        ${showSidebar && 'h-screen'}
+      `}>
       <div
-        className={cn(
-          'flex relative flex-col items-center p-0 w-full',
-          showSidebar &&
+        className={`flex relative flex-col items-center p-0 w-full
+          ${
+            showSidebar &&
             'items-start bg-base-blue md:bg-transparent h-screen'
-        )}>
+          }
+        `}>
         {!showSidebar && (
           <div className="hidden md:block">
             <ConnectButtonNav showSidebar={showSidebar} />
           </div>
         )}
         <div className="md:hidden flex w-full p-2">
-          {pages.length > 0 && <MenuVisibleButton tab={tab as eTab} />}
+          {pages.length > 0 && (
+            <MenuVisibleButton tab={tab as eTab} />
+          )}
           <div className="ml-auto">
             <Link href={'/'}>
               <Image
@@ -63,37 +65,39 @@ const Navbar = async ({
           <div className="flex w-full h-[calc(100%-46px)] md:h-full">
             <aside className="w-full md:w-[50%] bg-base-blue h-full z-20">
               <NavbarNavigation pages={pages} />
-              <div className='h-[calc(100%-161px)] md:h-[calc(100%-57px)] w-full p-2 overflow-auto'>
-              {(() => {
-                switch (tab) {
-                  case eTab.videos:
-                    return (
-                      <Suspense fallback={<div>Loading...</div>}>
-                        <AllVideos page={page} />
-                      </Suspense>
-                    )
-                  case eTab.collection:
-                    return (
-                      <Suspense fallback={<div>Loading...</div>}>
-                        <CollectionItem searchParams={searchParams} />
-                      </Suspense>
-                    )
-                  case eTab.collections:
-                    return (
-                      <Suspense fallback={<div>Loading...</div>}>
-                        <AllCollections />
-                      </Suspense>
-                    )
-                  case eTab.about:
-                    return (
-                      <Suspense fallback={<div>Loading...</div>}>
-                        <AboutVideo sessionId={sessionId || ''} />
-                      </Suspense>
-                    )
-                  default:
-                    return <MainContent />
-                }
-              })()}
+              <div className="h-[calc(100%-161px)] md:h-[calc(100%-57px)] w-full p-2 overflow-auto">
+                {(() => {
+                  switch (tab) {
+                    case eTab.videos:
+                      return (
+                        <Suspense fallback={<div>Loading...</div>}>
+                          <AllVideos page={page} />
+                        </Suspense>
+                      )
+                    case eTab.collection:
+                      return (
+                        <Suspense fallback={<div>Loading...</div>}>
+                          <CollectionItem
+                            searchParams={searchParams}
+                          />
+                        </Suspense>
+                      )
+                    case eTab.collections:
+                      return (
+                        <Suspense fallback={<div>Loading...</div>}>
+                          <AllCollections />
+                        </Suspense>
+                      )
+                    case eTab.about:
+                      return (
+                        <Suspense fallback={<div>Loading...</div>}>
+                          <AboutVideo sessionId={sessionId || ''} />
+                        </Suspense>
+                      )
+                    default:
+                      return <MainContent />
+                  }
+                })()}
               </div>
             </aside>
             <div className="hidden md:flex z-30 flex-col justify-between items-start p-2 pb-4 w-1/2 h-full backdrop-blur-sm">
