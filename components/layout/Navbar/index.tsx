@@ -46,7 +46,7 @@ const Navbar = async ({
           </div>
         )}
         <div className="md:hidden flex w-full p-2">
-          {pages.length > 0 && <MenuVisibleButton />}
+          {pages.length > 0 && <MenuVisibleButton tab={tab} />}
           <div className="ml-auto">
             <Link href={'/'}>
               <Image

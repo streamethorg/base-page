@@ -1,24 +1,18 @@
-'use client'
-
-import useSearchParams from '@/lib/hooks/useSearchParams'
 import { eTab } from '@/lib/types'
 import { Menu, X } from 'lucide-react'
+import Link from 'next/link'
+const MenuVisibleButton = ({ tab }: { tab: eTab }) => {
+  const menuVisible = tab !== eTab.none && !!tab
 
-const MenuVisibleButton = () => {
-  const { searchParams, handleTermChange } = useSearchParams()
-  const menuVisible = searchParams.get('tab') !== eTab.none && !!searchParams.get('tab')
-
-  const toggleMenu = () => {
-    if (!menuVisible) {
-      handleTermChange([{ key: 'tab', value: eTab.main }])
-      return
-    }
-
-    handleTermChange([{ key: 'tab', value: eTab.none }])
-  }
+  const url = new URL('http://localhost:3000/')
+  url.searchParams.set('tab', tab === eTab.main ? eTab.none : eTab.main)
 
   return (
-    <button onClick={toggleMenu} className="z-50">
+    <Link
+      href={url.toString()}
+      passHref
+      scroll={false}
+      className="z-30">
       {!menuVisible ? (
         <Menu
           size={30}
@@ -28,7 +22,7 @@ const MenuVisibleButton = () => {
       ) : (
         <X size={30} strokeWidth={1} className="text-white" />
       )}
-    </button>
+    </Link>
   )
 }
 
