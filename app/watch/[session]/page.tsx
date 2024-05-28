@@ -17,8 +17,6 @@ import { fetchAllSessions } from '@/lib/data'
 import { Metadata } from 'next'
 import { generalMetadata, watchMetadata } from '@/lib/utils/metadata'
 
-
-
 export async function generateStaticParams() {
   const sessions = (
     await fetchAllSessions({
@@ -46,46 +44,34 @@ const Watch = async ({ params, searchParams }: WatchPageParams) => {
   if (!video || !videoUrl) return notFound()
 
   return (
-      <div className="flex flex-col mx-auto w-full">
-        <Navbar searchParams={searchParams} pages={pages} />
+    <div className="flex flex-col mx-auto w-full h-screen">
+      <Navbar searchParams={searchParams} pages={pages} />
 
-        <div className="flex absolute top-0 flex-col justify-center items-center mx-auto w-screen h-screen bg-black">
-          <Dialog defaultOpen={true}>
-            <DialogTrigger className="absolute z-50 w-full h-full">
-              <div className="flex justify-center items-center mx-auto h-full cursor-pointer w-fit">
-                <Play
-                  fill="#fff"
-                  className="p-2 w-14 h-14 text-white rounded-full bg-base-blue"
-                />
-              </div>
-            </DialogTrigger>
-
-            <DialogContent className="!p-0 aspect-video !rounded-xl w-full max-w-[1300px]">
-              <PlayerWithControls
-                src={[
-                  {
-                    src: videoUrl as `${string}m3u8`,
-                    width: 1920,
-                    height: 1080,
-                    mime: 'application/vnd.apple.mpegurl',
-                    type: 'hls',
-                  },
-                ]}
-              />
-            </DialogContent>
-          </Dialog>
-
-          <div className="overflow-hidden absolute top-0 w-full h-full blur-sm">
-            <Image
-              src={video?.coverImage!}
-              priority
-              alt="Video thumbnail"
-              layout="fill"
-              style={{ objectFit: 'cover' }}
-            />
-          </div>
+      <div className="flex  top-0 flex-col justify-center items-center mx-auto w-screen h-full bg-black">
+        <div className="z-50 aspect-video my-auto w-full">
+          <PlayerWithControls
+            src={[
+              {
+                src: videoUrl as `${string}m3u8`,
+                width: 1920,
+                height: 1080,
+                mime: 'application/vnd.apple.mpegurl',
+                type: 'hls',
+              },
+            ]}
+          />
+        </div>
+        <div className="overflow-hidden absolute top-0 w-full h-full blur-sm bg-opacity-10">
+          <Image
+            src={video?.coverImage!}
+            priority
+            alt="Video thumbnail"
+            layout="fill"
+            style={{ objectFit: 'cover' }}
+          />
         </div>
       </div>
+    </div>
   )
 }
 

@@ -25,11 +25,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className='bg-black'>
+      <body>
         <GeneralContext>
           <Toaster />
           <main
-            className={`${inter.variable} flex flex-col w-full min-h-screen mx-auto bg-background `}>
+            className={`${inter.variable} bg-black flex flex-col w-full min-h-screen mx-auto bg-background `}>
             {children}
           </main>
         </GeneralContext>

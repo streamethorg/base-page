@@ -20,37 +20,37 @@ const Home = async ({ searchParams }: ChannelPageParams) => {
   )
 }
 
-// export async function generateMetadata(
-//   { params }: ChannelPageParams,
-//   parent: ResolvingMetadata
-// ): Promise<Metadata> {
-//   const organizationInfo = await fetchOrganization({
-//     organizationSlug: organizationSlug,
-//   })
+export async function generateMetadata(
+  { params }: ChannelPageParams,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  const organizationInfo = await fetchOrganization({
+    organizationSlug: organizationSlug,
+  })
 
-//   if (!organizationInfo) {
-//     return {
-//       title: 'Organization not found',
-//       description: 'Organization not found',
-//     }
-//   }
+  if (!organizationInfo) {
+    return {
+      title: 'Organization not found',
+      description: 'Organization not found',
+    }
+  }
 
-//   const imageUrl = organizationInfo.logo
-//   try {
-//     return {
-//       title: organizationInfo.name,
-//       description: organizationInfo.description,
-//       openGraph: {
-//         images: [imageUrl],
-//       },
-//     }
-//   } catch (e) {
-//     console.log(e)
-//     return {
-//       title: organizationInfo.name,
-//       description: organizationInfo.description,
-//     }
-//   }
-// }
+  const imageUrl = organizationInfo.logo
+  try {
+    return {
+      title: organizationInfo.name,
+      description: organizationInfo.description,
+      openGraph: {
+        images: [imageUrl],
+      },
+    }
+  } catch (e) {
+    console.log(e)
+    return {
+      title: organizationInfo.name,
+      description: organizationInfo.description,
+    }
+  }
+}
 
 export default Home
