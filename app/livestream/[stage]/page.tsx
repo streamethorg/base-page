@@ -13,7 +13,7 @@ import { organizationSlug, pages } from '@/lib/utils'
 import { Play } from 'lucide-react'
 import Image from 'next/image'
 import Counter from '@/components/ui/Counter'
-import { fetchOrganization } from '@/lib/services/organizationService'
+import { fetchVideoDetails } from '@/lib/utils/utils'
 import { Metadata } from 'next'
 import {
   generalMetadata,
@@ -22,24 +22,6 @@ import {
 } from '@/lib/utils/metadata'
 import { getPlaybackInfo } from '@/lib/actions/livepeer'
 import { PlayerWithControls } from '@/components/ui/Player'
-export async function generateStaticParams() {
-  const organization = await fetchOrganization({
-    organizationSlug: organizationSlug,
-  })
-
-  if (!organization) {
-    return []
-  }
-
-  const stages = await fetchStages({
-    organizationId: organization._id.toString(),
-  })
-  const paths = stages.map((stage) => ({
-    stage: stage._id!.toString(),
-  }))
-
-  return paths
-}
 
 const Livestream = async ({
   params,
@@ -51,16 +33,15 @@ const Livestream = async ({
     stage: params.stage,
   })
 
-  if (!stage?._id || !stage.streamSettings?.playbackId)
-    return notFound()
-
   const timeLeft =
     new Date(stage?.streamDate as string).getTime() - Date.now()
-  const playbackInfo = await getPlaybackInfo(
-    stage?.streamSettings?.playbackId
+  const video = await fetchVideoDetails(
+    'livestream',
+    stage?._id,
+    undefined
   )
-
-  if (!playbackInfo) return notFound()
+  
+  if (!video) return notFound()
 
   return (
     <div className="flex flex-col mx-auto w-full">
@@ -83,8 +64,7 @@ const Livestream = async ({
               <PlayerWithControls
                 src={[
                   {
-                    src: playbackInfo.meta.source[0]
-                      .url as `${string}m3u8`,
+                    src: video.videoSrc as `${string}m3u8`,
                     width: 1920,
                     height: 1080,
                     mime: 'application/vnd.apple.mpegurl',

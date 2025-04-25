@@ -20,7 +20,7 @@ const AllVideos = async ({ page }: { page?: string }) => {
       <div className="grid relative grid-cols-1 gap-4 md:mt-2 xl:grid-cols-2">
         {videos.sessions.map((session) => (
           <VideoCardWithMenu
-            link={`/?tab=about&session=${session._id}`}
+            link={`?tab=about&session=${session._id}`}
             key={session._id}
             session={session}
           />

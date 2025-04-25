@@ -8,11 +8,9 @@ import { pages } from '@/lib/utils'
 import Navbar from '@/components/layout/Navbar'
 import PlayerArea from './components/PlayerArea'
 import { notFound } from 'next/navigation'
-import { sdk } from '@farcaster/frame-sdk'
-
 const Home = async ({ searchParams }: ChannelPageParams) => {
   if (!organizationSlug || !organizationId) return notFound()
-    await sdk.actions.ready();
+    //await sdk.actions.ready();
 
   return (
     <div className="flex flex-col mx-auto w-full">

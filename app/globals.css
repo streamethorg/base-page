@@ -65,3 +65,21 @@
     --radius: 0.3rem; /* Rounded corners for a modern look */
   }
 }
+
+@font-face {
+  font-family: 'Archivo-Bold';
+  src: url('/Archivo-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Override the default font settings with higher specificity */
+html body {
+  font-family: 'Archivo-Bold', ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+/* Create a utility class for explicit usage */
+.font-archivo-bold {
+  font-family: 'Archivo-Bold', sans-serif !important;
+}

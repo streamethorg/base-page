@@ -19,7 +19,7 @@ const config = {
     },
     extend: {
       colors: {
-        'base-blue': '#0052FF',
+        'base-blue': '#8A63D2',
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
@@ -72,6 +72,9 @@ const config = {
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
+      },
+      fontFamily: {
+        'archivo-bold': ['var(--font-archivo-bold)', 'sans-serif'],
       },
     },
   },

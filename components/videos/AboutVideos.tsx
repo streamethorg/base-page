@@ -5,7 +5,7 @@ import AboutInfo from './AboutInfo'
 import { fetchSession } from '@/lib/services/sessionService'
 import BackButton from '../ui/back-button'
 import Link from 'next/link'
-
+import { Button } from '../ui/button'
 const AboutVideo = async ({ sessionId }: { sessionId?: string }) => {
   const session = await fetchSession({ session: sessionId || '' })
 
@@ -33,9 +33,9 @@ const AboutVideo = async ({ sessionId }: { sessionId?: string }) => {
             </p>
           </div>
           <Link href={`/watch/${session._id.toString()}?tab=none`}>
-            <button className="absolute bottom-0 left-0 z-10 p-2 m-3 border border-white transition-all hover:text-black hover:bg-gray-100">
+            <Button className="absolute bottom-0 left-0 z-10 p-2 m-3 mt-auto" variant="primary">
               Watch Video
-            </button>
+            </Button>
           </Link>
         </div>
         <Image

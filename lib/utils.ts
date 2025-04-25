@@ -13,18 +13,8 @@ export const organizationId =
   process.env.NEXT_PUBLIC_ORGANIZATION_ID || ''
 export const pages: Page[] = [
   {
-    name: 'MAIN',
+    name: 'EXPLORE',
     href: 'main',
     bgColor: 'bg-muted',
-  },
-  {
-    name: 'COLLECTIONS',
-    href: 'collections',
-    bgColor: 'bg-muted',
-  },
-  {
-    name: 'ALL VIDEOS',
-    href: 'videos',
-    bgColor: 'bg-muted',
-  },
+  }
 ]

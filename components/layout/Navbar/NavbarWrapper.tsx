@@ -33,31 +33,38 @@ const NavbarbarWrapper = ({
           }
         `}>
         {!showSidebar && (
-          <div className="hidden md:block">
-            <ConnectButtonNav
-              showSidebar={showSidebar}
-              setShowSidebar={setShowSidebar}
-            />
-          </div>
-        )}
-        <div className="md:hidden flex w-full p-2">
-          {pages.length > 0 && (
-            <MenuVisibleButton
-              showSidebar={showSidebar}
-              setShowSidebar={setShowSidebar}
-            />
-          )}
-          <div className="ml-auto">
+          <div className="hidden md:flex w-full justify-between items-center p-2">
             <Link href={'/'}>
               <Image
-                src={'/base_logo.png'}
+                src={'/ufo.svg'}
                 alt="Logo"
                 height={30}
                 width={30}
                 className="h-full aspect-square"
               />
             </Link>
+            <ConnectButtonNav
+              showSidebar={showSidebar}
+              setShowSidebar={setShowSidebar}
+            />
           </div>
+        )}
+        <div className="md:hidden flex w-full p-2 justify-between items-center">
+          <Link href={'/'}>
+            <Image
+              src={'/ufo.svg'}
+              alt="Logo"
+              height={50}
+              width={50}
+              className="h-full aspect-square"
+            />
+          </Link>
+          {pages.length > 0 && (
+            <MenuVisibleButton
+              showSidebar={showSidebar}
+              setShowSidebar={setShowSidebar}
+            />
+          )}
         </div>
         {showSidebar && (
           <div className="flex w-full h-[calc(100%-46px)] md:h-full">
@@ -69,9 +76,7 @@ const NavbarbarWrapper = ({
             </aside>
             <div className="hidden md:flex z-30 flex-col justify-between items-start p-2 pb-4 w-1/2 h-full backdrop-blur-sm">
               <div className="flex justify-between items-center w-full">
-                <CloseNavigation
-                setShowSidebar={setShowSidebar}
-              />
+                <CloseNavigation setShowSidebar={setShowSidebar} />
                 <ConnectWalletButton className="z-30 m-2 uppercase bg-transparent rounded-none border border-white" />
               </div>
               <div />

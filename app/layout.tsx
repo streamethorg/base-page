@@ -1,14 +1,16 @@
 export const dynamic = 'force-dynamic'
 
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import localFont from 'next/font/local'
 import './globals.css'
 import GeneralContext from '@/lib/context/GeneralContext'
 import { Toaster } from '@/components/ui/sonner'
 
-const inter = Inter({
-  subsets: ['latin'],
-  variable: '--font-inter',
+// Use local font file
+const archivoBold = localFont({
+  src: '../public/Archivo-Bold.ttf',
+  variable: '--font-archivo-bold',
+  display: 'swap',
 })
 
 export const metadata: Metadata = {
@@ -21,16 +23,12 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-
-
-
   return (
-    <html lang="en">
-      <body>
+    <html lang="en" className={archivoBold.variable}>
+      <body className="font-archivo-bold">
         <GeneralContext>
           <Toaster />
-          <main
-            className={`${inter.variable} bg-black flex flex-col w-full min-h-screen mx-auto bg-background `}>
+          <main className="bg-black flex flex-col w-full min-h-screen mx-auto bg-background">
             {children}
           </main>
         </GeneralContext>

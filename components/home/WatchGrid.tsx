@@ -31,7 +31,7 @@ const WatchGrid = async () => {
                 className={`w-full h-full border-none flex-initial`}>
                 <VideoCardWithMenu
                   session={video}
-                  link={`/?tab=about&session=${video._id.toString()}`}
+                  link={`?tab=about&session=${video._id.toString()}`}
                 />
               </div>
             )
