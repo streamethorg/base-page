@@ -1,6 +1,6 @@
-import { fetchAllSessions } from '@/lib/data'
+import { fetchAllSessions } from '@/lib/services/sessionService'
 import { Video } from 'lucide-react'
-import { organizationSlug } from '@/lib/utils'
+import { organizationId } from '@/lib/utils'
 import VideoCardWithMenu from '@/components/video-ui/VideoCardWithMenu'
 import VideoCardSkeleton from '@/components/video-ui/VideoCardSkeleton'
 
@@ -9,9 +9,8 @@ const WatchGrid = async () => {
 
   const videos = (
     await fetchAllSessions({
-      organizationSlug: organizationSlug,
+      organizationId,
       onlyVideos: true,
-      // published: true,
       limit: maxVideos,
     })
   ).sessions
@@ -26,9 +25,7 @@ const WatchGrid = async () => {
         <div
           className={`grid grid-cols-1 lg:grid-cols-2 gap-8 gap-x-4`}>
           {videos.map((video, index) =>
-            ({ maxVideos }) &&
-            maxVideos &&
-            index > maxVideos ? null : (
+            maxVideos && index > maxVideos ? null : (
               <div
                 key={video._id}
                 className={`w-full h-full border-none flex-initial`}>

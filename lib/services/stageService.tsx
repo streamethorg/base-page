@@ -1,25 +1,41 @@
 import { IStage } from '../interfaces/stage.interface'
 import { apiUrl } from '@/lib/utils/utils'
-import { IExtendedStage } from '../types'
+import { IExtendedSession, IExtendedStage } from '../types'
 import { fetchEvents } from './eventService'
+
+
+export async function fetchStageRecordings({
+  streamId,
+}: {
+  streamId: string;
+}): Promise<IExtendedSession[]> {
+  try {
+    const response = await fetch(`${apiUrl()}/streams/recording/${streamId}`);
+    const data = (await response.json()).data;
+    return data;
+  } catch (e) {
+    console.log(e);
+    throw 'Error fetching stage';
+  }
+}
 
 export async function fetchStage({
   stage,
 }: {
-  stage: string
+  stage: string;
 }): Promise<IExtendedStage | null> {
   try {
     const response = await fetch(`${apiUrl()}/stages/${stage}`, {
       cache: 'no-cache',
-    })
-    const data = (await response.json()).data
+    });
+    const data = (await response.json()).data;
     if (!data) {
-      return null
+      return null;
     }
-    return data
+    return data;
   } catch (e) {
-    console.log(e)
-    throw 'Error fetching stage'
+    console.log(e);
+    throw 'Error fetching stage';
   }
 }
 

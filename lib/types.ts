@@ -17,6 +17,13 @@ export enum eTab {
   collection = 'collection',
 }
 
+export interface IPagination {
+  currentPage: number;
+  totalPages: number;
+  totalItems: number;
+  limit: number;
+}
+
 export enum eSort {
   asc_alpha = 'asc_alpha',
   desc_alpha = 'desc_alpha',
@@ -147,17 +154,18 @@ export interface IExtendedOrganization
 export interface IExtendedSession
   extends Omit<ISession, '_id' | 'nftCollections'> {
   _id: string
+  id: string
   nftCollections?: string[]
   createdAt?: string
 }
-export interface IExtendedStage
-  extends Omit<IStage, '_id' | 'nftCollections'> {
+export interface IExtendedStage extends Omit<IStage, '_id' | 'nftCollections'> {
   _id?: string
   nftCollections?: string[]
   createdAt?: string
   updatedAt?: string
   __v?: string
 }
+
 export interface IExtendedSpeaker
   extends Omit<ISpeaker, 'organizationId'> {}
 export interface IExtendedUser extends Omit<IUser, 'organizations'> {

@@ -15,6 +15,13 @@ import { IEvent } from '../interfaces/event.interface'
 import { UseFormProps, UseFormReturn } from 'react-hook-form'
 import { getDateInUTC } from './time'
 import { toast } from 'sonner'
+import {
+  fetchStage,
+  fetchStageRecordings,
+} from '../services/stageService'
+import { fetchAllSessions, fetchAsset } from '../services/sessionService'
+import { fetchSession } from '../services/sessionService'
+import { SessionType } from '../interfaces/session.interface'
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -103,6 +110,115 @@ export const apiUrl = () => {
   return api
 }
 
+export const getVideoUrlAction = async (
+  session: IExtendedSession
+): Promise<string | null> => {
+  try {
+    if (session.assetId) {
+      const asset = await fetchAsset({ assetId: session.assetId });
+      if (asset?.playbackUrl) {
+        return asset.playbackUrl;
+      }
+    }
+
+    if (session.playback?.videoUrl) {
+      return session.playback.videoUrl;
+    }
+
+    if (session.playbackId) {
+      return `https://vod-cdn.lp-playback.studio/raw/jxf4iblf6wlsyor6526t4tcmtmqa/catalyst-vod-com/hls/${session.playbackId}/index.m3u8`;
+    }
+
+    console.log('no asset or playbackId');
+    return null;
+  } catch (e) {
+    console.error('Error fetching asset or building URL');
+    return null;
+  }
+};
+
+
+export const getLiveStageSrcValue = ({
+  playbackId,
+  recordingId,
+}: {
+  playbackId?: string
+  recordingId?: string
+}) => {
+  return `https://recordings-cdn-s.lp-playback.studio/hls/${playbackId}/${recordingId}/output.m3u8`
+}
+
+export const fetchVideoDetails = async (
+  videoType: string,
+  stageId?: string,
+  sessionId?: string
+) => {
+  switch (videoType) {
+    case 'livestream': {
+      if (!stageId) return null
+      const liveStage = await fetchStage({ stage: stageId })
+      const streamId = liveStage?.streamSettings?.streamId
+      if (!streamId) return null
+
+      const videoSrc = getLiveStageSrcValue({
+        playbackId: liveStage.streamSettings?.playbackId,
+        recordingId: latestRecording.id,
+      })
+      if (!videoSrc) return null
+      return {
+        videoSrc,
+        name: liveStage.name,
+        transcribe: liveStage.transcripts?.chunks,
+        transcibeStatus: liveStage.transcripts?.status,
+        aiAnalysisStatus: null,
+        type: 'livepeer',
+        sessions,
+        stageRecordings,
+      }
+    }
+
+    case 'recording': {
+      const session = await fetchSession({ session: sessionId! })
+      if (
+        !session ||
+        !session?.playbackId ||
+        !session?.assetId
+      )
+        return null
+      const stage = await fetchStage({
+        stage: session.stageId as string,
+      })
+      const stageRecordings = await fetchStageRecordings({
+        streamId: stage?.streamSettings?.streamId || '',
+      })
+      let sessions: IExtendedSession[] = []
+      if (stage) {
+        sessions = (
+          await fetchAllSessions({
+            stageId: stage._id,
+            type: SessionType.livestream,
+          })
+        ).sessions
+      }
+      const videoSrc = await getVideoUrlAction(session)
+      if (!videoSrc) return null
+      return {
+        videoSrc,
+        name: session.name,
+        transcribe: session.transcripts?.chunks,
+        transcribeStatus: session.transcripts?.status,
+        aiAnalysisStatus: session.aiAnalysis?.status,
+        sessions,
+        type: 'livepeer',
+        stageRecordings,
+      }
+    }
+
+    default:
+      return null
+  }
+}
+                             
 export const archivePath = ({
   organization,
   event,

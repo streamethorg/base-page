@@ -8,7 +8,6 @@ import { pages } from '@/lib/utils'
 import Navbar from '@/components/layout/Navbar'
 import PlayerArea from './components/PlayerArea'
 import { notFound } from 'next/navigation'
-import { Suspense } from 'react'
 const Home = async ({ searchParams }: ChannelPageParams) => {
   if (!organizationSlug || !organizationId) return notFound()
 

@@ -1,12 +1,12 @@
-import { fetchAllSessions } from '@/lib/data'
+import { fetchAllSessions } from '@/lib/services/sessionService'
 import React from 'react'
-import { organizationSlug } from '@/lib/utils'
+import { organizationId } from '@/lib/utils'
 import Pagination from '../ui/Pagination'
 import VideoCardWithMenu from '@/components/video-ui/VideoCardWithMenu'
 
 const AllVideos = async ({ page }: { page?: string }) => {
   const videos = await fetchAllSessions({
-    organizationSlug,
+    organizationId,
     onlyVideos: true,
     page: Number(page || 1),
     limit: 6,

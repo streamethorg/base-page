@@ -9,52 +9,27 @@ import Counter from '@/components/ui/Counter'
 import { cn } from '@/lib/utils'
 import { fetchOrganizationStages } from '@/lib/services/stageService'
 import { fetchAllSessions } from '@/lib/data'
-import { getPlaybackInfo } from '@/lib/actions/livepeer'
 import { organizationId, organizationSlug } from '@/lib/utils'
 import PlayerWithControls from '@/components/ui/Player'
+import { fetchVideoDetails } from '@/lib/utils/utils'
 
 const PlayerArea = async ({ sessionId }: { sessionId?: string }) => {
-  const allStreams = await fetchOrganizationStages({ organizationId })
-  const now = Date.now()
-  let stream = allStreams.find(
-    (stream) => stream.published && stream.streamSettings?.isActive
+  // Get stream and playback information
+  const { stream, session, timeLeft } =
+    await getStreamAndPlaybackInfo(sessionId)
+
+  const videoDetails = await fetchVideoDetails(
+    stream?._id ? 'livestream' : 'recording',
+    stream?._id,
+    session?._id
   )
-  let session
 
-  if (!stream) {
-    stream = allStreams.find(
-      (stream) =>
-        stream.published &&
-        stream.streamDate &&
-        new Date(stream.streamDate).getTime() > now
-    )
-  }
-  let playbackInfo = null
-  let timeLeft = 0
-  if (
-    stream &&
-    stream?.streamSettings?.playbackId &&
-    stream.streamDate
-  ) {
-    timeLeft = new Date(stream.streamDate).getTime() - now
-    playbackInfo = await getPlaybackInfo(
-      stream.streamSettings.playbackId
-    )
-  } else {
-    session = (
-      await fetchAllSessions({
-        organizationSlug,
-        onlyVideos: true,
-        limit: 1,
-      })
-    ).sessions[0]
+  console.log('videoDetails', videoDetails)
 
-    if (session && session.playbackId) {
-      playbackInfo = await getPlaybackInfo(session.playbackId)
-    }
-  }
-  if (!playbackInfo) return null
+  if (!videoDetails) return null
+
   const thumbnail = session?.coverImage || stream?.thumbnail || ''
+
   return (
     <div className="flex absolute top-0 flex-col justify-center items-center mx-auto w-screen h-screen bg-black">
       {timeLeft > 0 ? (
@@ -73,8 +48,7 @@ const PlayerArea = async ({ sessionId }: { sessionId?: string }) => {
             <PlayerWithControls
               src={[
                 {
-                  src: playbackInfo.meta.source[0]
-                    .url as `${string}m3u8`,
+                  src: videoDetails.videoSrc as `${string}m3u8`,
                   width: 1920,
                   height: 1080,
                   mime: 'application/vnd.apple.mpegurl',
@@ -100,6 +74,46 @@ const PlayerArea = async ({ sessionId }: { sessionId?: string }) => {
       </div>
     </div>
   )
+}
+
+// Helper function to get stream and playback information
+async function getStreamAndPlaybackInfo(sessionId?: string) {
+  const allStreams = await fetchOrganizationStages({ organizationId })
+  const now = Date.now()
+
+  // Find active stream
+  let stream = allStreams.find(
+    (stream) => stream.streamSettings?.isActive
+  )
+
+  // If no active stream, find upcoming stream
+  if (!stream) {
+    stream = allStreams.find(
+      (stream) =>
+        stream.streamDate &&
+        new Date(stream.streamDate).getTime() > now
+    )
+  }
+
+  let session
+  let timeLeft = 0
+
+  // Get playback info for stream
+  if (stream?.streamSettings?.playbackId && stream.streamDate) {
+    timeLeft = new Date(stream.streamDate).getTime() - now
+  }
+  // If no stream, get session
+  else {
+    session = (
+      await fetchAllSessions({
+        organizationSlug,
+        onlyVideos: true,
+        limit: 1,
+      })
+    ).sessions[0]
+  }
+
+  return { stream, session, timeLeft }
 }
 
 export default PlayerArea

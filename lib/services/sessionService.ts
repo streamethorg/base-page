@@ -3,6 +3,127 @@ import { apiUrl } from '@/lib/utils/utils'
 import { Livepeer } from 'livepeer'
 import { ISession } from '../interfaces/session.interface'
 import { revalidatePath } from 'next/cache'
+import { IPagination } from '../types'
+import { Asset } from 'livepeer/dist/models/components'
+
+interface ApiParams {
+  event?: string;
+  organizationId?: string;
+  stageId?: string;
+  page?: number;
+  size?: number;
+  onlyVideos?: boolean;
+  published?: string;
+  speakerIds?: string[];
+  itemDate?: string;
+  type?: string;
+  itemStatus?: string;
+  clipable?: boolean;
+}
+
+function constructApiUrl(baseUrl: string, params: ApiParams): string {
+  const queryParams = Object.entries(params)
+    .filter(([_, value]) => value !== undefined && value !== null)
+    .map(([key, value]) => {
+      const formattedValue = Array.isArray(value) ? value.join(',') : value;
+      return `${encodeURIComponent(key)}=${encodeURIComponent(formattedValue)}`;
+    })
+    .join('&');
+  return `${baseUrl}?${queryParams}`;
+}
+
+export async function fetchAllSessions({
+  event,
+  organizationId,
+  stageId,
+  speakerIds,
+  onlyVideos,
+  published,
+  page = 1,
+  limit,
+  searchQuery = '',
+  type,
+  itemStatus,
+  itemDate,
+  clipable,
+}: {
+  event?: string;
+  organizationId?: string;
+  stageId?: string;
+  speakerIds?: string[];
+  onlyVideos?: boolean;
+  published?: string;
+  page?: number;
+  limit?: number;
+  searchQuery?: string;
+  type?: string;
+  itemStatus?: string;
+  itemDate?: string;
+  clipable?: boolean;
+}): Promise<{
+  sessions: IExtendedSession[];
+  pagination: IPagination;
+}> {
+  const params: ApiParams = {
+    event,
+    organizationId,
+    stageId,
+    page,
+    size: searchQuery ? 0 : limit,
+    onlyVideos,
+    published,
+    speakerIds,
+    type,
+    itemStatus,
+    itemDate,
+    clipable,
+  };
+  const response = await fetch(
+    constructApiUrl(`${apiUrl()}/sessions`, params),
+    {
+      cache: 'no-cache',
+      next: {
+        tags: [`sessions-${organizationId}`],
+      },
+    }
+  );
+  const a = await response.json();
+  if (a.status === 500) {
+    return {
+      sessions: [],
+      pagination: {
+        currentPage: 1,
+        totalPages: 1,
+        totalItems: 0,
+        limit: 0,
+      },
+    };
+  }
+  return a.data;
+}
+
+export const fetchAsset = async ({
+  assetId,
+}: {
+  assetId: string;
+}): Promise<Asset | null> => {
+  try {
+    const response = await fetch(`${apiUrl()}/streams/asset/${assetId}`, {
+      next: { revalidate: 100 },
+    });
+    if (!response.ok) {
+      console.log('error in fetchAsset', await response.json())
+      return null;
+    }
+
+    const data = await response.json();
+    console.log('data fetchAsset', data)
+    return data.data;
+  } catch (e) {
+    console.log(e);
+    throw 'Error fetching event session';
+  }
+};
 
 export const createSession = async ({
   session,
@@ -34,31 +155,23 @@ export const createSession = async ({
 export const fetchSession = async ({
   session,
 }: {
-  session: string
+  session: string;
 }): Promise<IExtendedSession | null> => {
   try {
-    const LivepeerClient = new Livepeer({
-      apiKey: process.env.LIVEPEER_API_KEY,
-    })
     const response = await fetch(`${apiUrl()}/sessions/${session}`, {
       cache: 'no-store',
-    })
+    });
     if (!response.ok) {
-      return null
+      return null;
     }
-    const data: IExtendedSession = (await response.json()).data
-    if (data.assetId) {
-      const livepeerData = await LivepeerClient.asset.get(
-        data.assetId
-      )
-      data.videoUrl = livepeerData.asset?.playbackUrl
-    }
-    return data
+    const data: IExtendedSession = (await response.json()).data;
+    return data;
   } catch (e) {
-    console.log(e)
-    throw 'Error fetching event session'
+    console.log(e);
+    throw 'Error fetching event session';
   }
-}
+};
+
 
 export const updateSession = async ({
   session,
