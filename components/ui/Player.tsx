@@ -17,7 +17,7 @@ import * as Popover from '@radix-ui/react-popover'
 import { ClipPayload } from 'livepeer/dist/models/components'
 import { CheckIcon, ChevronDownIcon, XIcon } from 'lucide-react'
 import React, { useEffect } from 'react'
-import { sdk } from '@farcaster/frame-sdk'
+// import { sdk } from '@farcaster/frame-sdk'
 import { Src } from '@livepeer/react'
 
 export function PlayerWithControls(props: { src: Src[] | null }) {
@@ -30,9 +30,9 @@ export function PlayerWithControls(props: { src: Src[] | null }) {
     )
   }
 
-  useEffect(() => {
-    sdk.actions.ready()
-  }, [])
+  // useEffect(() => {
+  //   sdk.actions.ready()
+  // }, [])
 
   return (
     <Player.Root src={props.src} autoPlay={true} volume={0} aspectRatio={16 / 9}>
