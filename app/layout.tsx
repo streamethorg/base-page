@@ -5,6 +5,7 @@ import localFont from 'next/font/local'
 import './globals.css'
 import GeneralContext from '@/lib/context/GeneralContext'
 import { Toaster } from '@/components/ui/sonner'
+import { sdk } from '@farcaster/frame-sdk'
 
 // Use local font file
 const archivoBold = localFont({
@@ -18,11 +19,13 @@ export const metadata: Metadata = {
   description: 'Base',
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
+
+
   return (
     <html lang="en" className={archivoBold.variable}>
       <body className="font-archivo-bold">
