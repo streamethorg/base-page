@@ -46,9 +46,8 @@ export default function NavbarNavigation({
                 }>
                 <NavigationMenuLink
                   className={cn(
-                    'border-b border-white md:border-none flex p-0 ',
+                    'border-b border-white md:border-none flex p-0 text-white ',
                     navigationMenuTriggerStyle(),
-                    tab === item.href && 'text-white'
                   )}>
                   <span className='px-2 md:px-0 my-auto' >{item.name}</span>
                 </NavigationMenuLink>

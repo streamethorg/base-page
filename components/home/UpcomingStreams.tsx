@@ -25,8 +25,8 @@ const UpcomingStreams = async ({
   })
 
   return (
-    <>
-      <h1 className="text-xl font-bold">Upcoming Streams</h1>
+    <div className="flex flex-col">
+      <p className="text-xl font-bold my-2">Upcoming Streams</p>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         {livestreams.map((livestream) => (
           <React.Fragment key={livestream?._id?.toString()}>
@@ -45,7 +45,7 @@ const UpcomingStreams = async ({
           <p>No scheduled livestreams</p>
         </div>
       )}
-    </>
+    </div>
   )
 }
 

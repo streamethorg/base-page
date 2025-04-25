@@ -18,9 +18,7 @@ const WatchGrid = async () => {
 
   return (
     <div className="w-full">
-      <div className="flex justify-between items-center pb-4">
-        <h1 className="text-xl font-bold">Watch More</h1>
-      </div>
+      <p className="text-xl font-bold mb-2">Watch more</p>
       <div className="bg-transparent border-none lg:w-full max-w-screen">
         <div
           className={`grid grid-cols-1 lg:grid-cols-2 gap-8 gap-x-4`}>

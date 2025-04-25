@@ -38,12 +38,12 @@ const NavbarbarWrapper = ({
               <Image
                 src={'/ufo.svg'}
                 alt="Logo"
-                height={30}
-                width={30}
+                height={60}
+                width={60}
                 className="h-full aspect-square"
               />
             </Link>
-            <ConnectButtonNav
+            <MenuVisibleButton
               showSidebar={showSidebar}
               setShowSidebar={setShowSidebar}
             />
@@ -54,17 +54,15 @@ const NavbarbarWrapper = ({
             <Image
               src={'/ufo.svg'}
               alt="Logo"
-              height={50}
-              width={50}
+              height={60}
+              width={60}
               className="h-full aspect-square"
             />
           </Link>
-          {pages.length > 0 && (
-            <MenuVisibleButton
-              showSidebar={showSidebar}
-              setShowSidebar={setShowSidebar}
-            />
-          )}
+          <MenuVisibleButton
+            showSidebar={showSidebar}
+            setShowSidebar={setShowSidebar}
+          />
         </div>
         {showSidebar && (
           <div className="flex w-full h-[calc(100%-46px)] md:h-full">
@@ -77,10 +75,15 @@ const NavbarbarWrapper = ({
             <div className="hidden md:flex z-30 flex-col justify-between items-start p-2 pb-4 w-1/2 h-full backdrop-blur-sm">
               <div className="flex justify-between items-center w-full">
                 <CloseNavigation setShowSidebar={setShowSidebar} />
-                <ConnectWalletButton className="z-30 m-2 uppercase bg-transparent rounded-none border border-white" />
               </div>
               <div />
-              <BaseLogo height={'5%'} />
+              <Image
+                src={'/ufo.svg'}
+                alt="Logo"
+                height={60}
+                width={60}
+                className=" aspect-square"
+              />
             </div>
           </div>
         )}

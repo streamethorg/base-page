@@ -7,7 +7,7 @@ import UpcomingStreams, {
 import { organizationId } from '@/lib/utils'
 const MainContent = () => {
   return (
-    <div className="flex flex-col mt-4 space-y-2 text-white md:px-2">
+    <div className="flex flex-col text-white space-y-4 md:px-2">
       <Suspense fallback={<UpcomingStreamsLoading />}>
         <UpcomingStreams organizationId={organizationId} />
       </Suspense>
