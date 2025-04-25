@@ -17,13 +17,6 @@ export enum eTab {
   collection = 'collection',
 }
 
-export interface IPagination {
-  currentPage: number;
-  totalPages: number;
-  totalItems: number;
-  limit: number;
-}
-
 export enum eSort {
   asc_alpha = 'asc_alpha',
   desc_alpha = 'desc_alpha',

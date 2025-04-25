@@ -162,7 +162,6 @@ export const fetchVideoDetails = async (
 
       const videoSrc = getLiveStageSrcValue({
         playbackId: liveStage.streamSettings?.playbackId,
-        recordingId: latestRecording.id,
       })
       if (!videoSrc) return null
       return {
@@ -172,8 +171,6 @@ export const fetchVideoDetails = async (
         transcibeStatus: liveStage.transcripts?.status,
         aiAnalysisStatus: null,
         type: 'livepeer',
-        sessions,
-        stageRecordings,
       }
     }
 

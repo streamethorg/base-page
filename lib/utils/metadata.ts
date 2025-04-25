@@ -82,7 +82,7 @@ export const archiveMetadata = ({
 export const watchMetadata = ({
   session,
 }: {
-  session: ISession
+  session: IExtendedSession
 }): Metadata => {
   const imageUrl = session.coverImage
     ? session.coverImage

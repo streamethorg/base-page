@@ -3,8 +3,6 @@ export const dynamic = 'force-dynamic'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
-import { Analytics } from '@vercel/analytics/react'
-import './globals.css'
 import GeneralContext from '@/lib/context/GeneralContext'
 import { Toaster } from '@/components/ui/sonner'
 
@@ -23,6 +21,9 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
+
+
+
   return (
     <html lang="en">
       <body>

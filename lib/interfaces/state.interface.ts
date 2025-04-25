@@ -1,6 +1,13 @@
+import type { Document, Types } from 'mongoose';
+
 export enum SheetType {
   gsheet = 'gsheet',
   pretalx = 'pretalx',
+}
+
+export enum SocialType {
+  twitter = 'twitter',
+  youtube = 'youtube',
 }
 
 export enum StateStatus {
@@ -8,21 +15,38 @@ export enum StateStatus {
   completed = 'completed',
   canceled = 'canceled',
   sync = 'sync',
+  failed = 'failed',
+}
+
+export enum TranscriptionStatus {
+  inQueue = 'in-queue',
+  processing = 'processing',
+  completed = 'completed',
+  failed = 'failed',
 }
 
 export enum StateType {
+  nft = 'nft',
   event = 'event',
   video = 'video',
+  transcrpition = 'transcrpition',
+  social = 'social',
+  animation = 'animation',
+  clip = 'clip',
+  editorClip = 'editorClip',
 }
 
 export interface IState {
-  _id?: string
-  eventId?: string
-  organizationId?: string
-  sessionId?: string
-  eventSlug?: string
-  sessionSlug?: string
-  sheetType?: SheetType
-  status?: StateStatus
-  type?: StateType
+  _id?: string | Types.ObjectId;
+  eventId?: string | Types.ObjectId;
+  organizationId?: string | Types.ObjectId;
+  sessionId?: string | Types.ObjectId;
+  eventSlug?: string;
+  sessionSlug?: string;
+  sheetType?: SheetType;
+  socialType?: SocialType;
+  status?: StateStatus;
+  type?: StateType;
 }
+
+export interface IStateModel extends Omit<IState, '_id'>, Document {}
