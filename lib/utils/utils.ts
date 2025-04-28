@@ -19,10 +19,14 @@ import {
   fetchStage,
   fetchStageRecordings,
 } from '../services/stageService'
-import { fetchAllSessions, fetchAsset } from '../services/sessionService'
+import {
+  fetchAllSessions,
+  fetchAsset,
+} from '../services/sessionService'
 import { fetchSession } from '../services/sessionService'
 import { SessionType } from '../interfaces/session.interface'
-
+import { organizationId } from '../utils'
+import { fetchStages } from '../services/stageService'
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
@@ -115,28 +119,27 @@ export const getVideoUrlAction = async (
 ): Promise<string | null> => {
   try {
     if (session.assetId) {
-      const asset = await fetchAsset({ assetId: session.assetId });
+      const asset = await fetchAsset({ assetId: session.assetId })
       if (asset?.playbackUrl) {
-        return asset.playbackUrl;
+        return asset.playbackUrl
       }
     }
 
     if (session.playback?.videoUrl) {
-      return session.playback.videoUrl;
+      return session.playback.videoUrl
     }
 
     if (session.playbackId) {
-      return `https://vod-cdn.lp-playback.studio/raw/jxf4iblf6wlsyor6526t4tcmtmqa/catalyst-vod-com/hls/${session.playbackId}/index.m3u8`;
+      return `https://vod-cdn.lp-playback.studio/raw/jxf4iblf6wlsyor6526t4tcmtmqa/catalyst-vod-com/hls/${session.playbackId}/index.m3u8`
     }
 
-    console.log('no asset or playbackId');
-    return null;
+    console.log('no asset or playbackId')
+    return null
   } catch (e) {
-    console.error('Error fetching asset or building URL');
-    return null;
+    console.error('Error fetching asset or building URL')
+    return null
   }
-};
-
+}
 
 export const getLiveStageSrcValue = ({
   playbackId,
@@ -145,7 +148,7 @@ export const getLiveStageSrcValue = ({
   playbackId?: string
   recordingId?: string
 }) => {
-  return `https://livepeercdn.studio/hls/${playbackId}/index.m3u8`;
+  return `https://livepeercdn.studio/hls/${playbackId}/index.m3u8`
 }
 
 // export const buildPlaybackUrl = (playbackId: string, vod?: boolean): string => {
@@ -154,6 +157,48 @@ export const getLiveStageSrcValue = ({
 //   }
 //   return `https://livepeercdn.studio/hls/${playbackId}/index.m3u8`;
 // };
+
+// Helper function to get stream and playback information
+export async function getStreamAndPlaybackInfo(
+  organizationId: string
+) {
+  // Fetch all streams for the organization
+  const allStreams = await fetchStages({ organizationId })
+  const now = Date.now()
+
+  // Find active or upcoming stream
+  const activeStream = allStreams.find(
+    (stream) => stream.streamSettings?.isActive
+  )
+  const upcomingStream = !activeStream
+    ? allStreams.find(
+        (stream) =>
+          stream.streamDate &&
+          new Date(stream.streamDate).getTime() > now
+      )
+    : undefined
+
+  // Use active stream if available, otherwise use upcoming stream
+  const stream = activeStream || upcomingStream
+
+  // Calculate time left for stream or fetch fallback session
+  let session = undefined
+  let timeLeft = 0
+
+  if (stream?.streamSettings?.playbackId && stream.streamDate) {
+    timeLeft = new Date(stream.streamDate).getTime() - now
+  } else {
+    // Fetch most recent video session as fallback
+    const response = await fetchAllSessions({
+      organizationId,
+      onlyVideos: true,
+      limit: 1,
+    })
+    session = response.sessions[0]
+  }
+
+  return { stream, session, timeLeft }
+}
 
 export const fetchVideoDetails = async (
   videoType: string,
@@ -183,11 +228,7 @@ export const fetchVideoDetails = async (
 
     case 'recording': {
       const session = await fetchSession({ session: sessionId! })
-      if (
-        !session ||
-        !session?.playbackId ||
-        !session?.assetId
-      )
+      if (!session || !session?.playbackId || !session?.assetId)
         return null
       const stage = await fetchStage({
         stage: session.stageId as string,
@@ -222,7 +263,7 @@ export const fetchVideoDetails = async (
       return null
   }
 }
-                             
+
 export const archivePath = ({
   organization,
   event,

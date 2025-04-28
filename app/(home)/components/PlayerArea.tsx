@@ -6,17 +6,14 @@ import {
 import { Play } from 'lucide-react'
 import Image from 'next/image'
 import Counter from '@/components/ui/Counter'
-import { cn } from '@/lib/utils'
-import { fetchOrganizationStages } from '@/lib/services/stageService'
-import { fetchAllSessions } from '@/lib/services/sessionService'
-import { organizationId, organizationSlug } from '@/lib/utils'
+import { cn, organizationId } from '@/lib/utils'
 import PlayerWithControls from '@/components/ui/Player'
-import { fetchVideoDetails } from '@/lib/utils/utils'
+import { fetchVideoDetails, getStreamAndPlaybackInfo } from '@/lib/utils/utils'
 
 const PlayerArea = async ({ sessionId }: { sessionId?: string }) => {
   // Get stream and playback information
   const { stream, session, timeLeft } =
-    await getStreamAndPlaybackInfo(sessionId)
+    await getStreamAndPlaybackInfo(organizationId)
 
   const videoDetails = await fetchVideoDetails(
     stream?._id ? 'livestream' : 'recording',
@@ -74,44 +71,6 @@ const PlayerArea = async ({ sessionId }: { sessionId?: string }) => {
   )
 }
 
-// Helper function to get stream and playback information
-async function getStreamAndPlaybackInfo(sessionId?: string) {
-  const allStreams = await fetchOrganizationStages({ organizationId })
-  const now = Date.now()
 
-  // Find active stream
-  let stream = allStreams.find(
-    (stream) => stream.streamSettings?.isActive
-  )
-
-  // If no active stream, find upcoming stream
-  if (!stream) {
-    stream = allStreams.find(
-      (stream) =>
-        stream.streamDate &&
-        new Date(stream.streamDate).getTime() > now
-    )
-  }
-
-  let session
-  let timeLeft = 0
-
-  // Get playback info for stream
-  if (stream?.streamSettings?.playbackId && stream.streamDate) {
-    timeLeft = new Date(stream.streamDate).getTime() - now
-  }
-  // If no stream, get session
-  else {
-    session = (
-      await fetchAllSessions({
-        organizationId,
-        onlyVideos: true,
-        limit: 1,
-      })
-    ).sessions[0]
-  }
-
-  return { stream, session, timeLeft }
-}
 
 export default PlayerArea

@@ -8,6 +8,8 @@ import { pages } from '@/lib/utils'
 import Navbar from '@/components/layout/Navbar'
 import PlayerArea from './components/PlayerArea'
 import { notFound } from 'next/navigation'
+import { fetchVideoDetails, getStreamAndPlaybackInfo } from '@/lib/utils/utils'
+
 const Home = async ({ searchParams }: ChannelPageParams) => {
   if (!organizationSlug || !organizationId) return notFound()
     //await sdk.actions.ready();
@@ -24,31 +26,32 @@ export async function generateMetadata(
   { params }: ChannelPageParams,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
-  const organizationInfo = await fetchOrganization({
-    organizationSlug: organizationSlug,
-  })
+  // Get stream and playback information
+  const { stream, session, timeLeft } =
+    await getStreamAndPlaybackInfo(organizationId)
 
-  if (!organizationInfo) {
-    return {
-      title: 'Organization not found',
-      description: 'Organization not found',
-    }
-  }
+  const videoDetails = await fetchVideoDetails(
+    stream?._id ? 'livestream' : 'recording',
+    stream?._id,
+    session?._id
+  )
 
-  const imageUrl = organizationInfo.logo
+  const thumbnail = stream?.thumbnail 
+  const title = stream?.name 
+  
   try {
     return {
-      title: organizationInfo.name,
-      description: organizationInfo.description,
+      title: "UFO Farcaster mini app",
+      description: "organizationInfo.description",
       openGraph: {
-        images: [imageUrl],
+        images: ['/og?thumbnail=' + thumbnail + '&title=' + title + '&timeLeft=' + timeLeft],
       },
     }
   } catch (e) {
     console.log(e)
     return {
-      title: organizationInfo.name,
-      description: organizationInfo.description,
+      title: "organizationInfo.name",
+      description: "organizationInfo.description",
     }
   }
 }
