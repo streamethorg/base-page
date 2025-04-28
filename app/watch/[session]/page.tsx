@@ -7,10 +7,7 @@ import Image from 'next/image'
 import { WatchPageParams } from '@/lib/types'
 import { Metadata } from 'next'
 import { generalMetadata, watchMetadata } from '@/lib/utils/metadata'
-import {
-  fetchVideoDetails,
-  getStreamAndPlaybackInfo,
-} from '@/lib/utils/utils'
+import { fetchVideoDetails } from '@/lib/utils/utils'
 import { Play } from 'lucide-react'
 import { DialogTrigger } from '@/components/ui/dialog'
 import { DialogContent } from '@/components/ui/dialog'
@@ -84,24 +81,7 @@ export async function generateMetadata({
 
   if (!session) return generalMetadata
 
-  const thumbnail = session?.coverImage
-  const title = session?.name
-
-  try {
-    return {
-      title: 'UFO Farcaster mini app',
-      description: 'organizationInfo.description',
-      openGraph: {
-        images: ['/og?thumbnail=' + thumbnail + '&title=' + title],
-      },
-    }
-  } catch (e) {
-    console.log(e)
-    return {
-      title: 'organizationInfo.name',
-      description: 'organizationInfo.description',
-    }
-  }
+  return watchMetadata({ session: session })
 }
 
 export default Watch

@@ -3,7 +3,7 @@ import { Play } from 'lucide-react'
 import { ImageResponse } from 'next/og'
 
 // Image metadata
-export const size = {
+ const size = {
   width: 1200,
   height: 630,
 }

@@ -89,25 +89,24 @@ export const watchMetadata = ({
     : BASE_IMAGE
 
   return {
-    title: `${session.name} | StreamETH`,
+    title: `${session.name}`,
     description: `${session.description}`,
-    metadataBase: new URL('https://streameth.org'),
     openGraph: {
-      title: `${session.name} | StreamETH`,
-      siteName: 'StreamETH',
+      title: `${session.name}`,
+      siteName: 'ufo.fm',
       description: `${session.description}`,
       images: {
         url: imageUrl,
-        alt: 'StreamETH Logo',
+        alt: 'ufo.fm Logo',
       },
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${session.name} | StreamETH`,
+      title: `${session.name}`,
       description: `${session.description}`,
       images: {
         url: imageUrl,
-        alt: 'StreamETH Logo',
+        alt: 'ufo.fm Logo',
       },
     },
     alternates: {
