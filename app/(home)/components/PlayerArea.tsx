@@ -8,7 +8,7 @@ import Image from 'next/image'
 import Counter from '@/components/ui/Counter'
 import { cn } from '@/lib/utils'
 import { fetchOrganizationStages } from '@/lib/services/stageService'
-import { fetchAllSessions } from '@/lib/data'
+import { fetchAllSessions } from '@/lib/services/sessionService'
 import { organizationId, organizationSlug } from '@/lib/utils'
 import PlayerWithControls from '@/components/ui/Player'
 import { fetchVideoDetails } from '@/lib/utils/utils'
@@ -23,8 +23,6 @@ const PlayerArea = async ({ sessionId }: { sessionId?: string }) => {
     stream?._id,
     session?._id
   )
-
-  console.log('videoDetails', videoDetails)
 
   if (!videoDetails) return null
 
@@ -106,7 +104,7 @@ async function getStreamAndPlaybackInfo(sessionId?: string) {
   else {
     session = (
       await fetchAllSessions({
-        organizationSlug,
+        organizationId,
         onlyVideos: true,
         limit: 1,
       })
