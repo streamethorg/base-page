@@ -6,22 +6,22 @@ import {
   DialogContent,
   DialogTrigger,
 } from '@/components/ui/dialog'
-import { fetchStage, fetchStages } from '@/lib/services/stageService'
+import { fetchStage } from '@/lib/services/stageService'
 import { notFound } from 'next/navigation'
 import Navbar from '@/components/layout/Navbar'
-import { organizationSlug, pages } from '@/lib/utils'
+import { pages } from '@/lib/utils'
 import { Play } from 'lucide-react'
 import Image from 'next/image'
 import Counter from '@/components/ui/Counter'
 import { fetchVideoDetails } from '@/lib/utils/utils'
 import { Metadata } from 'next'
 import {
+  farcasterStreamMetadata,
   generalMetadata,
-  stageMetadata,
-  watchMetadata,
+  StreamMetadata,
 } from '@/lib/utils/metadata'
-import { getPlaybackInfo } from '@/lib/actions/livepeer'
 import { PlayerWithControls } from '@/components/ui/Player'
+import Head from 'next/head'
 
 const Livestream = async ({
   params,
@@ -40,8 +40,8 @@ const Livestream = async ({
     stage?._id,
     undefined
   )
-  
-  if (!video) return notFound()
+
+  if (!video || !stage) return notFound()
 
   return (
     <div className="flex flex-col mx-auto w-full">
@@ -98,9 +98,11 @@ export async function generateMetadata({
   if (!params.stage) return generalMetadata
 
   const stage = await fetchStage({ stage: params.stage })
-
   if (!stage) return generalMetadata
-  return stageMetadata({ stage: stage })
+  const timeLeft =
+    new Date(stage?.streamDate as string).getTime() - Date.now()
+  console.log('metadata', StreamMetadata({ stage: stage, timeLeft }))
+  return StreamMetadata({ stage: stage, timeLeft })
 }
 
 export default Livestream

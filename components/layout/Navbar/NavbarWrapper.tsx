@@ -68,7 +68,7 @@ const NavbarbarWrapper = ({
           <div className="flex w-full h-[calc(100%-46px)] md:h-full">
             <aside className="w-full md:w-[50%] bg-base-blue h-full z-20">
               <NavbarNavigation pages={pages} />
-              <div className="h-[calc(100%-161px)] md:h-[calc(100%-57px)] w-full p-2 overflow-auto">
+              <div className="h-[calc(100%-100px)] md:h-[calc(100%-57px)] w-full p-2 overflow-auto">
                 {children}
               </div>
             </aside>

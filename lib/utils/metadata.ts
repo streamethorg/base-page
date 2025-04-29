@@ -1,85 +1,31 @@
 import { Metadata } from 'next'
-import { ISession } from '../interfaces/session.interface'
-import {
-  IExtendedEvent,
-  IExtendedSession,
-  IExtendedStage,
-} from '../types'
+import { IExtendedSession, IExtendedStage } from '../types'
 
 const BASE_IMAGE = 'https://streameth.org/streameth_banner.png'
+const appUrl = 'https://app.ufo.fm'
 
-export const generalMetadata: Metadata = {
-  title: 'StreamETH',
-  description:
-    'The complete solution to host your hybrid or virtual event.',
-  metadataBase: new URL('https://streameth.org'),
-  openGraph: {
-    title: 'StreamETH',
-    siteName: 'StreamETH',
-    description:
-      'The complete solution to host your hybrid or virtual event.',
-    images: {
-      url: BASE_IMAGE,
-      alt: 'StreamETH Logo',
-    },
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'StreamETH',
-    description:
-      'The complete solution to host your hybrid or virtual event.',
-    images: {
-      url: BASE_IMAGE,
-      alt: 'StreamETH Logo',
-    },
-  },
-  alternates: {
-    canonical: '/',
-    languages: {
-      'en-US': '/en-US',
-    },
-  },
-}
-
-export const archiveMetadata = ({
-  event,
+export const farcasterSessionMetadata = ({
+  session,
 }: {
-  event: IExtendedEvent
-}): Metadata => {
-  const imageUrl = event.eventCover ? event.eventCover : BASE_IMAGE
-
+  session: IExtendedSession
+}): any => {
   return {
-    title: `${event.name} | StreamETH`,
-    description: `${event.description}`,
-    metadataBase: new URL('https://streameth.org'),
-    openGraph: {
-      title: `${event.name} | StreamETH`,
-      siteName: 'StreamETH',
-      description: `Archive of ${event.description}`,
-      images: {
-        url: imageUrl,
-        alt: 'StreamETH Logo',
-      },
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: `${event.name} | StreamETH`,
-      description: `${event.description}`,
-      images: {
-        url: imageUrl,
-        alt: 'StreamETH Logo',
-      },
-    },
-    alternates: {
-      canonical: '/',
-      languages: {
-        'en-US': '/en-US',
+    version: 'next',
+    imageUrl: session.coverImage,
+    button: {
+      title: 'Watch ' + session.name + ' now on ufo.fm',
+      action: {
+        type: 'launch_frame',
+        url: appUrl + '/watch/' + session._id,
+        name: 'UFO.fm',
+        splashImageUrl: appUrl + '/logo.png',
+        splashBackgroundColor: '#f5f0ec',
       },
     },
   }
 }
 
-export const watchMetadata = ({
+export const SessionMetadata = ({
   session,
 }: {
   session: IExtendedSession
@@ -109,6 +55,11 @@ export const watchMetadata = ({
         alt: 'ufo.fm Logo',
       },
     },
+    other: {
+      'fc:frame': JSON.stringify(
+        farcasterSessionMetadata({ session: session })
+      ),
+    },
     alternates: {
       canonical: '/',
       languages: {
@@ -118,78 +69,104 @@ export const watchMetadata = ({
   }
 }
 
-export const stageMetadata = ({
+export const farcasterStreamMetadata = ({
   stage,
+  imageUrl,
 }: {
   stage: IExtendedStage
-}): Metadata => {
-  const imageUrl = stage.thumbnail ? stage.thumbnail : BASE_IMAGE
-
+  imageUrl: string
+}): any => {
   return {
-    title: `${stage.name} | StreamETH`,
-    description: `${stage.description}`,
-    metadataBase: new URL('https://streameth.org'),
-    openGraph: {
-      title: `${stage.name} | StreamETH`,
-      siteName: 'StreamETH',
-      description: `${stage.description}`,
-      images: {
-        url: imageUrl,
-        alt: 'StreamETH Logo',
-      },
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: `${stage.name} | StreamETH`,
-      description: `${stage.description}`,
-      images: {
-        url: imageUrl,
-        alt: 'StreamETH Logo',
-      },
-    },
-    alternates: {
-      canonical: '/',
-      languages: {
-        'en-US': '/en-US',
+    version: 'next',
+    imageUrl: imageUrl,
+    button: {
+      title: 'Watch now on ufo.fm',
+      action: {
+        type: 'launch_frame',
+        url: appUrl + '/livestream/' + stage._id,
+        name: 'UFO.fm',
+        splashImageUrl: appUrl + '/logo.png',
+        splashBackgroundColor: '#f5f0ec',
       },
     },
   }
 }
 
-export const eventMetadata = ({
-  event,
+export const StreamMetadata = ({
+  stage,
+  timeLeft = 0,
 }: {
-  event: IExtendedEvent
+  stage: IExtendedStage
+  timeLeft: number
 }): Metadata => {
-  const imageUrl = event.eventCover ? event.eventCover : BASE_IMAGE
-
+  const imageUrl =
+    appUrl + '/og?thumbnail=' +
+    stage.thumbnail +
+    '&title=' +
+    stage.name +
+    '&timeLeft=' +
+    timeLeft
   return {
-    title: `${event.name} | StreamETH`,
-    description: `${event.description}`,
-    metadataBase: new URL('https://streameth.org'),
+    title: stage.name,
+    description: stage.description,
     openGraph: {
-      title: `${event.name} | StreamETH`,
-      siteName: 'StreamETH',
-      description: `${event.description}`,
-      images: {
-        url: imageUrl,
-        alt: 'StreamETH Logo',
-      },
+      title: stage.name,
+      description: 'Join the live stream now on ufo.fm',
+      images: [imageUrl],
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${event.name} | StreamETH`,
-      description: `${event.description}`,
-      images: {
-        url: imageUrl,
-        alt: 'StreamETH Logo',
-      },
+      title: stage.name,
+      description: 'Join the live stream now on ufo.fm',
+      images: [imageUrl],
     },
-    alternates: {
-      canonical: '/',
-      languages: {
-        'en-US': '/en-US',
-      },
+    other: {
+      'fc:frame': JSON.stringify(
+        farcasterStreamMetadata({ stage: stage, imageUrl: imageUrl })
+      ),
     },
   }
+}
+
+export const farcasterGeneMetadata = {
+  version: 'next',
+  imageUrl: BASE_IMAGE,
+  button: {
+    title: 'Watch now on ufo.fm',
+    action: {
+      type: 'launch_frame',
+      url: appUrl + '/',
+      name: 'UFO.fm',
+      splashImageUrl: appUrl + '/logo.png',
+      splashBackgroundColor: '#f5f0ec',
+    },
+  },
+}
+
+export const generalMetadata = {
+  title: 'UFO.fm',
+  description:
+    'UFO.fm is a platform for streaming and watching videos.',
+  openGraph: {
+    title: 'UFO.fm',
+    description:
+      'UFO.fm is a platform for streaming and watching videos.',
+    images: {
+      url: BASE_IMAGE,
+      alt: 'UFO.fm Logo',
+    },
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'UFO.fm',
+    description:
+      'UFO.fm is a platform for streaming and watching videos.',
+    images: {
+      url: BASE_IMAGE,
+      alt: 'UFO.fm Logo',
+    },
+  },
+  other: {
+    'fc:frame': JSON.stringify(farcasterGeneMetadata),
+  },
 }

@@ -14,18 +14,11 @@ const archivoBold = localFont({
   display: 'swap',
 })
 
-export const metadata: Metadata = {
-  title: 'Base',
-  description: 'Base',
-}
-
 export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
-
-
   return (
     <html lang="en" className={archivoBold.variable}>
       <body className="font-archivo-bold">

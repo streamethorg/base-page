@@ -6,12 +6,17 @@ import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import { WatchPageParams } from '@/lib/types'
 import { Metadata } from 'next'
-import { generalMetadata, watchMetadata } from '@/lib/utils/metadata'
+import {
+  SessionMetadata,
+  farcasterSessionMetadata,
+  generalMetadata,
+} from '@/lib/utils/metadata'
 import { fetchVideoDetails } from '@/lib/utils/utils'
 import { Play } from 'lucide-react'
 import { DialogTrigger } from '@/components/ui/dialog'
 import { DialogContent } from '@/components/ui/dialog'
 import { Dialog } from '@/components/ui/dialog'
+import Head from 'next/head'
 
 const Watch = async ({ params, searchParams }: WatchPageParams) => {
   if (!params.session) return notFound()
@@ -31,7 +36,6 @@ const Watch = async ({ params, searchParams }: WatchPageParams) => {
   return (
     <div className="flex flex-col mx-auto w-full h-screen">
       <Navbar searchParams={searchParams} pages={pages} />
-
       <div className="flex absolute top-0 flex-col justify-center items-center mx-auto w-screen h-screen bg-black">
         <Dialog>
           <DialogTrigger className="absolute z-50 w-full h-full">
@@ -81,7 +85,7 @@ export async function generateMetadata({
 
   if (!session) return generalMetadata
 
-  return watchMetadata({ session: session })
+  return SessionMetadata({ session: session })
 }
 
 export default Watch
