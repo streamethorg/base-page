@@ -36,8 +36,8 @@ const CollectionItem = async ({
 
   const watchLink =
     video.type === 'video'
-      ? `/ watch / ${session?._id?.toString()}`
-      : `/ livestream / ${stage?._id?.toString()} `
+      ? `/watch/${session?._id?.toString()}?tab=about&session=${session?._id?.toString()}`
+      : `/livestream/${stage?._id?.toString()}?tab=about&stage=${stage?._id?.toString()}`
 
   const link = `/ ${
     video.type === 'video' ? '?tab=about&session' : 'livestream?stage'

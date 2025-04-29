@@ -7,12 +7,12 @@ const BackButton = () => {
   const router = useRouter()
 
   const handleClick = () => {
-    router.back()
+    router.push(`?tab=none`)
   }
 
   return (
     <div
-      onClick={() => handleClick()}
+      onClick={handleClick}
       className="flex items-center p-2 space-x-2 rounded-md cursor-pointer hover:bg-secondary-foreground">
       <ArrowLeftFromLine />
       <span>Go back</span>

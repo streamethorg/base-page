@@ -10,6 +10,7 @@ import { NavBarProps } from '@/lib/types'
 import { ConnectWalletButton } from '../../ui/ConnectWalletButton'
 import useSearchParams from '@/lib/hooks/useSearchParams'
 import { Separator } from '../../ui/separator'
+import AddFrameButton from './AddFrameButton'
 
 export default function NavbarNavigation({
   setIsNavVisible,
@@ -35,7 +36,7 @@ export default function NavbarNavigation({
           <div key={index}>
             <NavigationMenuItem key={index}>
               <div
-                className='flex justify-center items-center h-full w-full'
+                className="flex justify-center items-center h-full w-full"
                 onClick={() =>
                   handleTermChange([
                     {
@@ -47,14 +48,19 @@ export default function NavbarNavigation({
                 <NavigationMenuLink
                   className={cn(
                     'border-b border-white md:border-none flex p-0 text-white ',
-                    navigationMenuTriggerStyle(),
+                    navigationMenuTriggerStyle()
                   )}>
-                  <span className='px-2 md:px-0 my-auto' >{item.name}</span>
+                  <span className="px-2 md:px-0 my-auto">
+                    {item.name}
+                  </span>
                 </NavigationMenuLink>
               </div>
             </NavigationMenuItem>
           </div>
         ))}
+        {/* <NavigationMenuItem>
+          <AddFrameButton />
+        </NavigationMenuItem> */}
         <NavigationMenuItem
           key={'connect-mobile'}
           className="md:hidden border-b border-white md:border-none">

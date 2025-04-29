@@ -33,7 +33,7 @@ const VideoCardWithMenu = async ({
         </div>
       </Link>
       <Link
-        href={`/watch/${session._id}`}
+        href={`/watch/${session._id}?tab=about&session=${session._id}`}
         className="absolute bottom-0 z-50 p-4 w-full transition-opacity duration-300 md:opacity-0 hover:opacity-100">
         <Button
           className="transition-colors hover:text-black hover:bg-gray-300"

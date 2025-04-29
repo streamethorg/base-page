@@ -10,12 +10,14 @@ import NavbarbarWrapper from './NavbarWrapper'
 const Navbar = async ({
   pages,
   searchParams,
+  currentSessionId,
 }: {
   pages: Page[]
   searchParams: ChannelPageParams['searchParams']
+  currentSessionId?: string
 }) => {
   const { tab, session: sessionId, page } = searchParams
-
+  console.log(searchParams)
   return (
     <NavbarbarWrapper pages={pages}>
       {(() => {
@@ -41,7 +43,7 @@ const Navbar = async ({
           case eTab.about:
             return (
               <Suspense fallback={<div>Loading...</div>}>
-                <AboutVideo sessionId={sessionId || ''} />
+                <AboutVideo sessionId={sessionId || ''} currentSessionId={currentSessionId} />
               </Suspense>
             )
           default:

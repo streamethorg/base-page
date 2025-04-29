@@ -35,7 +35,7 @@ const Watch = async ({ params, searchParams }: WatchPageParams) => {
 
   return (
     <div className="flex flex-col mx-auto w-full h-screen">
-      <Navbar searchParams={searchParams} pages={pages} />
+      <Navbar searchParams={searchParams} pages={pages} currentSessionId={video._id} />
       <div className="flex absolute top-0 flex-col justify-center items-center mx-auto w-screen h-screen bg-black">
         <Dialog>
           <DialogTrigger className="absolute z-50 w-full h-full">

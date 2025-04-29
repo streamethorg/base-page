@@ -5,7 +5,7 @@ import VideoCardWithMenu from '@/components/video-ui/VideoCardWithMenu'
 import VideoCardSkeleton from '@/components/video-ui/VideoCardSkeleton'
 
 const WatchGrid = async () => {
-  const maxVideos = 6
+  const maxVideos = 106
 
   const videos = (
     await fetchAllSessions({

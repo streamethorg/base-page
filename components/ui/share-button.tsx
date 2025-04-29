@@ -30,6 +30,7 @@ import {
 } from '@/components/ui/crezenda'
 import { Button } from '@/components/ui/button'
 import CopyText from '@/components/ui/CopyText'
+import sdk from '@farcaster/frame-sdk'
 
 export const ShareModalContent = ({
   url,
@@ -86,7 +87,7 @@ export const ShareModalContent = ({
   )
 }
 
-const ShareButton = ({
+export const ShareButton = ({
   url,
   className,
   variant = 'outline',
@@ -99,16 +100,16 @@ const ShareButton = ({
   shareFor?: string
   title?: string
 }) => {
+  const handleShare = async () => {
+    await sdk.actions.composeCast({
+      text: 'Im listening to this song on the @ufo mini app!',
+    })
+  }
   return (
-    <Credenza>
-      <CredenzaTrigger>
-        <Button variant={variant} className={className}>
-          <Share2 size={24} className="p-1" />
-          {title}
-        </Button>
-      </CredenzaTrigger>
-      <ShareModalContent url={url} shareFor={shareFor} />
-    </Credenza>
+    <div className="flex flex-row justify-center items-center space-x-2">
+      <Share2 size={24} className="p-1" />
+      {title}
+    </div>
   )
 }
 

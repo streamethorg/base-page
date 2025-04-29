@@ -45,28 +45,28 @@ export async function GET(request: Request) {
                   <span tw="text-xl font-black md:text-6xl">
                     {Math.floor(number / 86400)}
                   </span>
-                  <span tw="md:text-xl text">{lable}</span>
+                  <span tw="md:text-xl text-sm">days</span>
                 </div>
                 <span tw="text-4xl text-white">:</span>
                 <div tw="flex flex-col justify-between items-center p-2 text-black bg-white bg-opacity-70 rounded-lg">
                   <span tw="text-xl font-black md:text-6xl">
                     {Math.floor((number % 86400) / 3600)}
                   </span>
-                  <span tw="md:text-xl text">{lable}</span>
+                    <span tw="md:text-xl text-sm">hours</span>
                 </div>
                 <span tw="text-4xl text-white">:</span>
                 <div tw="flex flex-col justify-between items-center p-2 text-black bg-white bg-opacity-70 rounded-lg">
                   <span tw="text-xl font-black md:text-6xl">
                     {Math.floor((number % 3600) / 60)}
                   </span>
-                  <span tw="md:text-xl text">{lable}</span>
+                  <span tw="md:text-xl text-sm">minutes</span>
                 </div>
                 <span tw="text-4xl text-white">:</span>
                 <div tw="flex flex-col justify-between items-center p-2 text-black bg-white bg-opacity-70 rounded-lg">
                   <span tw="text-xl font-black md:text-6xl">
                     {number % 60}
                   </span>
-                  <span tw="md:text-xl text">{lable}</span>
+                  <span tw="md:text-xl text-sm">seconds</span>
                 </div>
               </div>
             </div>
