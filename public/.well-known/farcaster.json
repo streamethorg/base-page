@@ -1,0 +1,12 @@
+{
+  "frame": {
+    "version": "1",
+    "name": "UFO",
+    "iconUrl": "https://app.ufo.fm/logo.png",
+    "homeUrl": "https://app.ufo.fm/",
+    "imageUrl": "https://app.ufo.fm/opengraph-image",
+    "buttonTitle": "Join now on UFO.fm",
+    "splashImageUrl": "https://app.ufo.fm/logo.png",
+    "splashBackgroundColor": "#f5f0ec"
+  }
+}
