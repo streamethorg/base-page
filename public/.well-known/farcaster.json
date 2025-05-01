@@ -1,4 +1,9 @@
 {
+  "accountAssociation": {
+    "header": "eyJmaWQiOjIxNzcwNiwidHlwZSI6ImN1c3RvZHkiLCJrZXkiOiIweDU1YTg5ZmFCM2ZjN2ZhOWIxNzEwNzQ5ODc5NzE3NWE3OTc1NmZFZGEifQ",
+    "payload": "eyJkb21haW4iOiJhcHAudWZvLmZtIn0",
+    "signature": "MHhmNmZjNTFlMGJjMzQ0NDNmOWYxMmU1OTJmZTdjYThlMjExNzEzOTViMzA4ZmYyMTlmZGVjOGQ1ZjgyZTViZDQ2NDUxY2Y2MzdhODFmNjEzY2Q0MmMyMTFkZTA3YmU1MjViZWE1OGZkMGRiZjFjZWU3ZTNhMzA5NmNhZDY4ZDVkNTFi"
+  },
   "frame": {
     "version": "1",
     "name": "UFO",
